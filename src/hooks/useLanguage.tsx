@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 type Language = 'hi' | 'en';
@@ -7,9 +6,23 @@ interface LanguageContextType {
   currentLanguage: Language;
   setLanguage: (lang: Language) => void;
   t: (key: string) => string;
+  translateCategory: (category: string) => string;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+
+// Standard category mapping - English categories are stored in DB
+const categoryTranslations = {
+  'Food & Groceries': { hi: 'भोजन और किराना', en: 'Food & Groceries' },
+  'Transport': { hi: 'परिवहन', en: 'Transport' },
+  'Utilities': { hi: 'उपयोगिताएं', en: 'Utilities' },
+  'Rent/Housing': { hi: 'किराया/आवास', en: 'Rent/Housing' },
+  'Entertainment': { hi: 'मनोरंजन', en: 'Entertainment' },
+  'Healthcare': { hi: 'स्वास्थ्य सेवा', en: 'Healthcare' },
+  'Shopping': { hi: 'खरीदारी', en: 'Shopping' },
+  'Education': { hi: 'शिक्षा', en: 'Education' },
+  'Other': { hi: 'अन्य', en: 'Other' }
+};
 
 const translations = {
   hi: {
@@ -110,7 +123,7 @@ const translations = {
     yearly: 'वार्षिक',
     report: 'रिपोर्ट',
     
-    // Categories
+    // Categories - keeping original keys for backward compatibility
     foodGroceries: 'भोजन और किराना',
     transport: 'परिवहन',
     utilities: 'उपयोगिताएं',
@@ -232,7 +245,7 @@ const translations = {
     yearly: 'Yearly',
     report: 'Report',
     
-    // Categories
+    // Categories - keeping original keys for backward compatibility
     foodGroceries: 'Food & Groceries',
     transport: 'Transport',
     utilities: 'Utilities',
@@ -277,8 +290,16 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     return translations[currentLanguage][key as keyof typeof translations['hi']] || key;
   };
 
+  const translateCategory = (category: string): string => {
+    const categoryMap = categoryTranslations[category as keyof typeof categoryTranslations];
+    if (categoryMap) {
+      return categoryMap[currentLanguage];
+    }
+    return category; // fallback to original if not found
+  };
+
   return (
-    <LanguageContext.Provider value={{ currentLanguage, setLanguage, t }}>
+    <LanguageContext.Provider value={{ currentLanguage, setLanguage, t, translateCategory }}>
       {children}
     </LanguageContext.Provider>
   );

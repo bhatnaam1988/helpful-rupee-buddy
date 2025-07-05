@@ -10,7 +10,7 @@ interface RecentItemsProps {
 }
 
 const RecentItems = ({ expenses, goals }: RecentItemsProps) => {
-  const { t } = useLanguage();
+  const { t, translateCategory } = useLanguage();
 
   return (
     <>
@@ -25,7 +25,7 @@ const RecentItems = ({ expenses, goals }: RecentItemsProps) => {
               {expenses.slice(0, 3).map((expense) => (
                 <div key={expense.id} className="flex justify-between items-center py-2 border-b last:border-b-0">
                   <div>
-                    <p className="font-medium">{expense.category}</p>
+                    <p className="font-medium">{translateCategory(expense.category)}</p>
                     <p className="text-sm text-gray-600">{expense.description}</p>
                   </div>
                   <span className="font-bold text-red-600">₹{expense.amount}</span>

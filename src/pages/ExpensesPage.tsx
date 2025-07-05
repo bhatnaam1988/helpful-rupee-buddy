@@ -13,9 +13,22 @@ import { PlusCircle, Trash2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
+// Standard categories - stored in English in DB
+const categories = [
+  "Food & Groceries",
+  "Transport",
+  "Utilities",
+  "Rent/Housing",
+  "Entertainment",
+  "Healthcare",
+  "Shopping",
+  "Education",
+  "Other"
+];
+
 const ExpensesPage = () => {
   const { expenses, loading, addExpense, refetch } = useExpenses();
-  const { t, currentLanguage } = useLanguage();
+  const { t, translateCategory } = useLanguage();
   const { toast } = useToast();
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   
@@ -25,16 +38,6 @@ const ExpensesPage = () => {
     description: "",
     expense_date: new Date().toISOString().split('T')[0]
   });
-
-  const expenseCategories = [
-    "खाना", "यातायात", "मनोरंजन", "स्वास्थ्य", "शिक्षा", "खरीदारी", "बिल", "अन्य"
-  ];
-
-  const expenseCategoriesEn = [
-    "Food", "Transport", "Entertainment", "Health", "Education", "Shopping", "Bills", "Other"
-  ];
-
-  const categories = currentLanguage === 'hi' ? expenseCategories : expenseCategoriesEn;
 
   const handleAddExpense = async () => {
     if (!newExpense.category || !newExpense.amount) {
@@ -95,7 +98,7 @@ const ExpensesPage = () => {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString(currentLanguage === 'hi' ? 'hi-IN' : 'en-IN');
+    return date.toLocaleDateString('hi-IN');
   };
 
   if (loading) {
@@ -141,7 +144,7 @@ const ExpensesPage = () => {
                     <SelectContent>
                       {categories.map((category) => (
                         <SelectItem key={category} value={category}>
-                          {category}
+                          {translateCategory(category)}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -214,7 +217,7 @@ const ExpensesPage = () => {
                   {expenses.map((expense) => (
                     <TableRow key={expense.id}>
                       <TableCell>{formatDate(expense.expense_date)}</TableCell>
-                      <TableCell>{expense.category}</TableCell>
+                      <TableCell>{translateCategory(expense.category)}</TableCell>
                       <TableCell>{expense.description || '-'}</TableCell>
                       <TableCell className="text-right font-medium">
                         ₹{expense.amount.toLocaleString('hi-IN')}

@@ -9,6 +9,7 @@ import { PlusCircle } from "lucide-react";
 import { useExpenses } from "@/hooks/useExpenses";
 import { useLanguage } from "@/hooks/useLanguage";
 
+// Standard categories - stored in English in DB
 const categories = [
   "Food & Groceries",
   "Transport",
@@ -34,25 +35,10 @@ const AddExpenseModal = ({ children, open, onOpenChange }: AddExpenseModalProps)
   const [description, setDescription] = useState("");
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
   const { addExpense } = useExpenses();
-  const { t } = useLanguage();
+  const { t, translateCategory } = useLanguage();
 
   const isOpen = open !== undefined ? open : internalOpen;
   const setIsOpen = onOpenChange || setInternalOpen;
-
-  const getCategoryTranslation = (categoryKey: string) => {
-    const categoryMap: { [key: string]: string } = {
-      "Food & Groceries": t('foodGroceries'),
-      "Transport": t('transport'),
-      "Utilities": t('utilities'),
-      "Rent/Housing": t('rentHousing'),
-      "Entertainment": t('entertainment'),
-      "Healthcare": t('healthcare'),
-      "Shopping": t('shopping'),
-      "Education": t('education'),
-      "Other": t('other')
-    };
-    return categoryMap[categoryKey] || categoryKey;
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -98,7 +84,7 @@ const AddExpenseModal = ({ children, open, onOpenChange }: AddExpenseModalProps)
               <SelectContent>
                 {categories.map((cat) => (
                   <SelectItem key={cat} value={cat}>
-                    {getCategoryTranslation(cat)}
+                    {translateCategory(cat)}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -137,7 +123,7 @@ const AddExpenseModal = ({ children, open, onOpenChange }: AddExpenseModalProps)
           </div>
           <div className="flex space-x-2">
             <Button type="button" variant="outline" onClick={() => setIsOpen(false)} className="flex-1">
-              {t('cancel') || 'रद्द करें'}
+              {t('cancel')}
             </Button>
             <Button type="submit" className="flex-1 bg-red-600 hover:bg-red-700">
               {t('addExpense')}
