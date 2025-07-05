@@ -11,6 +11,7 @@ import { useGoals } from "@/hooks/useGoals";
 import { useNavigate } from "react-router-dom";
 import AddExpenseModal from "@/components/AddExpenseModal";
 import AddGoalModal from "@/components/AddGoalModal";
+import AddIncomeModal from "@/components/AddIncomeModal";
 
 const Index = () => {
   const { user, signOut } = useAuth();
@@ -155,18 +156,21 @@ const Index = () => {
         {/* Quick Actions */}
         <div className="mb-6">
           <h3 className="text-lg font-semibold text-gray-800 mb-3">Quick Actions</h3>
-          <div className="grid grid-cols-2 gap-3">
-            <AddExpenseModal />
-            <AddGoalModal />
+          <div className="space-y-3">
+            <AddIncomeModal />
+            <div className="grid grid-cols-2 gap-3">
+              <AddExpenseModal />
+              <AddGoalModal />
+            </div>
+            <Button 
+              size="lg" 
+              variant="outline"
+              className="w-full h-12 border-green-200 hover:bg-green-50"
+            >
+              <TrendingUp className="w-5 h-5 text-green-600 mr-2" />
+              <span className="text-green-600">View AI Recommendations</span>
+            </Button>
           </div>
-          <Button 
-            size="lg" 
-            variant="outline"
-            className="w-full mt-3 h-12 border-green-200 hover:bg-green-50"
-          >
-            <TrendingUp className="w-5 h-5 text-green-600 mr-2" />
-            <span className="text-green-600">View AI Recommendations</span>
-          </Button>
         </div>
 
         {/* Goals Progress */}
@@ -250,11 +254,14 @@ const Index = () => {
             <CardContent>
               <div className="text-gray-500 mb-4">
                 <h3 className="text-lg font-semibold mb-2">Welcome to PaisaWise!</h3>
-                <p className="text-sm">Start by adding your first expense or setting a financial goal.</p>
+                <p className="text-sm">Start by setting your monthly income, then add expenses or set financial goals.</p>
               </div>
-              <div className="grid grid-cols-2 gap-3 max-w-md mx-auto">
-                <AddExpenseModal />
-                <AddGoalModal />
+              <div className="space-y-3 max-w-md mx-auto">
+                <AddIncomeModal />
+                <div className="grid grid-cols-2 gap-3">
+                  <AddExpenseModal />
+                  <AddGoalModal />
+                </div>
               </div>
             </CardContent>
           </Card>
