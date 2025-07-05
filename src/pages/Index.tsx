@@ -1,275 +1,238 @@
-
-import { useEffect } from "react";
-import { User } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
 import { useAuth } from "@/hooks/useAuth";
-import { useProfile } from "@/hooks/useProfile";
+import { useOnboarding } from "@/hooks/useOnboarding";
+import { Navigate } from "react-router-dom";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { useExpenses } from "@/hooks/useExpenses";
 import { useGoals } from "@/hooks/useGoals";
-import { useNavigate } from "react-router-dom";
+import { useProfile } from "@/hooks/useProfile";
+import { PlusCircle, Target, TrendingUp, Wallet, LogOut } from "lucide-react";
 import AddExpenseModal from "@/components/AddExpenseModal";
 import AddGoalModal from "@/components/AddGoalModal";
 import AddIncomeModal from "@/components/AddIncomeModal";
-import AddInvestmentModal from "@/components/AddInvestmentModal";
-import AddBudgetModal from "@/components/AddBudgetModal";
+import { useState } from "react";
 import NavigationTabs from "@/components/NavigationTabs";
+import OnboardingSplash from "@/components/OnboardingSplash";
 
 const Index = () => {
-  const { user, signOut } = useAuth();
-  const { profile } = useProfile();
-  const { expenses } = useExpenses();
-  const { goals } = useGoals();
-  const navigate = useNavigate();
+  const { user, signOut, loading: authLoading } = useAuth();
+  const { shouldShowOnboarding, loading: onboardingLoading, completeOnboarding, skipOnboarding } = useOnboarding();
+  const { expenses, loading: expensesLoading } = useExpenses();
+  const { goals, loading: goalsLoading } = useGoals();
+  const { profile, loading: profileLoading } = useProfile();
+  
+  const [showExpenseModal, setShowExpenseModal] = useState(false);
+  const [showGoalModal, setShowGoalModal] = useState(false);
+  const [showIncomeModal, setShowIncomeModal] = useState(false);
 
-  useEffect(() => {
-    if (!user) {
-      navigate("/auth");
-    }
-  }, [user, navigate]);
-
-  if (!user) {
-    return null;
+  if (authLoading || onboardingLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">लोड हो रहा है...</p>
+        </div>
+      </div>
+    );
   }
 
-  const currentMonth = new Date().toLocaleDateString('hi-IN', { month: 'long', year: 'numeric' });
-  
+  if (!user) {
+    return <Navigate to="/auth" replace />;
+  }
+
+  // Show onboarding if needed
+  if (shouldShowOnboarding) {
+    return (
+      <OnboardingSplash 
+        onComplete={completeOnboarding}
+        onSkip={skipOnboarding}
+      />
+    );
+  }
+
   const totalExpenses = expenses.reduce((sum, expense) => sum + expense.amount, 0);
-  const monthlyIncome = profile?.monthly_income || 0;
-  const availableSurplus = monthlyIncome - totalExpenses;
-  const surplusPercentage = monthlyIncome > 0 ? (availableSurplus / monthlyIncome) * 100 : 0;
+  const totalGoalAmount = goals.reduce((sum, goal) => sum + goal.target_amount, 0);
+  const completedGoals = goals.filter(goal => goal.current_amount >= goal.target_amount).length;
 
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('hi-IN', {
-      style: 'currency',
-      currency: 'INR',
-      maximumFractionDigits: 0
-    }).format(amount);
-  };
-
-  const getCategoryIcon = (category: string) => {
-    const iconMap: { [key: string]: string } = {
-      "Food & Groceries": "🍽️",
-      "Transport": "🚌",
-      "Utilities": "💡",
-      "Rent/Housing": "🏠",
-      "Entertainment": "🎬",
-      "Healthcare": "🏥",
-      "Shopping": "🛍️",
-      "Education": "📚",
-      "Other": "📋"
-    };
-    return iconMap[category] || "📋";
-  };
-
-  const getGoalIcon = (goalName: string) => {
-    if (goalName.toLowerCase().includes('emergency')) return "🛡️";
-    if (goalName.toLowerCase().includes('education')) return "🎓";
-    if (goalName.toLowerCase().includes('car')) return "🚗";
-    if (goalName.toLowerCase().includes('house') || goalName.toLowerCase().includes('home')) return "🏠";
-    return "🎯";
+  const handleSignOut = async () => {
+    await signOut();
   };
 
   const dashboardContent = (
-    <div>
+    <div className="min-h-screen bg-slate-50 p-4 pb-20">
       {/* Header */}
-      <header className="bg-blue-600 text-white p-4 shadow-lg">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center font-bold text-lg">
-              ₹
-            </div>
-            <div>
-              <h1 className="text-lg font-semibold">पैसावाइज़</h1>
-              <p className="text-blue-100 text-sm">आपका संपूर्ण वित्तीय साथी</p>
-            </div>
-          </div>
-          <div className="flex items-center space-x-2">
-            <User className="w-5 h-5" />
-            <Button variant="ghost" size="sm" onClick={signOut} className="text-white hover:text-blue-100">
-              लॉगआउट
-            </Button>
-          </div>
+      <div className="flex justify-between items-center mb-6">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">
+            नमस्ते, {profile?.name || 'उपयोगकर्ता'}!
+          </h1>
+          <p className="text-gray-600">आपका वित्तीय डैशबोर्ड</p>
         </div>
-      </header>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={handleSignOut}
+          className="flex items-center space-x-2"
+        >
+          <LogOut className="w-4 h-4" />
+          <span>लॉग आउट</span>
+        </Button>
+      </div>
 
-      <div className="p-4 space-y-6">
-        {/* Welcome Section */}
-        <div className="mb-6">
-          <h2 className="text-xl font-semibold text-gray-800 mb-1">
-            नमस्ते, {profile?.name || 'उपयोगकर्ता'}! 👋
-          </h2>
-          <p className="text-gray-600 text-sm">{currentMonth} का सारांश</p>
-        </div>
-
-        {/* Monthly Overview Card */}
-        <Card className="border-0 shadow-md">
-          <CardHeader className="pb-3">
-            <CardTitle className="text-lg text-gray-800">मासिक सारांश</CardTitle>
+      {/* Stats Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">कुल खर्च</CardTitle>
+            <Wallet className="h-4 w-4 text-red-600" />
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
-              {/* Income vs Expenses */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="text-center p-3 bg-green-50 rounded-lg border border-green-100">
-                  <p className="text-sm text-green-600 mb-1">कुल आय</p>
-                  <p className="text-lg font-semibold text-green-700">
-                    {formatCurrency(monthlyIncome)}
-                  </p>
-                </div>
-                <div className="text-center p-3 bg-red-50 rounded-lg border border-red-100">
-                  <p className="text-sm text-red-600 mb-1">कुल खर्च</p>
-                  <p className="text-lg font-semibold text-red-700">
-                    {formatCurrency(totalExpenses)}
-                  </p>
-                </div>
-              </div>
-
-              {/* Surplus/Deficit */}
-              <div className={`text-center p-4 rounded-lg border ${
-                availableSurplus >= 0 
-                  ? 'bg-blue-50 border-blue-100' 
-                  : 'bg-red-50 border-red-100'
-              }`}>
-                <p className={`text-sm mb-1 ${
-                  availableSurplus >= 0 ? 'text-blue-600' : 'text-red-600'
-                }`}>
-                  निवेश के लिए उपलब्ध
-                </p>
-                <p className={`text-xl font-bold ${
-                  availableSurplus >= 0 ? 'text-blue-700' : 'text-red-700'
-                }`}>
-                  {formatCurrency(Math.abs(availableSurplus))}
-                </p>
-                <div className="mt-2">
-                  <Progress 
-                    value={Math.max(0, surplusPercentage)} 
-                    className="h-2"
-                  />
-                  <p className="text-xs text-gray-500 mt-1">
-                    आय का {surplusPercentage.toFixed(1)}% उपलब्ध
-                  </p>
-                </div>
-              </div>
-            </div>
+            <div className="text-2xl font-bold text-red-600">₹{totalExpenses.toLocaleString('hi-IN')}</div>
+            <p className="text-xs text-muted-foreground">इस महीने</p>
           </CardContent>
         </Card>
 
-        {/* Quick Actions */}
-        <div className="mb-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-3">त्वरित कार्य</h3>
-          <div className="space-y-3">
-            <AddIncomeModal />
-            <div className="grid grid-cols-2 gap-3">
-              <AddExpenseModal />
-              <AddGoalModal />
-            </div>
-            <div className="grid grid-cols-2 gap-3">
-              <AddInvestmentModal />
-              <AddBudgetModal />
-            </div>
-          </div>
-        </div>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">लक्ष्य राशि</CardTitle>
+            <Target className="h-4 w-4 text-blue-600" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-blue-600">₹{totalGoalAmount.toLocaleString('hi-IN')}</div>
+            <p className="text-xs text-muted-foreground">{completedGoals} लक्ष्य पूर्ण</p>
+          </CardContent>
+        </Card>
 
-        {/* Goals Progress */}
-        {goals.length > 0 && (
-          <Card className="border-0 shadow-md">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-lg text-blue-800">आपके लक्ष्य</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {goals.slice(0, 3).map((goal) => {
-                  const progressPercentage = (goal.current_amount / goal.target_amount) * 100;
-                  return (
-                    <div key={goal.id} className="border border-blue-100 rounded-lg p-3">
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="flex items-center space-x-2">
-                          <span className="text-lg">{getGoalIcon(goal.name)}</span>
-                          <span className="font-medium text-blue-800">{goal.name}</span>
-                        </div>
-                        <span className={`px-2 py-1 rounded-full text-xs ${
-                          goal.priority === 'High' 
-                            ? 'bg-red-100 text-red-600' 
-                            : goal.priority === 'Medium'
-                            ? 'bg-yellow-100 text-yellow-600'
-                            : 'bg-green-100 text-green-600'
-                        }`}>
-                          {goal.priority === 'High' ? 'उच्च' : goal.priority === 'Medium' ? 'मध्यम' : 'कम'}
-                        </span>
-                      </div>
-                      <div className="mb-2">
-                        <Progress value={progressPercentage} className="h-2" />
-                      </div>
-                      <div className="flex justify-between text-sm text-blue-600">
-                        <span>{formatCurrency(goal.current_amount)}</span>
-                        <span>{formatCurrency(goal.target_amount)}</span>
-                      </div>
-                      <p className="text-xs text-blue-500 mt-1">
-                        {progressPercentage.toFixed(1)}% पूर्ण
-                      </p>
-                    </div>
-                  );
-                })}
-              </div>
-            </CardContent>
-          </Card>
-        )}
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">मासिक आय</CardTitle>
+            <TrendingUp className="h-4 w-4 text-green-600" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-green-600">
+              ₹{(profile?.monthly_income || 0).toLocaleString('hi-IN')}
+            </div>
+            <p className="text-xs text-muted-foreground">प्रति माह</p>
+          </CardContent>
+        </Card>
+      </div>
 
-        {/* Recent Expenses */}
-        {expenses.length > 0 && (
-          <Card className="border-0 shadow-md">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-lg text-red-800">हाल के खर्च</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                {expenses.slice(0, 5).map((expense) => (
-                  <div key={expense.id} className="flex items-center justify-between p-3 border border-red-100 rounded-lg">
-                    <div className="flex items-center space-x-3">
-                      <span className="text-lg">{getCategoryIcon(expense.category)}</span>
-                      <div>
-                        <p className="font-medium text-red-800 text-sm">{expense.category}</p>
-                        <p className="text-xs text-red-500">{new Date(expense.expense_date).toLocaleDateString('hi-IN')}</p>
-                        {expense.description && (
-                          <p className="text-xs text-red-400">{expense.description}</p>
-                        )}
-                      </div>
-                    </div>
-                    <p className="font-semibold text-red-700">
-                      {formatCurrency(expense.amount)}
+      {/* Quick Actions */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">खर्च जोड़ें</CardTitle>
+            <CardDescription>नया खर्च रिकॉर्ड करें</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Button 
+              onClick={() => setShowExpenseModal(true)}
+              className="w-full"
+            >
+              <PlusCircle className="w-4 h-4 mr-2" />
+              खर्च जोड़ें
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">लक्ष्य सेट करें</CardTitle>
+            <CardDescription>वित्तीय लक्ष्य बनाएं</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Button 
+              onClick={() => setShowGoalModal(true)}
+              className="w-full"
+              variant="outline"
+            >
+              <Target className="w-4 h-4 mr-2" />
+              लक्ष्य जोड़ें
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">आय अपडेट करें</CardTitle>
+            <CardDescription>मासिक आय जोड़ें</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Button 
+              onClick={() => setShowIncomeModal(true)}
+              className="w-full"
+              variant="secondary"
+            >
+              <TrendingUp className="w-4 h-4 mr-2" />
+              आय जोड़ें
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Recent Expenses */}
+      {expenses.length > 0 && (
+        <Card className="mb-6">
+          <CardHeader>
+            <CardTitle>हाल के खर्च</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-2">
+              {expenses.slice(0, 3).map((expense) => (
+                <div key={expense.id} className="flex justify-between items-center py-2 border-b last:border-b-0">
+                  <div>
+                    <p className="font-medium">{expense.category}</p>
+                    <p className="text-sm text-gray-600">{expense.description}</p>
+                  </div>
+                  <span className="font-bold text-red-600">₹{expense.amount}</span>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Recent Goals */}
+      {goals.length > 0 && (
+        <Card>
+          <CardHeader>
+            <CardTitle>आपके लक्ष्य</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-2">
+              {goals.slice(0, 3).map((goal) => (
+                <div key={goal.id} className="flex justify-between items-center py-2 border-b last:border-b-0">
+                  <div>
+                    <p className="font-medium">{goal.name}</p>
+                    <p className="text-sm text-gray-600">
+                      ₹{goal.current_amount} / ₹{goal.target_amount}
                     </p>
                   </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        )}
+                  <span className="text-sm font-medium text-blue-600">
+                    {Math.round((goal.current_amount / goal.target_amount) * 100)}%
+                  </span>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
-        {/* Empty State */}
-        {expenses.length === 0 && goals.length === 0 && (
-          <Card className="border-0 shadow-md text-center py-8">
-            <CardContent>
-              <div className="text-gray-500 mb-4">
-                <h3 className="text-lg font-semibold mb-2">पैसावाइज़ में आपका स्वागत है!</h3>
-                <p className="text-sm">अपने संपूर्ण वित्तीय प्रबंधन की शुरुआत करें - आय निर्धारित करें, खर्च ट्रैक करें, निवेश करें और लक्ष्य सेट करें।</p>
-              </div>
-              <div className="space-y-3 max-w-md mx-auto">
-                <AddIncomeModal />
-                <div className="grid grid-cols-2 gap-3">
-                  <AddExpenseModal />
-                  <AddGoalModal />
-                </div>
-                <div className="grid grid-cols-2 gap-3">
-                  <AddInvestmentModal />
-                  <AddBudgetModal />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        )}
-      </div>
+      {/* Modals */}
+      <AddExpenseModal
+        open={showExpenseModal}
+        onOpenChange={setShowExpenseModal}
+      />
+      
+      <AddGoalModal
+        open={showGoalModal}
+        onOpenChange={setShowGoalModal}
+      />
+      
+      <AddIncomeModal
+        open={showIncomeModal}
+        onOpenChange={setShowIncomeModal}
+      />
     </div>
   );
 

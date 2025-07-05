@@ -246,6 +246,36 @@ export type Database = {
         }
         Relationships: []
       }
+      user_onboarding: {
+        Row: {
+          created_at: string | null
+          has_completed_onboarding: boolean | null
+          id: string
+          last_onboarding_shown: string | null
+          onboarding_version: number | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          has_completed_onboarding?: boolean | null
+          id?: string
+          last_onboarding_shown?: string | null
+          onboarding_version?: number | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          has_completed_onboarding?: boolean | null
+          id?: string
+          last_onboarding_shown?: string | null
+          onboarding_version?: number | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
