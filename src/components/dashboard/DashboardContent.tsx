@@ -40,9 +40,9 @@ const DashboardContent = ({
   const completedGoals = goals.filter(goal => goal.current_amount >= goal.target_amount).length;
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      {/* Mobile-optimized padding and spacing */}
-      <div className="px-3 py-4 space-y-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-gray-100">
+      {/* Mobile-optimized container with better spacing */}
+      <div className="px-4 py-5 space-y-6 max-w-md mx-auto">
         <DashboardHeader 
           userName={profile?.name} 
           onSignOut={onSignOut} 
@@ -61,7 +61,10 @@ const DashboardContent = ({
           onAddIncomeClick={() => setShowIncomeModal(true)}
         />
 
-        <RecentItems expenses={expenses} goals={goals} />
+        {/* Only show recent items if there are expenses */}
+        {expenses.length > 0 && (
+          <RecentItems expenses={expenses} goals={goals} />
+        )}
       </div>
 
       {/* Modals */}
