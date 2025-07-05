@@ -2,10 +2,12 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { useBudgetCategories } from "@/hooks/useBudgetCategories";
+import { useLanguage } from "@/hooks/useLanguage";
 import { AlertTriangle, CheckCircle, Target } from "lucide-react";
 
 const BudgetTracker = () => {
   const { categories, loading } = useBudgetCategories();
+  const { t } = useLanguage();
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('hi-IN', {
@@ -30,19 +32,19 @@ const BudgetTracker = () => {
     return iconMap[category] || "📋";
   };
 
-  const getCategoryHindi = (category: string) => {
-    const hindiMap: { [key: string]: string } = {
-      "Food & Groceries": "भोजन और किराना",
-      "Transport": "परिवहन",
-      "Utilities": "उपयोगिताएं",
-      "Rent/Housing": "किराया/आवास",
-      "Entertainment": "मनोरंजन",
-      "Healthcare": "स्वास्थ्य सेवा",
-      "Shopping": "खरीदारी",
-      "Education": "शिक्षा",
-      "Other": "अन्य"
+  const getCategoryTranslated = (category: string) => {
+    const translationMap: { [key: string]: string } = {
+      "Food & Groceries": t('foodGroceries'),
+      "Transport": t('transport'),
+      "Utilities": t('utilities'),
+      "Rent/Housing": t('rentHousing'),
+      "Entertainment": t('entertainment'),
+      "Healthcare": t('healthcare'),
+      "Shopping": t('shopping'),
+      "Education": t('education'),
+      "Other": t('other')
     };
-    return hindiMap[category] || category;
+    return translationMap[category] || category;
   };
 
   const totalBudget = categories.reduce((sum, cat) => sum + cat.monthly_limit, 0);
@@ -53,10 +55,10 @@ const BudgetTracker = () => {
     return (
       <Card className="border-0 shadow-md">
         <CardHeader>
-          <CardTitle className="text-lg text-purple-800">बजट ट्रैकर</CardTitle>
+          <CardTitle className="text-lg text-purple-800">{t('budgetTracker')}</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-center text-gray-500">लोड हो रहा है...</p>
+          <p className="text-center text-gray-500">{t('loading')}</p>
         </CardContent>
       </Card>
     );
@@ -66,10 +68,10 @@ const BudgetTracker = () => {
     return (
       <Card className="border-0 shadow-md">
         <CardHeader>
-          <CardTitle className="text-lg text-purple-800">बजट ट्रैकर</CardTitle>
+          <CardTitle className="text-lg text-purple-800">{t('budgetTracker')}</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-center text-gray-500">अभी तक कोई बजट सेट नहीं किया गया</p>
+          <p className="text-center text-gray-500">{t('noBudgetSet')}</p>
         </CardContent>
       </Card>
     );
@@ -78,17 +80,17 @@ const BudgetTracker = () => {
   return (
     <Card className="border-0 shadow-md">
       <CardHeader>
-        <CardTitle className="text-lg text-purple-800">बजट ट्रैकर</CardTitle>
+        <CardTitle className="text-lg text-purple-800">{t('budgetTracker')}</CardTitle>
       </CardHeader>
       <CardContent>
         {/* Overall Budget Summary */}
         <div className="mb-6 p-4 bg-purple-50 rounded-lg border border-purple-100">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-sm text-purple-600">कुल मासिक बजट</span>
+            <span className="text-sm text-purple-600">{t('totalMonthlyBudget')}</span>
             <span className="font-semibold text-purple-700">{formatCurrency(totalBudget)}</span>
           </div>
           <div className="flex items-center justify-between mb-2">
-            <span className="text-sm text-purple-600">कुल खर्च</span>
+            <span className="text-sm text-purple-600">{t('totalSpent')}</span>
             <span className="font-semibold text-purple-700">{formatCurrency(totalSpent)}</span>
           </div>
           <Progress value={overallProgress} className="h-2 mb-2" />
@@ -104,14 +106,14 @@ const BudgetTracker = () => {
               overallProgress <= 80 ? 'text-green-600' : 
               overallProgress <= 100 ? 'text-yellow-600' : 'text-red-600'
             }`}>
-              {overallProgress.toFixed(1)}% उपयोग
+              {overallProgress.toFixed(1)}% {t('usage')}
             </span>
           </div>
         </div>
 
         {/* Individual Categories */}
         <div className="space-y-4">
-          <h4 className="font-semibold text-purple-800 mb-3">श्रेणी अनुसार बजट</h4>
+          <h4 className="font-semibold text-purple-800 mb-3">{t('categoryWiseBudget')}</h4>
           {categories.map((category) => {
             const progressPercentage = (category.current_spent / category.monthly_limit) * 100;
             const remaining = category.monthly_limit - category.current_spent;
@@ -122,7 +124,7 @@ const BudgetTracker = () => {
                   <div className="flex items-center space-x-2">
                     <span className="text-lg">{getCategoryIcon(category.category_name)}</span>
                     <span className="font-medium text-purple-800 text-sm">
-                      {getCategoryHindi(category.category_name)}
+                      {getCategoryTranslated(category.category_name)}
                     </span>
                   </div>
                   <div className="flex items-center space-x-2">
@@ -147,8 +149,8 @@ const BudgetTracker = () => {
                 </div>
                 
                 <div className="flex justify-between text-xs text-purple-600 mb-1">
-                  <span>खर्च: {formatCurrency(category.current_spent)}</span>
-                  <span>सीमा: {formatCurrency(category.monthly_limit)}</span>
+                  <span>{t('spent')}: {formatCurrency(category.current_spent)}</span>
+                  <span>{t('limit')}: {formatCurrency(category.monthly_limit)}</span>
                 </div>
                 
                 <div className="text-center">
@@ -156,8 +158,8 @@ const BudgetTracker = () => {
                     remaining >= 0 ? 'text-green-600' : 'text-red-600'
                   }`}>
                     {remaining >= 0 
-                      ? `${formatCurrency(remaining)} बचा है` 
-                      : `${formatCurrency(Math.abs(remaining))} अधिक खर्च`
+                      ? `${formatCurrency(remaining)} ${t('remaining')}` 
+                      : `${formatCurrency(Math.abs(remaining))} ${t('exceeded')}`
                     }
                   </span>
                 </div>

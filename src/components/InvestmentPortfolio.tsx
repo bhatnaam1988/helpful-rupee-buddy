@@ -2,10 +2,12 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { useInvestments } from "@/hooks/useInvestments";
+import { useLanguage } from "@/hooks/useLanguage";
 import { TrendingUp, TrendingDown, DollarSign } from "lucide-react";
 
 const InvestmentPortfolio = () => {
   const { investments, loading } = useInvestments();
+  const { t } = useLanguage();
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('hi-IN', {
@@ -34,14 +36,23 @@ const InvestmentPortfolio = () => {
     return iconMap[type] || "💼";
   };
 
+  const getStatusTranslated = (status: string) => {
+    const statusMap: { [key: string]: string } = {
+      "Active": t('active'),
+      "Matured": t('matured'),
+      "Closed": t('closed')
+    };
+    return statusMap[status] || status;
+  };
+
   if (loading) {
     return (
       <Card className="border-0 shadow-md">
         <CardHeader>
-          <CardTitle className="text-lg text-blue-800">निवेश पोर्टफोलियो</CardTitle>
+          <CardTitle className="text-lg text-blue-800">{t('investmentPortfolio')}</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-center text-gray-500">लोड हो रहा है...</p>
+          <p className="text-center text-gray-500">{t('loading')}</p>
         </CardContent>
       </Card>
     );
@@ -51,10 +62,10 @@ const InvestmentPortfolio = () => {
     return (
       <Card className="border-0 shadow-md">
         <CardHeader>
-          <CardTitle className="text-lg text-blue-800">निवेश पोर्टफोलियो</CardTitle>
+          <CardTitle className="text-lg text-blue-800">{t('investmentPortfolio')}</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-center text-gray-500">अभी तक कोई निवेश नहीं है</p>
+          <p className="text-center text-gray-500">{t('noInvestments')}</p>
         </CardContent>
       </Card>
     );
@@ -63,19 +74,19 @@ const InvestmentPortfolio = () => {
   return (
     <Card className="border-0 shadow-md">
       <CardHeader>
-        <CardTitle className="text-lg text-blue-800">निवेश पोर्टफोलियो</CardTitle>
+        <CardTitle className="text-lg text-blue-800">{t('investmentPortfolio')}</CardTitle>
       </CardHeader>
       <CardContent>
         {/* Portfolio Summary */}
         <div className="grid grid-cols-2 gap-4 mb-6">
           <div className="text-center p-3 bg-blue-50 rounded-lg border border-blue-100">
-            <p className="text-sm text-blue-600 mb-1">कुल निवेश</p>
+            <p className="text-sm text-blue-600 mb-1">{t('totalInvestment')}</p>
             <p className="text-lg font-semibold text-blue-700">
               {formatCurrency(totalInvestmentValue)}
             </p>
           </div>
           <div className="text-center p-3 bg-blue-50 rounded-lg border border-blue-100">
-            <p className="text-sm text-blue-600 mb-1">वर्तमान मूल्य</p>
+            <p className="text-sm text-blue-600 mb-1">{t('currentValue')}</p>
             <p className="text-lg font-semibold text-blue-700">
               {formatCurrency(totalCurrentValue)}
             </p>
@@ -98,7 +109,7 @@ const InvestmentPortfolio = () => {
               <p className={`text-sm ${
                 totalGainLoss >= 0 ? 'text-green-600' : 'text-red-600'
               }`}>
-                {totalGainLoss >= 0 ? 'कुल लाभ' : 'कुल हानि'}
+                {totalGainLoss >= 0 ? t('totalGain') : t('totalLoss')}
               </p>
             </div>
             <p className={`text-xl font-bold ${
@@ -116,7 +127,7 @@ const InvestmentPortfolio = () => {
 
         {/* Individual Investments */}
         <div className="space-y-3">
-          <h4 className="font-semibold text-blue-800 mb-3">आपके निवेश</h4>
+          <h4 className="font-semibold text-blue-800 mb-3">{t('yourInvestments')}</h4>
           {investments.slice(0, 5).map((investment) => {
             const individualGainLoss = investment.current_value - investment.amount;
             const individualGainLossPercentage = investment.amount > 0 ? ((individualGainLoss / investment.amount) * 100) : 0;
@@ -148,7 +159,7 @@ const InvestmentPortfolio = () => {
                 {investment.expected_return_rate && (
                   <div className="mt-2">
                     <div className="flex justify-between text-xs text-blue-600 mb-1">
-                      <span>अपेक्षित रिटर्न</span>
+                      <span>{t('expectedReturn')}</span>
                       <span>{investment.expected_return_rate}%</span>
                     </div>
                     <Progress value={Math.min(individualGainLossPercentage, investment.expected_return_rate)} className="h-1" />
@@ -164,8 +175,7 @@ const InvestmentPortfolio = () => {
                       ? 'bg-blue-100 text-blue-600'
                       : 'bg-gray-100 text-gray-600'
                   }`}>
-                    {investment.status === 'Active' ? 'सक्रिय' : 
-                     investment.status === 'Matured' ? 'परिपक्व' : 'बंद'}
+                    {getStatusTranslated(investment.status)}
                   </span>
                 </div>
               </div>
