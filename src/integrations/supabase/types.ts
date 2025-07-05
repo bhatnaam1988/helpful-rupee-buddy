@@ -9,6 +9,36 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      budget_categories: {
+        Row: {
+          category_name: string
+          created_at: string | null
+          current_spent: number | null
+          id: string
+          monthly_limit: number
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          category_name: string
+          created_at?: string | null
+          current_spent?: number | null
+          id?: string
+          monthly_limit: number
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          category_name?: string
+          created_at?: string | null
+          current_spent?: number | null
+          id?: string
+          monthly_limit?: number
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       expenses: {
         Row: {
           amount: number
@@ -35,6 +65,45 @@ export type Database = {
           description?: string | null
           expense_date?: string
           id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      financial_reports: {
+        Row: {
+          created_at: string | null
+          id: string
+          report_data: Json | null
+          report_period: string
+          report_type: string
+          savings_rate: number | null
+          total_expenses: number | null
+          total_income: number | null
+          total_investments: number | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          report_data?: Json | null
+          report_period: string
+          report_type: string
+          savings_rate?: number | null
+          total_expenses?: number | null
+          total_income?: number | null
+          total_investments?: number | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          report_data?: Json | null
+          report_period?: string
+          report_type?: string
+          savings_rate?: number | null
+          total_expenses?: number | null
+          total_income?: number | null
+          total_investments?: number | null
           user_id?: string
         }
         Relationships: []
@@ -70,6 +139,51 @@ export type Database = {
           priority?: string | null
           target_amount?: number
           timeline_months?: number | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      investments: {
+        Row: {
+          amount: number
+          created_at: string | null
+          current_value: number | null
+          expected_return_rate: number | null
+          id: string
+          instrument_name: string
+          investment_date: string
+          investment_type: string
+          maturity_date: string | null
+          status: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string | null
+          current_value?: number | null
+          expected_return_rate?: number | null
+          id?: string
+          instrument_name: string
+          investment_date?: string
+          investment_type: string
+          maturity_date?: string | null
+          status?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string | null
+          current_value?: number | null
+          expected_return_rate?: number | null
+          id?: string
+          instrument_name?: string
+          investment_date?: string
+          investment_type?: string
+          maturity_date?: string | null
+          status?: string | null
           updated_at?: string | null
           user_id?: string
         }

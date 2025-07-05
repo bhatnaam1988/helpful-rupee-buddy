@@ -1,6 +1,6 @@
 
 import { useEffect } from "react";
-import { User, Menu, TrendingUp } from "lucide-react";
+import { User } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -12,6 +12,9 @@ import { useNavigate } from "react-router-dom";
 import AddExpenseModal from "@/components/AddExpenseModal";
 import AddGoalModal from "@/components/AddGoalModal";
 import AddIncomeModal from "@/components/AddIncomeModal";
+import AddInvestmentModal from "@/components/AddInvestmentModal";
+import AddBudgetModal from "@/components/AddBudgetModal";
+import NavigationTabs from "@/components/NavigationTabs";
 
 const Index = () => {
   const { user, signOut } = useAuth();
@@ -68,8 +71,8 @@ const Index = () => {
     return "🎯";
   };
 
-  return (
-    <div className="min-h-screen bg-slate-50">
+  const dashboardContent = (
+    <div>
       {/* Header */}
       <header className="bg-blue-600 text-white p-4 shadow-lg">
         <div className="flex items-center justify-between">
@@ -79,7 +82,7 @@ const Index = () => {
             </div>
             <div>
               <h1 className="text-lg font-semibold">पैसावाइज़</h1>
-              <p className="text-blue-100 text-sm">आपका वित्तीय साथी</p>
+              <p className="text-blue-100 text-sm">आपका संपूर्ण वित्तीय साथी</p>
             </div>
           </div>
           <div className="flex items-center space-x-2">
@@ -91,8 +94,8 @@ const Index = () => {
         </div>
       </header>
 
-      {/* Welcome Section */}
-      <div className="p-4">
+      <div className="p-4 space-y-6">
+        {/* Welcome Section */}
         <div className="mb-6">
           <h2 className="text-xl font-semibold text-gray-800 mb-1">
             नमस्ते, {profile?.name || 'उपयोगकर्ता'}! 👋
@@ -101,7 +104,7 @@ const Index = () => {
         </div>
 
         {/* Monthly Overview Card */}
-        <Card className="mb-6 border-0 shadow-md">
+        <Card className="border-0 shadow-md">
           <CardHeader className="pb-3">
             <CardTitle className="text-lg text-gray-800">मासिक सारांश</CardTitle>
           </CardHeader>
@@ -162,22 +165,18 @@ const Index = () => {
               <AddExpenseModal />
               <AddGoalModal />
             </div>
-            <Button 
-              size="lg" 
-              variant="outline"
-              className="w-full h-12 border-green-200 hover:bg-green-50"
-            >
-              <TrendingUp className="w-5 h-5 text-green-600 mr-2" />
-              <span className="text-green-600">AI सुझाव देखें</span>
-            </Button>
+            <div className="grid grid-cols-2 gap-3">
+              <AddInvestmentModal />
+              <AddBudgetModal />
+            </div>
           </div>
         </div>
 
         {/* Goals Progress */}
         {goals.length > 0 && (
-          <Card className="mb-6 border-0 shadow-md">
+          <Card className="border-0 shadow-md">
             <CardHeader className="pb-3">
-              <CardTitle className="text-lg text-gray-800">आपके लक्ष्य</CardTitle>
+              <CardTitle className="text-lg text-blue-800">आपके लक्ष्य</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
@@ -222,7 +221,7 @@ const Index = () => {
         {expenses.length > 0 && (
           <Card className="border-0 shadow-md">
             <CardHeader className="pb-3">
-              <CardTitle className="text-lg text-gray-800">हाल के खर्च</CardTitle>
+              <CardTitle className="text-lg text-red-800">हाल के खर्च</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
@@ -254,7 +253,7 @@ const Index = () => {
             <CardContent>
               <div className="text-gray-500 mb-4">
                 <h3 className="text-lg font-semibold mb-2">पैसावाइज़ में आपका स्वागत है!</h3>
-                <p className="text-sm">पहले अपनी मासिक आय निर्धारित करें, फिर खर्च जोड़ें या वित्तीय लक्ष्य निर्धारित करें।</p>
+                <p className="text-sm">अपने संपूर्ण वित्तीय प्रबंधन की शुरुआत करें - आय निर्धारित करें, खर्च ट्रैक करें, निवेश करें और लक्ष्य सेट करें।</p>
               </div>
               <div className="space-y-3 max-w-md mx-auto">
                 <AddIncomeModal />
@@ -262,12 +261,22 @@ const Index = () => {
                   <AddExpenseModal />
                   <AddGoalModal />
                 </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <AddInvestmentModal />
+                  <AddBudgetModal />
+                </div>
               </div>
             </CardContent>
           </Card>
         )}
       </div>
     </div>
+  );
+
+  return (
+    <NavigationTabs>
+      {dashboardContent}
+    </NavigationTabs>
   );
 };
 
