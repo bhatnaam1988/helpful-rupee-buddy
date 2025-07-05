@@ -49,7 +49,10 @@ const InvestmentPortfolio = () => {
     return (
       <Card className="border-0 shadow-md">
         <CardHeader>
-          <CardTitle className="text-lg text-blue-800">{t('investmentPortfolio')}</CardTitle>
+          <CardTitle className="text-lg text-blue-800 flex items-center space-x-2">
+            <TrendingUp className="w-5 h-5" />
+            <span>{t('investmentPortfolio')}</span>
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <p className="text-center text-gray-500">{t('loading')}</p>
@@ -62,10 +65,17 @@ const InvestmentPortfolio = () => {
     return (
       <Card className="border-0 shadow-md">
         <CardHeader>
-          <CardTitle className="text-lg text-blue-800">{t('investmentPortfolio')}</CardTitle>
+          <CardTitle className="text-lg text-blue-800 flex items-center space-x-2">
+            <TrendingUp className="w-5 h-5" />
+            <span>{t('investmentPortfolio')}</span>
+          </CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-center text-gray-500">{t('noInvestments')}</p>
+          <div className="text-center py-8">
+            <TrendingUp className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+            <p className="text-center text-gray-500">{t('noInvestments')}</p>
+            <p className="text-sm text-gray-400 mt-1">{t('startInvestingToday')}</p>
+          </div>
         </CardContent>
       </Card>
     );
@@ -74,7 +84,10 @@ const InvestmentPortfolio = () => {
   return (
     <Card className="border-0 shadow-md">
       <CardHeader>
-        <CardTitle className="text-lg text-blue-800">{t('investmentPortfolio')}</CardTitle>
+        <CardTitle className="text-lg text-blue-800 flex items-center space-x-2">
+          <TrendingUp className="w-5 h-5" />
+          <span>{t('investmentPortfolio')}</span>
+        </CardTitle>
       </CardHeader>
       <CardContent>
         {/* Portfolio Summary */}

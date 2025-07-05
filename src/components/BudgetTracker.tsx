@@ -55,7 +55,10 @@ const BudgetTracker = () => {
     return (
       <Card className="border-0 shadow-md">
         <CardHeader>
-          <CardTitle className="text-lg text-purple-800">{t('budgetTracker')}</CardTitle>
+          <CardTitle className="text-lg text-purple-800 flex items-center space-x-2">
+            <Target className="w-5 h-5" />
+            <span>{t('budgetTracker')}</span>
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <p className="text-center text-gray-500">{t('loading')}</p>
@@ -68,10 +71,17 @@ const BudgetTracker = () => {
     return (
       <Card className="border-0 shadow-md">
         <CardHeader>
-          <CardTitle className="text-lg text-purple-800">{t('budgetTracker')}</CardTitle>
+          <CardTitle className="text-lg text-purple-800 flex items-center space-x-2">
+            <Target className="w-5 h-5" />
+            <span>{t('budgetTracker')}</span>
+          </CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-center text-gray-500">{t('noBudgetSet')}</p>
+          <div className="text-center py-8">
+            <Target className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+            <p className="text-center text-gray-500">{t('noBudgetSet')}</p>
+            <p className="text-sm text-gray-400 mt-1">{t('setBudgetFirst')}</p>
+          </div>
         </CardContent>
       </Card>
     );
@@ -80,7 +90,10 @@ const BudgetTracker = () => {
   return (
     <Card className="border-0 shadow-md">
       <CardHeader>
-        <CardTitle className="text-lg text-purple-800">{t('budgetTracker')}</CardTitle>
+        <CardTitle className="text-lg text-purple-800 flex items-center space-x-2">
+          <Target className="w-5 h-5" />
+          <span>{t('budgetTracker')}</span>
+        </CardTitle>
       </CardHeader>
       <CardContent>
         {/* Overall Budget Summary */}

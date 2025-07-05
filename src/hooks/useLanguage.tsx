@@ -64,6 +64,7 @@ const translations = {
     usage: 'उपयोग',
     categoryWiseBudget: 'श्रेणी अनुसार बजट',
     noBudgetSet: 'अभी तक कोई बजट सेट नहीं किया गया',
+    setBudgetFirst: 'पहले बजट सेट करें',
     remaining: 'बचा है',
     exceeded: 'अधिक खर्च',
     limit: 'सीमा',
@@ -77,6 +78,7 @@ const translations = {
     totalLoss: 'कुल हानि',
     yourInvestments: 'आपके निवेश',
     noInvestments: 'अभी तक कोई निवेश नहीं है',
+    startInvestingToday: 'आज ही निवेश शुरू करें',
     expectedReturn: 'अपेक्षित रिटर्न',
     active: 'सक्रिय',
     matured: 'परिपक्व',
@@ -101,6 +103,7 @@ const translations = {
     monthly: 'मासिक',
     quarterly: 'त्रैमासिक',
     yearly: 'वार्षिक',
+    report: 'रिपोर्ट',
     
     // Categories
     foodGroceries: 'भोजन और किराना',
@@ -178,6 +181,7 @@ const translations = {
     usage: 'Usage',
     categoryWiseBudget: 'Category-wise Budget',
     noBudgetSet: 'No budget has been set yet',
+    setBudgetFirst: 'Set budget first',
     remaining: 'remaining',
     exceeded: 'exceeded',
     limit: 'Limit',
@@ -191,6 +195,7 @@ const translations = {
     totalLoss: 'Total Loss',
     yourInvestments: 'Your Investments',
     noInvestments: 'No investments yet',
+    startInvestingToday: 'Start investing today',
     expectedReturn: 'Expected Return',
     active: 'Active',
     matured: 'Matured',
@@ -215,6 +220,7 @@ const translations = {
     monthly: 'Monthly',
     quarterly: 'Quarterly',
     yearly: 'Yearly',
+    report: 'Report',
     
     // Categories
     foodGroceries: 'Food & Groceries',

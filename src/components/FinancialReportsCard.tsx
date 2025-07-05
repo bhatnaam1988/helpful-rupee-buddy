@@ -103,7 +103,7 @@ const FinancialReportsCard = () => {
                   <div className="flex items-center space-x-2">
                     <FileText className="w-4 h-4 text-gray-600" />
                     <span className="font-medium text-gray-800">
-                      {getReportTypeTranslated(report.report_type)} {t('reports').toLowerCase()}
+                      {getReportTypeTranslated(report.report_type)} {t('report')}
                     </span>
                   </div>
                   <span className="text-sm text-gray-500">{report.report_period}</span>
