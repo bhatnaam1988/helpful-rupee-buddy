@@ -37,7 +37,13 @@ export const useGoals = () => {
         return;
       }
 
-      setGoals(data || []);
+      // Type assertion to ensure proper typing
+      const typedGoals = (data || []).map(goal => ({
+        ...goal,
+        priority: goal.priority as 'High' | 'Medium' | 'Low'
+      })) as Goal[];
+
+      setGoals(typedGoals);
     } catch (error) {
       console.error('Error fetching goals:', error);
     } finally {
@@ -64,7 +70,13 @@ export const useGoals = () => {
         return;
       }
 
-      setGoals(prev => [data, ...prev]);
+      // Type assertion for the new goal
+      const typedGoal = {
+        ...data,
+        priority: data.priority as 'High' | 'Medium' | 'Low'
+      } as Goal;
+
+      setGoals(prev => [typedGoal, ...prev]);
       toast({
         title: "Success",
         description: "Goal added successfully"
@@ -96,7 +108,13 @@ export const useGoals = () => {
         return;
       }
 
-      setGoals(prev => prev.map(goal => goal.id === id ? data : goal));
+      // Type assertion for the updated goal
+      const typedGoal = {
+        ...data,
+        priority: data.priority as 'High' | 'Medium' | 'Low'
+      } as Goal;
+
+      setGoals(prev => prev.map(goal => goal.id === id ? typedGoal : goal));
       toast({
         title: "Success",
         description: "Goal updated successfully"
