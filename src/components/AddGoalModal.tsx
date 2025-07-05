@@ -49,27 +49,27 @@ const AddGoalModal = ({ children }: AddGoalModalProps) => {
         {children || (
           <Button variant="outline" className="h-16 border-blue-200 hover:bg-blue-50 flex flex-col items-center justify-center space-y-1">
             <Target className="w-6 h-6 text-blue-600" />
-            <span className="text-sm text-blue-600">Set Goal</span>
+            <span className="text-sm text-blue-600">लक्ष्य निर्धारित करें</span>
           </Button>
         )}
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Set Financial Goal</DialogTitle>
+          <DialogTitle>वित्तीय लक्ष्य निर्धारित करें</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <Label htmlFor="name">Goal Name</Label>
+            <Label htmlFor="name">लक्ष्य का नाम</Label>
             <Input
               id="name"
-              placeholder="e.g., Emergency Fund, New Car"
+              placeholder="उदा., आपातकालीन फंड, नई कार"
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
             />
           </div>
           <div>
-            <Label htmlFor="targetAmount">Target Amount (₹)</Label>
+            <Label htmlFor="targetAmount">लक्ष्य राशि (₹)</Label>
             <Input
               id="targetAmount"
               type="number"
@@ -81,7 +81,7 @@ const AddGoalModal = ({ children }: AddGoalModalProps) => {
             />
           </div>
           <div>
-            <Label htmlFor="currentAmount">Current Amount (₹)</Label>
+            <Label htmlFor="currentAmount">वर्तमान राशि (₹)</Label>
             <Input
               id="currentAmount"
               type="number"
@@ -92,7 +92,7 @@ const AddGoalModal = ({ children }: AddGoalModalProps) => {
             />
           </div>
           <div>
-            <Label htmlFor="timeline">Timeline (Months)</Label>
+            <Label htmlFor="timeline">समयसीमा (महीने)</Label>
             <Input
               id="timeline"
               type="number"
@@ -102,24 +102,24 @@ const AddGoalModal = ({ children }: AddGoalModalProps) => {
             />
           </div>
           <div>
-            <Label htmlFor="priority">Priority</Label>
+            <Label htmlFor="priority">प्राथमिकता</Label>
             <Select value={priority} onValueChange={(value: "High" | "Medium" | "Low") => setPriority(value)}>
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="High">High</SelectItem>
-                <SelectItem value="Medium">Medium</SelectItem>
-                <SelectItem value="Low">Low</SelectItem>
+                <SelectItem value="High">उच्च</SelectItem>
+                <SelectItem value="Medium">मध्यम</SelectItem>
+                <SelectItem value="Low">कम</SelectItem>
               </SelectContent>
             </Select>
           </div>
           <div className="flex space-x-2">
             <Button type="button" variant="outline" onClick={() => setOpen(false)} className="flex-1">
-              Cancel
+              रद्द करें
             </Button>
-            <Button type="submit" className="flex-1">
-              Set Goal
+            <Button type="submit" className="flex-1 bg-blue-600 hover:bg-blue-700">
+              लक्ष्य निर्धारित करें
             </Button>
           </div>
         </form>

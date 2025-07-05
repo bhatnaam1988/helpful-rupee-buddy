@@ -41,20 +41,20 @@ const AddIncomeModal = () => {
           className="w-full h-12 bg-green-600 hover:bg-green-700 text-white"
         >
           <Plus className="w-5 h-5 mr-2" />
-          Add Monthly Income
+          मासिक आय जोड़ें
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Set Monthly Income</DialogTitle>
+          <DialogTitle>मासिक आय निर्धारित करें</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="income">Monthly Income (₹)</Label>
+            <Label htmlFor="income">मासिक आय (₹)</Label>
             <Input
               id="income"
               type="number"
-              placeholder="Enter your monthly income"
+              placeholder="अपनी मासिक आय दर्ज करें"
               value={income}
               onChange={(e) => setIncome(e.target.value)}
               min="0"
@@ -69,13 +69,13 @@ const AddIncomeModal = () => {
               className="flex-1"
               onClick={() => setOpen(false)}
             >
-              Cancel
+              रद्द करें
             </Button>
             <Button
               type="submit"
               className="flex-1 bg-green-600 hover:bg-green-700"
             >
-              Save Income
+              आय सहेजें
             </Button>
           </div>
         </form>

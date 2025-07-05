@@ -30,7 +30,7 @@ const Index = () => {
     return null;
   }
 
-  const currentMonth = new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  const currentMonth = new Date().toLocaleDateString('hi-IN', { month: 'long', year: 'numeric' });
   
   const totalExpenses = expenses.reduce((sum, expense) => sum + expense.amount, 0);
   const monthlyIncome = profile?.monthly_income || 0;
@@ -38,7 +38,7 @@ const Index = () => {
   const surplusPercentage = monthlyIncome > 0 ? (availableSurplus / monthlyIncome) * 100 : 0;
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-IN', {
+    return new Intl.NumberFormat('hi-IN', {
       style: 'currency',
       currency: 'INR',
       maximumFractionDigits: 0
@@ -78,14 +78,14 @@ const Index = () => {
               ₹
             </div>
             <div>
-              <h1 className="text-lg font-semibold">PaisaWise</h1>
+              <h1 className="text-lg font-semibold">पैसावाइज़</h1>
               <p className="text-blue-100 text-sm">आपका वित्तीय साथी</p>
             </div>
           </div>
           <div className="flex items-center space-x-2">
             <User className="w-5 h-5" />
             <Button variant="ghost" size="sm" onClick={signOut} className="text-white hover:text-blue-100">
-              Logout
+              लॉगआउट
             </Button>
           </div>
         </div>
@@ -95,7 +95,7 @@ const Index = () => {
       <div className="p-4">
         <div className="mb-6">
           <h2 className="text-xl font-semibold text-gray-800 mb-1">
-            नमस्ते, {profile?.name || 'User'}! 👋
+            नमस्ते, {profile?.name || 'उपयोगकर्ता'}! 👋
           </h2>
           <p className="text-gray-600 text-sm">{currentMonth} का सारांश</p>
         </div>
@@ -103,21 +103,21 @@ const Index = () => {
         {/* Monthly Overview Card */}
         <Card className="mb-6 border-0 shadow-md">
           <CardHeader className="pb-3">
-            <CardTitle className="text-lg text-gray-800">Monthly Overview</CardTitle>
+            <CardTitle className="text-lg text-gray-800">मासिक सारांश</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               {/* Income vs Expenses */}
               <div className="grid grid-cols-2 gap-4">
                 <div className="text-center p-3 bg-green-50 rounded-lg border border-green-100">
-                  <p className="text-sm text-green-600 mb-1">Total Income</p>
+                  <p className="text-sm text-green-600 mb-1">कुल आय</p>
                   <p className="text-lg font-semibold text-green-700">
                     {formatCurrency(monthlyIncome)}
                   </p>
                 </div>
-                <div className="text-center p-3 bg-orange-50 rounded-lg border border-orange-100">
-                  <p className="text-sm text-orange-600 mb-1">Total Expenses</p>
-                  <p className="text-lg font-semibold text-orange-700">
+                <div className="text-center p-3 bg-red-50 rounded-lg border border-red-100">
+                  <p className="text-sm text-red-600 mb-1">कुल खर्च</p>
+                  <p className="text-lg font-semibold text-red-700">
                     {formatCurrency(totalExpenses)}
                   </p>
                 </div>
@@ -132,7 +132,7 @@ const Index = () => {
                 <p className={`text-sm mb-1 ${
                   availableSurplus >= 0 ? 'text-blue-600' : 'text-red-600'
                 }`}>
-                  Available for Investment
+                  निवेश के लिए उपलब्ध
                 </p>
                 <p className={`text-xl font-bold ${
                   availableSurplus >= 0 ? 'text-blue-700' : 'text-red-700'
@@ -145,7 +145,7 @@ const Index = () => {
                     className="h-2"
                   />
                   <p className="text-xs text-gray-500 mt-1">
-                    {surplusPercentage.toFixed(1)}% of income available
+                    आय का {surplusPercentage.toFixed(1)}% उपलब्ध
                   </p>
                 </div>
               </div>
@@ -155,7 +155,7 @@ const Index = () => {
 
         {/* Quick Actions */}
         <div className="mb-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-3">Quick Actions</h3>
+          <h3 className="text-lg font-semibold text-gray-800 mb-3">त्वरित कार्य</h3>
           <div className="space-y-3">
             <AddIncomeModal />
             <div className="grid grid-cols-2 gap-3">
@@ -168,7 +168,7 @@ const Index = () => {
               className="w-full h-12 border-green-200 hover:bg-green-50"
             >
               <TrendingUp className="w-5 h-5 text-green-600 mr-2" />
-              <span className="text-green-600">View AI Recommendations</span>
+              <span className="text-green-600">AI सुझाव देखें</span>
             </Button>
           </div>
         </div>
@@ -177,18 +177,18 @@ const Index = () => {
         {goals.length > 0 && (
           <Card className="mb-6 border-0 shadow-md">
             <CardHeader className="pb-3">
-              <CardTitle className="text-lg text-gray-800">Your Goals</CardTitle>
+              <CardTitle className="text-lg text-gray-800">आपके लक्ष्य</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 {goals.slice(0, 3).map((goal) => {
                   const progressPercentage = (goal.current_amount / goal.target_amount) * 100;
                   return (
-                    <div key={goal.id} className="border border-gray-100 rounded-lg p-3">
+                    <div key={goal.id} className="border border-blue-100 rounded-lg p-3">
                       <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center space-x-2">
                           <span className="text-lg">{getGoalIcon(goal.name)}</span>
-                          <span className="font-medium text-gray-800">{goal.name}</span>
+                          <span className="font-medium text-blue-800">{goal.name}</span>
                         </div>
                         <span className={`px-2 py-1 rounded-full text-xs ${
                           goal.priority === 'High' 
@@ -197,18 +197,18 @@ const Index = () => {
                             ? 'bg-yellow-100 text-yellow-600'
                             : 'bg-green-100 text-green-600'
                         }`}>
-                          {goal.priority}
+                          {goal.priority === 'High' ? 'उच्च' : goal.priority === 'Medium' ? 'मध्यम' : 'कम'}
                         </span>
                       </div>
                       <div className="mb-2">
                         <Progress value={progressPercentage} className="h-2" />
                       </div>
-                      <div className="flex justify-between text-sm text-gray-600">
+                      <div className="flex justify-between text-sm text-blue-600">
                         <span>{formatCurrency(goal.current_amount)}</span>
                         <span>{formatCurrency(goal.target_amount)}</span>
                       </div>
-                      <p className="text-xs text-gray-500 mt-1">
-                        {progressPercentage.toFixed(1)}% complete
+                      <p className="text-xs text-blue-500 mt-1">
+                        {progressPercentage.toFixed(1)}% पूर्ण
                       </p>
                     </div>
                   );
@@ -222,23 +222,23 @@ const Index = () => {
         {expenses.length > 0 && (
           <Card className="border-0 shadow-md">
             <CardHeader className="pb-3">
-              <CardTitle className="text-lg text-gray-800">Recent Expenses</CardTitle>
+              <CardTitle className="text-lg text-gray-800">हाल के खर्च</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
                 {expenses.slice(0, 5).map((expense) => (
-                  <div key={expense.id} className="flex items-center justify-between p-3 border border-gray-100 rounded-lg">
+                  <div key={expense.id} className="flex items-center justify-between p-3 border border-red-100 rounded-lg">
                     <div className="flex items-center space-x-3">
                       <span className="text-lg">{getCategoryIcon(expense.category)}</span>
                       <div>
-                        <p className="font-medium text-gray-800 text-sm">{expense.category}</p>
-                        <p className="text-xs text-gray-500">{new Date(expense.expense_date).toLocaleDateString()}</p>
+                        <p className="font-medium text-red-800 text-sm">{expense.category}</p>
+                        <p className="text-xs text-red-500">{new Date(expense.expense_date).toLocaleDateString('hi-IN')}</p>
                         {expense.description && (
-                          <p className="text-xs text-gray-400">{expense.description}</p>
+                          <p className="text-xs text-red-400">{expense.description}</p>
                         )}
                       </div>
                     </div>
-                    <p className="font-semibold text-gray-800">
+                    <p className="font-semibold text-red-700">
                       {formatCurrency(expense.amount)}
                     </p>
                   </div>
@@ -253,8 +253,8 @@ const Index = () => {
           <Card className="border-0 shadow-md text-center py-8">
             <CardContent>
               <div className="text-gray-500 mb-4">
-                <h3 className="text-lg font-semibold mb-2">Welcome to PaisaWise!</h3>
-                <p className="text-sm">Start by setting your monthly income, then add expenses or set financial goals.</p>
+                <h3 className="text-lg font-semibold mb-2">पैसावाइज़ में आपका स्वागत है!</h3>
+                <p className="text-sm">पहले अपनी मासिक आय निर्धारित करें, फिर खर्च जोड़ें या वित्तीय लक्ष्य निर्धारित करें।</p>
               </div>
               <div className="space-y-3 max-w-md mx-auto">
                 <AddIncomeModal />

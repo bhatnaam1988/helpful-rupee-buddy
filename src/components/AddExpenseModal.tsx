@@ -20,6 +20,18 @@ const categories = [
   "Other"
 ];
 
+const categoryHindi = {
+  "Food & Groceries": "भोजन और किराना",
+  "Transport": "परिवहन",
+  "Utilities": "उपयोगिताएं",
+  "Rent/Housing": "किराया/आवास",
+  "Entertainment": "मनोरंजन",
+  "Healthcare": "स्वास्थ्य सेवा",
+  "Shopping": "खरीदारी",
+  "Education": "शिक्षा",
+  "Other": "अन्य"
+};
+
 interface AddExpenseModalProps {
   children?: React.ReactNode;
 }
@@ -56,34 +68,34 @@ const AddExpenseModal = ({ children }: AddExpenseModalProps) => {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         {children || (
-          <Button className="h-16 bg-blue-600 hover:bg-blue-700 flex flex-col items-center justify-center space-y-1">
+          <Button className="h-16 bg-red-600 hover:bg-red-700 flex flex-col items-center justify-center space-y-1">
             <PlusCircle className="w-6 h-6" />
-            <span className="text-sm">Add Expense</span>
+            <span className="text-sm">खर्च जोड़ें</span>
           </Button>
         )}
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Add New Expense</DialogTitle>
+          <DialogTitle>नया खर्च जोड़ें</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <Label htmlFor="category">Category</Label>
+            <Label htmlFor="category">श्रेणी</Label>
             <Select value={category} onValueChange={setCategory} required>
               <SelectTrigger>
-                <SelectValue placeholder="Select a category" />
+                <SelectValue placeholder="श्रेणी चुनें" />
               </SelectTrigger>
               <SelectContent>
                 {categories.map((cat) => (
                   <SelectItem key={cat} value={cat}>
-                    {cat}
+                    {categoryHindi[cat as keyof typeof categoryHindi]}
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
           <div>
-            <Label htmlFor="amount">Amount (₹)</Label>
+            <Label htmlFor="amount">राशि (₹)</Label>
             <Input
               id="amount"
               type="number"
@@ -95,7 +107,7 @@ const AddExpenseModal = ({ children }: AddExpenseModalProps) => {
             />
           </div>
           <div>
-            <Label htmlFor="date">Date</Label>
+            <Label htmlFor="date">तारीख</Label>
             <Input
               id="date"
               type="date"
@@ -105,20 +117,20 @@ const AddExpenseModal = ({ children }: AddExpenseModalProps) => {
             />
           </div>
           <div>
-            <Label htmlFor="description">Description (Optional)</Label>
+            <Label htmlFor="description">विवरण (वैकल्पिक)</Label>
             <Input
               id="description"
-              placeholder="What was this expense for?"
+              placeholder="यह खर्च किस लिए था?"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
           </div>
           <div className="flex space-x-2">
             <Button type="button" variant="outline" onClick={() => setOpen(false)} className="flex-1">
-              Cancel
+              रद्द करें
             </Button>
-            <Button type="submit" className="flex-1">
-              Add Expense
+            <Button type="submit" className="flex-1 bg-red-600 hover:bg-red-700">
+              खर्च जोड़ें
             </Button>
           </div>
         </form>

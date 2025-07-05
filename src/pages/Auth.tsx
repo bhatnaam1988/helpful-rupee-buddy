@@ -33,35 +33,35 @@ const Auth = () => {
         const { error } = await signIn(email, password);
         if (error) {
           toast({
-            title: "Error",
+            title: "त्रुटि",
             description: error.message,
             variant: "destructive"
           });
         } else {
           toast({
-            title: "Success",
-            description: "Successfully signed in!"
+            title: "सफलता",
+            description: "सफलतापूर्वक लॉगिन हो गए!"
           });
         }
       } else {
         const { error } = await signUp(email, password, name);
         if (error) {
           toast({
-            title: "Error",
+            title: "त्रुटि",
             description: error.message,
             variant: "destructive"
           });
         } else {
           toast({
-            title: "Success",
-            description: "Account created successfully! Please check your email to verify your account."
+            title: "सफलता",
+            description: "खाता सफलतापूर्वक बनाया गया! कृपया अपने खाते को सत्यापित करने के लिए अपना ईमेल जांचें।"
           });
         }
       }
     } catch (error) {
       toast({
-        title: "Error",
-        description: "An unexpected error occurred",
+        title: "त्रुटि",
+        description: "एक अप्रत्याशित त्रुटि हुई",
         variant: "destructive"
       });
     } finally {
@@ -79,10 +79,10 @@ const Auth = () => {
             </div>
           </div>
           <CardTitle className="text-2xl font-bold">
-            {isLogin ? "Welcome Back" : "Create Account"}
+            {isLogin ? "वापस आपका स्वागत है" : "खाता बनाएं"}
           </CardTitle>
           <p className="text-gray-600">
-            {isLogin ? "Sign in to your PaisaWise account" : "Join PaisaWise to manage your finances"}
+            {isLogin ? "अपने पैसावाइज़ खाते में लॉगिन करें" : "आपके वित्त प्रबंधन के लिए पैसावाइज़ में शामिल हों"}
           </p>
         </CardHeader>
         <CardContent>
@@ -90,12 +90,12 @@ const Auth = () => {
             {!isLogin && (
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                  Full Name
+                  पूरा नाम
                 </label>
                 <Input
                   id="name"
                   type="text"
-                  placeholder="Enter your full name"
+                  placeholder="अपना पूरा नाम दर्ज करें"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   required={!isLogin}
@@ -104,12 +104,12 @@ const Auth = () => {
             )}
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                Email
+                ईमेल
               </label>
               <Input
                 id="email"
                 type="email"
-                placeholder="Enter your email"
+                placeholder="अपना ईमेल दर्ज करें"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -117,19 +117,19 @@ const Auth = () => {
             </div>
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-                Password
+                पासवर्ड
               </label>
               <Input
                 id="password"
                 type="password"
-                placeholder="Enter your password"
+                placeholder="अपना पासवर्ड दर्ज करें"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
             </div>
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Loading..." : (isLogin ? "Sign In" : "Sign Up")}
+              {loading ? "लोड हो रहा है..." : (isLogin ? "लॉगिन करें" : "साइन अप करें")}
             </Button>
           </form>
           <div className="mt-4 text-center">
@@ -138,7 +138,7 @@ const Auth = () => {
               onClick={() => setIsLogin(!isLogin)}
               className="text-blue-600 hover:underline text-sm"
             >
-              {isLogin ? "Don't have an account? Sign up" : "Already have an account? Sign in"}
+              {isLogin ? "कोई खाता नहीं है? साइन अप करें" : "पहले से खाता है? लॉगिन करें"}
             </button>
           </div>
         </CardContent>
