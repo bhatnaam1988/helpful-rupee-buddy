@@ -38,7 +38,17 @@ export const useFinancialReports = () => {
         return;
       }
 
-      setReports(data || []);
+      // Type cast the data to match our FinancialReport interface
+      const typedData = (data || []).map(item => ({
+        ...item,
+        report_type: item.report_type as FinancialReport['report_type'],
+        total_income: item.total_income || 0,
+        total_expenses: item.total_expenses || 0,
+        total_investments: item.total_investments || 0,
+        savings_rate: item.savings_rate || 0
+      }));
+
+      setReports(typedData);
     } catch (error) {
       console.error('Error fetching financial reports:', error);
     } finally {
@@ -99,7 +109,17 @@ export const useFinancialReports = () => {
         return;
       }
 
-      setReports(prev => [data, ...prev]);
+      // Type cast the returned data
+      const typedData = {
+        ...data,
+        report_type: data.report_type as FinancialReport['report_type'],
+        total_income: data.total_income || 0,
+        total_expenses: data.total_expenses || 0,
+        total_investments: data.total_investments || 0,
+        savings_rate: data.savings_rate || 0
+      };
+
+      setReports(prev => [typedData, ...prev]);
       toast({
         title: "सफलता",
         description: "रिपोर्ट सफलतापूर्वक जेनरेट की गई"

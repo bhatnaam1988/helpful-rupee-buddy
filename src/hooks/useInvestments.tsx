@@ -40,7 +40,14 @@ export const useInvestments = () => {
         return;
       }
 
-      setInvestments(data || []);
+      // Type cast the data to match our Investment interface
+      const typedData = (data || []).map(item => ({
+        ...item,
+        investment_type: item.investment_type as Investment['investment_type'],
+        status: item.status as Investment['status']
+      }));
+
+      setInvestments(typedData);
     } catch (error) {
       console.error('Error fetching investments:', error);
     } finally {
@@ -67,7 +74,14 @@ export const useInvestments = () => {
         return;
       }
 
-      setInvestments(prev => [data, ...prev]);
+      // Type cast the returned data
+      const typedData = {
+        ...data,
+        investment_type: data.investment_type as Investment['investment_type'],
+        status: data.status as Investment['status']
+      };
+
+      setInvestments(prev => [typedData, ...prev]);
       toast({
         title: "सफलता",
         description: "निवेश सफलतापूर्वक जोड़ा गया"
@@ -99,7 +113,14 @@ export const useInvestments = () => {
         return;
       }
 
-      setInvestments(prev => prev.map(inv => inv.id === id ? data : inv));
+      // Type cast the returned data
+      const typedData = {
+        ...data,
+        investment_type: data.investment_type as Investment['investment_type'],
+        status: data.status as Investment['status']
+      };
+
+      setInvestments(prev => prev.map(inv => inv.id === id ? typedData : inv));
       toast({
         title: "सफलता",
         description: "निवेश सफलतापूर्वक अपडेट किया गया"
