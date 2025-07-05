@@ -42,6 +42,10 @@ const translations = {
     aiSuggestions: 'AI सुझाव',
     expenses: 'खर्च',
     
+    // Recent Items
+    recentExpenses: 'हाल के खर्च',
+    yourGoals: 'आपके लक्ष्य',
+    
     // Expense Management
     expenseManagement: 'खर्च प्रबंधन',
     manageExpenses: 'अपने सभी खर्चों को देखें और प्रबंधित करें',
@@ -56,6 +60,7 @@ const translations = {
     selectCategory: 'श्रेणी चुनें',
     optionalDescription: 'वैकल्पिक विवरण',
     noExpensesFound: 'कोई खर्च नहीं मिला',
+    cancel: 'रद्द करें',
     
     // Budget Tracker
     budgetTracker: 'बजट ट्रैकर',
@@ -159,6 +164,10 @@ const translations = {
     aiSuggestions: 'AI Suggestions',
     expenses: 'Expenses',
     
+    // Recent Items
+    recentExpenses: 'Recent Expenses',
+    yourGoals: 'Your Goals',
+    
     // Expense Management
     expenseManagement: 'Expense Management',
     manageExpenses: 'View and manage all your expenses',
@@ -173,6 +182,7 @@ const translations = {
     selectCategory: 'Select Category',
     optionalDescription: 'Optional Description',
     noExpensesFound: 'No expenses found',
+    cancel: 'Cancel',
     
     // Budget Tracker
     budgetTracker: 'Budget Tracker',

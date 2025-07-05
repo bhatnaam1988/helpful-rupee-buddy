@@ -2,6 +2,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Expense } from "@/hooks/useExpenses";
 import { Goal } from "@/hooks/useGoals";
+import { useLanguage } from "@/hooks/useLanguage";
 
 interface RecentItemsProps {
   expenses: Expense[];
@@ -9,13 +10,15 @@ interface RecentItemsProps {
 }
 
 const RecentItems = ({ expenses, goals }: RecentItemsProps) => {
+  const { t } = useLanguage();
+
   return (
     <>
       {/* Recent Expenses */}
       {expenses.length > 0 && (
         <Card className="mb-6">
           <CardHeader>
-            <CardTitle>हाल के खर्च</CardTitle>
+            <CardTitle>{t('recentExpenses')}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
@@ -37,7 +40,7 @@ const RecentItems = ({ expenses, goals }: RecentItemsProps) => {
       {goals.length > 0 && (
         <Card>
           <CardHeader>
-            <CardTitle>आपके लक्ष्य</CardTitle>
+            <CardTitle>{t('yourGoals')}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-2">

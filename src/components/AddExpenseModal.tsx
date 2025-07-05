@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { PlusCircle } from "lucide-react";
 import { useExpenses } from "@/hooks/useExpenses";
+import { useLanguage } from "@/hooks/useLanguage";
 
 const categories = [
   "Food & Groceries",
@@ -19,18 +20,6 @@ const categories = [
   "Education",
   "Other"
 ];
-
-const categoryHindi = {
-  "Food & Groceries": "भोजन और किराना",
-  "Transport": "परिवहन",
-  "Utilities": "उपयोगिताएं",
-  "Rent/Housing": "किराया/आवास",
-  "Entertainment": "मनोरंजन",
-  "Healthcare": "स्वास्थ्य सेवा",
-  "Shopping": "खरीदारी",
-  "Education": "शिक्षा",
-  "Other": "अन्य"
-};
 
 interface AddExpenseModalProps {
   children?: React.ReactNode;
@@ -45,9 +34,25 @@ const AddExpenseModal = ({ children, open, onOpenChange }: AddExpenseModalProps)
   const [description, setDescription] = useState("");
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
   const { addExpense } = useExpenses();
+  const { t } = useLanguage();
 
   const isOpen = open !== undefined ? open : internalOpen;
   const setIsOpen = onOpenChange || setInternalOpen;
+
+  const getCategoryTranslation = (categoryKey: string) => {
+    const categoryMap: { [key: string]: string } = {
+      "Food & Groceries": t('foodGroceries'),
+      "Transport": t('transport'),
+      "Utilities": t('utilities'),
+      "Rent/Housing": t('rentHousing'),
+      "Entertainment": t('entertainment'),
+      "Healthcare": t('healthcare'),
+      "Shopping": t('shopping'),
+      "Education": t('education'),
+      "Other": t('other')
+    };
+    return categoryMap[categoryKey] || categoryKey;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -75,32 +80,32 @@ const AddExpenseModal = ({ children, open, onOpenChange }: AddExpenseModalProps)
         {children || (
           <Button className="h-16 bg-red-600 hover:bg-red-700 flex flex-col items-center justify-center space-y-1">
             <PlusCircle className="w-6 h-6" />
-            <span className="text-sm">खर्च जोड़ें</span>
+            <span className="text-sm">{t('addExpense')}</span>
           </Button>
         )}
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>नया खर्च जोड़ें</DialogTitle>
+          <DialogTitle>{t('addNewExpense')}</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <Label htmlFor="category">श्रेणी</Label>
+            <Label htmlFor="category">{t('category')}</Label>
             <Select value={category} onValueChange={setCategory} required>
               <SelectTrigger>
-                <SelectValue placeholder="श्रेणी चुनें" />
+                <SelectValue placeholder={t('selectCategory')} />
               </SelectTrigger>
               <SelectContent>
                 {categories.map((cat) => (
                   <SelectItem key={cat} value={cat}>
-                    {categoryHindi[cat as keyof typeof categoryHindi]}
+                    {getCategoryTranslation(cat)}
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
           <div>
-            <Label htmlFor="amount">राशि (₹)</Label>
+            <Label htmlFor="amount">{t('amount')} (₹)</Label>
             <Input
               id="amount"
               type="number"
@@ -112,7 +117,7 @@ const AddExpenseModal = ({ children, open, onOpenChange }: AddExpenseModalProps)
             />
           </div>
           <div>
-            <Label htmlFor="date">तारीख</Label>
+            <Label htmlFor="date">{t('date')}</Label>
             <Input
               id="date"
               type="date"
@@ -122,20 +127,20 @@ const AddExpenseModal = ({ children, open, onOpenChange }: AddExpenseModalProps)
             />
           </div>
           <div>
-            <Label htmlFor="description">विवरण (वैकल्पिक)</Label>
+            <Label htmlFor="description">{t('description')} ({t('optionalDescription')})</Label>
             <Input
               id="description"
-              placeholder="यह खर्च किस लिए था?"
+              placeholder={t('optionalDescription')}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
           </div>
           <div className="flex space-x-2">
             <Button type="button" variant="outline" onClick={() => setIsOpen(false)} className="flex-1">
-              रद्द करें
+              {t('cancel') || 'रद्द करें'}
             </Button>
             <Button type="submit" className="flex-1 bg-red-600 hover:bg-red-700">
-              खर्च जोड़ें
+              {t('addExpense')}
             </Button>
           </div>
         </form>
