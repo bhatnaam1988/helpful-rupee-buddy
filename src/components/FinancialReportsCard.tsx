@@ -1,56 +1,30 @@
 
-import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useFinancialReports } from "@/hooks/useFinancialReports";
 import { useLanguage } from "@/hooks/useLanguage";
-import { BarChart3, FileText, TrendingUp } from "lucide-react";
+import { BarChart3, FileText } from "lucide-react";
+import ReportGenerator from "./reports/ReportGenerator";
+import ReportItem from "./reports/ReportItem";
 
 const FinancialReportsCard = () => {
   const { reports, loading, generateReport } = useFinancialReports();
   const { t } = useLanguage();
-  const [reportType, setReportType] = useState<'Monthly' | 'Quarterly' | 'Yearly'>('Monthly');
-  const [generating, setGenerating] = useState(false);
 
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('hi-IN', {
-      style: 'currency',
-      currency: 'INR',
-      maximumFractionDigits: 0
-    }).format(amount);
-  };
-
-  const handleGenerateReport = async () => {
-    setGenerating(true);
-    const currentDate = new Date();
-    let period = '';
-    
-    switch (reportType) {
-      case 'Monthly':
-        period = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}`;
-        break;
-      case 'Quarterly':
-        const quarter = Math.ceil((currentDate.getMonth() + 1) / 3);
-        period = `${currentDate.getFullYear()}-Q${quarter}`;
-        break;
-      case 'Yearly':
-        period = `${currentDate.getFullYear()}`;
-        break;
-    }
-    
-    await generateReport(reportType, period);
-    setGenerating(false);
-  };
-
-  const getReportTypeTranslated = (type: string) => {
-    const typeMap: { [key: string]: string } = {
-      'Monthly': t('monthly'),
-      'Quarterly': t('quarterly'),
-      'Yearly': t('yearly')
-    };
-    return typeMap[type] || type;
-  };
+  if (loading) {
+    return (
+      <Card className="border-0 shadow-md">
+        <CardHeader>
+          <CardTitle className="text-lg text-gray-800 flex items-center space-x-2">
+            <BarChart3 className="w-5 h-5" />
+            <span>{t('financialReports')}</span>
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-center text-gray-500">{t('loading')}</p>
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     <Card className="border-0 shadow-md">
@@ -61,34 +35,9 @@ const FinancialReportsCard = () => {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        {/* Report Generation */}
-        <div className="mb-6 p-4 bg-gray-50 rounded-lg border">
-          <h4 className="font-semibold text-gray-800 mb-3">{t('generateNewReport')}</h4>
-          <div className="space-y-3">
-            <Select value={reportType} onValueChange={(value: any) => setReportType(value)}>
-              <SelectTrigger>
-                <SelectValue placeholder={t('selectReportType')} />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="Monthly">{t('monthlyReport')}</SelectItem>
-                <SelectItem value="Quarterly">{t('quarterlyReport')}</SelectItem>
-                <SelectItem value="Yearly">{t('yearlyReport')}</SelectItem>
-              </SelectContent>
-            </Select>
-            <Button 
-              onClick={handleGenerateReport} 
-              disabled={generating}
-              className="w-full bg-gray-600 hover:bg-gray-700"
-            >
-              {generating ? t('generating') : t('generateReport')}
-            </Button>
-          </div>
-        </div>
+        <ReportGenerator onGenerateReport={generateReport} />
 
-        {/* Recent Reports */}
-        {loading ? (
-          <p className="text-center text-gray-500">{t('loading')}</p>
-        ) : reports.length === 0 ? (
+        {reports.length === 0 ? (
           <div className="text-center py-8">
             <FileText className="w-12 h-12 text-gray-400 mx-auto mb-4" />
             <p className="text-gray-500">{t('noReportsGenerated')}</p>
@@ -98,51 +47,7 @@ const FinancialReportsCard = () => {
           <div className="space-y-4">
             <h4 className="font-semibold text-gray-800 mb-3">{t('recentReports')}</h4>
             {reports.slice(0, 3).map((report) => (
-              <div key={report.id} className="border border-gray-200 rounded-lg p-4">
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center space-x-2">
-                    <FileText className="w-4 h-4 text-gray-600" />
-                    <span className="font-medium text-gray-800">
-                      {getReportTypeTranslated(report.report_type)} {t('report')}
-                    </span>
-                  </div>
-                  <span className="text-sm text-gray-500">{report.report_period}</span>
-                </div>
-                
-                <div className="grid grid-cols-2 gap-4 mb-3">
-                  <div className="text-center p-2 bg-green-50 rounded border border-green-100">
-                    <p className="text-xs text-green-600 mb-1">{t('totalIncome')}</p>
-                    <p className="text-sm font-semibold text-green-700">
-                      {formatCurrency(report.total_income)}
-                    </p>
-                  </div>
-                  <div className="text-center p-2 bg-red-50 rounded border border-red-100">
-                    <p className="text-xs text-red-600 mb-1">{t('totalExpenses')}</p>
-                    <p className="text-sm font-semibold text-red-700">
-                      {formatCurrency(report.total_expenses)}
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="text-center p-2 bg-blue-50 rounded border border-blue-100">
-                    <p className="text-xs text-blue-600 mb-1">{t('totalInvestments')}</p>
-                    <p className="text-sm font-semibold text-blue-700">
-                      {formatCurrency(report.total_investments)}
-                    </p>
-                  </div>
-                  <div className="text-center p-2 bg-purple-50 rounded border border-purple-100">
-                    <p className="text-xs text-purple-600 mb-1">{t('savingsRate')}</p>
-                    <p className="text-sm font-semibold text-purple-700">
-                      {report.savings_rate.toFixed(1)}%
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="mt-3 text-xs text-gray-500 text-right">
-                  {new Date(report.created_at).toLocaleDateString('hi-IN')} {t('createdOn')}
-                </div>
-              </div>
+              <ReportItem key={report.id} report={report} />
             ))}
           </div>
         )}
