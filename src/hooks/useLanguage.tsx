@@ -123,6 +123,32 @@ const translations = {
     yearly: 'वार्षिक',
     report: 'रिपोर्ट',
     
+    // AI Recommendations - New translations
+    aiFinancialSuggestions: 'AI वित्तीय सुझाव',
+    getPersonalizedSuggestions: 'आपकी वित्तीय स्थिति का विश्लेषण करके व्यक्तिगत सुझाव प्राप्त करें',
+    getAiSuggestions: 'AI सुझाव प्राप्त करें',
+    analyzing: 'विश्लेषण हो रहा है...',
+    financialHealthScore: 'वित्तीय स्वास्थ्य स्कोर',
+    excellent: 'उत्कृष्ट! आपकी वित्तीय स्थिति बहुत अच्छी है।',
+    good: 'अच्छी! कुछ सुधार की गुंजाइश है।',
+    average: 'औसत। वित्तीय अनुशासन की आवश्यकता है।',
+    warning: 'चेतावनी! तत्काल वित्तीय सुधार आवश्यक है।',
+    suggestedMonthlyInvestment: 'सुझावित मासिक निवेश',
+    investMonthlyToGrowWealth: 'प्रति माह निवेश करके अपना wealth बढ़ाएं',
+    aiAnalysisReport: 'AI विश्लेषण रिपोर्ट',
+    personalSuggestions: 'व्यक्तिगत सुझाव',
+    highPriority: 'उच्च प्राथमिकता',
+    mediumPriority: 'मध्यम प्राथमिकता',
+    lowPriority: 'कम प्राथमिकता',
+    normal: 'सामान्य',
+    suggestedInstruments: 'सुझावित साधन:',
+    updateSuggestions: 'सुझाव अपडेट करें',
+    updating: 'अपडेट हो रहा है...',
+    error: 'त्रुटि',
+    failedToGetAiSuggestions: 'AI सुझाव प्राप्त करने में असफल',
+    success: 'सफलता',
+    aiSuggestionsReceived: 'AI सुझाव सफलतापूर्वक प्राप्त किए गए',
+    
     // Categories - keeping original keys for backward compatibility
     foodGroceries: 'भोजन और किराना',
     transport: 'परिवहन',
@@ -136,8 +162,6 @@ const translations = {
     
     // Common
     loading: 'लोड हो रहा है...',
-    error: 'त्रुटि',
-    success: 'सफलता',
     fillAllFields: 'कृपया सभी आवश्यक फ़ील्ड भरें',
     failedToDelete: 'डिलीट करने में विफल',
     expenseDeleted: 'खर्च सफलतापूर्वक डिलीट किया गया',
@@ -245,6 +269,32 @@ const translations = {
     yearly: 'Yearly',
     report: 'Report',
     
+    // AI Recommendations - New translations
+    aiFinancialSuggestions: 'AI Financial Suggestions',
+    getPersonalizedSuggestions: 'Get personalized suggestions by analyzing your financial status',
+    getAiSuggestions: 'Get AI Suggestions',
+    analyzing: 'Analyzing...',
+    financialHealthScore: 'Financial Health Score',
+    excellent: 'Excellent! Your financial status is very good.',
+    good: 'Good! There is room for some improvement.',
+    average: 'Average. Financial discipline is needed.',
+    warning: 'Warning! Immediate financial improvement is necessary.',
+    suggestedMonthlyInvestment: 'Suggested Monthly Investment',
+    investMonthlyToGrowWealth: 'Invest monthly to grow your wealth',
+    aiAnalysisReport: 'AI Analysis Report',
+    personalSuggestions: 'Personal Suggestions',
+    highPriority: 'High Priority',
+    mediumPriority: 'Medium Priority',
+    lowPriority: 'Low Priority',
+    normal: 'Normal',
+    suggestedInstruments: 'Suggested Instruments:',
+    updateSuggestions: 'Update Suggestions',
+    updating: 'Updating...',
+    error: 'Error',
+    failedToGetAiSuggestions: 'Failed to get AI suggestions',
+    success: 'Success',
+    aiSuggestionsReceived: 'AI suggestions received successfully',
+    
     // Categories - keeping original keys for backward compatibility
     foodGroceries: 'Food & Groceries',
     transport: 'Transport',
@@ -258,8 +308,6 @@ const translations = {
     
     // Common
     loading: 'Loading...',
-    error: 'Error',
-    success: 'Success',
     fillAllFields: 'Please fill all required fields',
     failedToDelete: 'Failed to delete',
     expenseDeleted: 'Expense deleted successfully',
