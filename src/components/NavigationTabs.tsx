@@ -9,12 +9,16 @@ import {
   PieChart, 
   FileText, 
   Settings,
-  Brain
+  Brain,
+  Receipt
 } from "lucide-react";
 import AIRecommendations from "./AIRecommendations";
 import InvestmentPortfolio from "./InvestmentPortfolio";
 import BudgetTracker from "./BudgetTracker";
 import FinancialReportsCard from "./FinancialReportsCard";
+import ExpensesPage from "../pages/ExpensesPage";
+import LanguageSelector from "./LanguageSelector";
+import { useLanguage } from "@/hooks/useLanguage";
 
 interface NavigationTabsProps {
   children: React.ReactNode;
@@ -22,19 +26,27 @@ interface NavigationTabsProps {
 
 const NavigationTabs = ({ children }: NavigationTabsProps) => {
   const [activeTab, setActiveTab] = useState('dashboard');
+  const { t } = useLanguage();
 
   const tabs = [
-    { id: 'dashboard', label: 'डैशबोर्ड', icon: Home },
-    { id: 'investments', label: 'निवेश', icon: TrendingUp },
-    { id: 'budget', label: 'बजट', icon: Target },
-    { id: 'reports', label: 'रिपोर्ट्स', icon: FileText },
-    { id: 'ai', label: 'AI सुझाव', icon: Brain },
+    { id: 'dashboard', label: t('dashboard'), icon: Home },
+    { id: 'expenses', label: t('expenses'), icon: Receipt },
+    { id: 'investments', label: t('investments'), icon: TrendingUp },
+    { id: 'budget', label: t('budget'), icon: Target },
+    { id: 'reports', label: t('reports'), icon: FileText },
+    { id: 'ai', label: t('aiSuggestions'), icon: Brain },
   ];
 
   const renderTabContent = () => {
     switch (activeTab) {
       case 'dashboard':
         return children;
+      case 'expenses':
+        return (
+          <div className="space-y-6">
+            <ExpensesPage />
+          </div>
+        );
       case 'investments':
         return (
           <div className="space-y-6">
@@ -66,6 +78,11 @@ const NavigationTabs = ({ children }: NavigationTabsProps) => {
 
   return (
     <div className="min-h-screen bg-slate-50">
+      {/* Language Selector - Fixed at top right */}
+      <div className="fixed top-4 right-4 z-50">
+        <LanguageSelector />
+      </div>
+
       <div className="pb-20">
         {renderTabContent()}
       </div>
