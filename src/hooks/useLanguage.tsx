@@ -52,6 +52,15 @@ const translations = {
     enterMonthlyIncome: 'अपनी मासिक आय दर्ज करें',
     saveIncome: 'आय सहेजें',
     
+    // Goal Modal specific translations
+    setFinancialGoal: 'वित्तीय लक्ष्य निर्धारित करें',
+    goalName: 'लक्ष्य का नाम',
+    goalNamePlaceholder: 'उदा., आपातकालीन फंड, नई कार',
+    goalAmount: 'लक्ष्य राशि (₹)',
+    currentAmount: 'वर्तमान राशि (₹)',
+    timeline: 'समयसीमा (महीने)',
+    priority: 'प्राथमिकता',
+    
     // Navigation
     investments: 'निवेश',
     budget: 'बजट',
@@ -201,6 +210,15 @@ const translations = {
     monthlyIncomeAmount: 'Monthly Income (₹)',
     enterMonthlyIncome: 'Enter your monthly income',
     saveIncome: 'Save Income',
+    
+    // Goal Modal specific translations
+    setFinancialGoal: 'Set Financial Goal',
+    goalName: 'Goal Name',
+    goalNamePlaceholder: 'e.g., Emergency Fund, New Car',
+    goalAmount: 'Goal Amount (₹)',
+    currentAmount: 'Current Amount (₹)',
+    timeline: 'Timeline (Months)',
+    priority: 'Priority',
     
     // Navigation
     investments: 'Investments',

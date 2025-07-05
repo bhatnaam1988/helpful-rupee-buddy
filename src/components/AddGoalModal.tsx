@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Target } from "lucide-react";
 import { useGoals } from "@/hooks/useGoals";
+import { useLanguage } from "@/hooks/useLanguage";
 
 interface AddGoalModalProps {
   children?: React.ReactNode;
@@ -22,6 +23,7 @@ const AddGoalModal = ({ children, open, onOpenChange }: AddGoalModalProps) => {
   const [timelineMonths, setTimelineMonths] = useState("");
   const [priority, setPriority] = useState<"High" | "Medium" | "Low">("Medium");
   const { addGoal } = useGoals();
+  const { t } = useLanguage();
 
   const isOpen = open !== undefined ? open : internalOpen;
   const setIsOpen = onOpenChange || setInternalOpen;
@@ -54,27 +56,27 @@ const AddGoalModal = ({ children, open, onOpenChange }: AddGoalModalProps) => {
         {children || (
           <Button variant="outline" className="h-16 border-blue-200 hover:bg-blue-50 flex flex-col items-center justify-center space-y-1">
             <Target className="w-6 h-6 text-blue-600" />
-            <span className="text-sm text-blue-600">लक्ष्य निर्धारित करें</span>
+            <span className="text-sm text-blue-600">{t('setGoal')}</span>
           </Button>
         )}
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>वित्तीय लक्ष्य निर्धारित करें</DialogTitle>
+          <DialogTitle>{t('setFinancialGoal')}</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <Label htmlFor="name">लक्ष्य का नाम</Label>
+            <Label htmlFor="name">{t('goalName')}</Label>
             <Input
               id="name"
-              placeholder="उदा., आपातकालीन फंड, नई कार"
+              placeholder={t('goalNamePlaceholder')}
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
             />
           </div>
           <div>
-            <Label htmlFor="targetAmount">लक्ष्य राशि (₹)</Label>
+            <Label htmlFor="targetAmount">{t('goalAmount')}</Label>
             <Input
               id="targetAmount"
               type="number"
@@ -86,7 +88,7 @@ const AddGoalModal = ({ children, open, onOpenChange }: AddGoalModalProps) => {
             />
           </div>
           <div>
-            <Label htmlFor="currentAmount">वर्तमान राशि (₹)</Label>
+            <Label htmlFor="currentAmount">{t('currentAmount')}</Label>
             <Input
               id="currentAmount"
               type="number"
@@ -97,7 +99,7 @@ const AddGoalModal = ({ children, open, onOpenChange }: AddGoalModalProps) => {
             />
           </div>
           <div>
-            <Label htmlFor="timeline">समयसीमा (महीने)</Label>
+            <Label htmlFor="timeline">{t('timeline')}</Label>
             <Input
               id="timeline"
               type="number"
@@ -107,24 +109,24 @@ const AddGoalModal = ({ children, open, onOpenChange }: AddGoalModalProps) => {
             />
           </div>
           <div>
-            <Label htmlFor="priority">प्राथमिकता</Label>
+            <Label htmlFor="priority">{t('priority')}</Label>
             <Select value={priority} onValueChange={(value: "High" | "Medium" | "Low") => setPriority(value)}>
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="High">उच्च</SelectItem>
-                <SelectItem value="Medium">मध्यम</SelectItem>
-                <SelectItem value="Low">कम</SelectItem>
+                <SelectItem value="High">{t('highPriority')}</SelectItem>
+                <SelectItem value="Medium">{t('mediumPriority')}</SelectItem>
+                <SelectItem value="Low">{t('lowPriority')}</SelectItem>
               </SelectContent>
             </Select>
           </div>
           <div className="flex space-x-2">
             <Button type="button" variant="outline" onClick={() => setIsOpen(false)} className="flex-1">
-              रद्द करें
+              {t('cancel')}
             </Button>
             <Button type="submit" className="flex-1 bg-blue-600 hover:bg-blue-700">
-              लक्ष्य निर्धारित करें
+              {t('setGoal')}
             </Button>
           </div>
         </form>
