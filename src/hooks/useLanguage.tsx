@@ -1,6 +1,124 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
 
-type Language = 'hi' | 'en';
+import { createContext, useContext, useState, ReactNode } from 'react';
+
+type Language = 'en' | 'hi';
+
+interface Translations {
+  [key: string]: {
+    en: string;
+    hi: string;
+  };
+}
+
+const translations: Translations = {
+  // Authentication & Onboarding
+  hello: { en: 'Hello', hi: 'नमस्ते' },
+  welcome: { en: 'Welcome', hi: 'स्वागत है' },
+  logOut: { en: 'Log Out', hi: 'लॉग आउट' },
+  loading: { en: 'Loading...', hi: 'लोड हो रहा है...' },
+  
+  // Navigation & Dashboard
+  dashboard: { en: 'Dashboard', hi: 'डैशबोर्ड' },
+  expenses: { en: 'Expenses', hi: 'खर्च' },
+  investments: { en: 'Investments', hi: 'निवेश' },
+  budget: { en: 'Budget', hi: 'बजट' },
+  reports: { en: 'Reports', hi: 'रिपोर्ट्स' },
+  aiSuggestions: { en: 'AI Suggestions', hi: 'AI सुझाव' },
+  yourFinancialDashboard: { en: 'Your Financial Dashboard', hi: 'आपका वित्तीय डैशबोर्ड' },
+  
+  // Stats & Overview
+  totalExpenses: { en: 'Total Expenses', hi: 'कुल खर्च' },
+  goalAmount: { en: 'Goal Amount', hi: 'लक्ष्य राशि' },
+  monthlyIncome: { en: 'Monthly Income', hi: 'मासिक आय' },
+  thisMonth: { en: 'This Month', hi: 'इस महीने' },
+  goalsCompleted: { en: 'Goals Completed', hi: 'लक्ष्य पूरे' },
+  perMonth: { en: 'Per Month', hi: 'प्रति महीना' },
+  
+  // Quick Actions
+  addExpense: { en: 'Add Expense', hi: 'खर्च जोड़ें' },
+  setGoal: { en: 'Set Goal', hi: 'लक्ष्य निर्धारित करें' },
+  updateIncome: { en: 'Update Income', hi: 'आय अपडेट करें' },
+  recordNewExpense: { en: 'Record a new expense', hi: 'नया खर्च दर्ज करें' },
+  createFinancialGoal: { en: 'Create a financial goal', hi: 'वित्तीय लक्ष्य बनाएं' },
+  addMonthlyIncome: { en: 'Add monthly income', hi: 'मासिक आय जोड़ें' },
+  addGoal: { en: 'Add Goal', hi: 'लक्ष्य जोड़ें' },
+  addIncome: { en: 'Add Income', hi: 'आय जोड़ें' },
+  
+  // Recent Items
+  recentExpenses: { en: 'Recent Expenses', hi: 'हाल के खर्च' },
+  yourGoals: { en: 'Your Goals', hi: 'आपके लक्ष्य' },
+  
+  // Forms & Modals
+  category: { en: 'Category', hi: 'श्रेणी' },
+  amount: { en: 'Amount', hi: 'राशि' },
+  description: { en: 'Description', hi: 'विवरण' },
+  date: { en: 'Date', hi: 'तारीख' },
+  cancel: { en: 'Cancel', hi: 'रद्द करें' },
+  save: { en: 'Save', hi: 'सेव करें' },
+  
+  // Goal Related
+  goalName: { en: 'Goal Name', hi: 'लक्ष्य का नाम' },
+  goalNamePlaceholder: { en: 'e.g., Emergency Fund', hi: 'जैसे, आपातकालीन फंड' },
+  setFinancialGoal: { en: 'Set Financial Goal', hi: 'वित्तीय लक्ष्य निर्धारित करें' },
+  currentAmount: { en: 'Current Amount', hi: 'वर्तमान राशि' },
+  timeline: { en: 'Timeline (months)', hi: 'समयसीमा (महीने)' },
+  priority: { en: 'Priority', hi: 'प्राथमिकता' },
+  highPriority: { en: 'High', hi: 'उच्च' },
+  mediumPriority: { en: 'Medium', hi: 'मध्यम' },
+  lowPriority: { en: 'Low', hi: 'निम्न' },
+  
+  // Expense Categories
+  'Food & Groceries': { en: 'Food & Groceries', hi: 'भोजन और किराना' },
+  'Transport': { en: 'Transport', hi: 'परिवहन' },
+  'Utilities': { en: 'Utilities', hi: 'उपयोगिताएं' },
+  'Rent/Housing': { en: 'Rent/Housing', hi: 'किराया/आवास' },
+  'Entertainment': { en: 'Entertainment', hi: 'मनोरंजन' },
+  'Healthcare': { en: 'Healthcare', hi: 'स्वास्थ्य सेवा' },
+  'Shopping': { en: 'Shopping', hi: 'शॉपिंग' },
+  'Education': { en: 'Education', hi: 'शिक्षा' },
+  'Other': { en: 'Other', hi: 'अन्य' },
+  
+  // Expense Management
+  expenseManagement: { en: 'Expense Management', hi: 'खर्च प्रबंधन' },
+  manageExpenses: { en: 'Track and manage your expenses', hi: 'अपने खर्चों को ट्रैक और प्रबंधित करें' },
+  addNewExpense: { en: 'Add New Expense', hi: 'नया खर्च जोड़ें' },
+  enterExpenseDetails: { en: 'Enter the details of your expense', hi: 'अपने खर्च का विवरण दर्ज करें' },
+  selectCategory: { en: 'Select category', hi: 'श्रेणी चुनें' },
+  optionalDescription: { en: 'Optional description', hi: 'वैकल्पिक विवरण' },
+  allExpenses: { en: 'All Expenses', hi: 'सभी खर्च' },
+  noExpensesFound: { en: 'No expenses found', hi: 'कोई खर्च नहीं मिला' },
+  actions: { en: 'Actions', hi: 'कार्य' },
+  
+  // Financial Reports
+  financialReports: { en: 'Financial Reports', hi: 'वित्तीय रिपोर्ट्स' },
+  noReportsGenerated: { en: 'No reports generated yet', hi: 'अभी तक कोई रिपोर्ट नहीं बनी' },
+  generateFirstReport: { en: 'Generate your first report above', hi: 'ऊपर अपनी पहली रिपोर्ट बनाएं' },
+  recentReports: { en: 'Recent Reports', hi: 'हाल की रिपोर्ट्स' },
+  
+  // Budget
+  totalMonthlyBudget: { en: 'Total Monthly Budget', hi: 'कुल मासिक बजट' },
+  totalSpent: { en: 'Total Spent', hi: 'कुल खर्च' },
+  usage: { en: 'Usage', hi: 'उपयोग' },
+  
+  // Error & Success Messages
+  error: { en: 'Error', hi: 'त्रुटि' },
+  success: { en: 'Success', hi: 'सफलता' },
+  fillAllFields: { en: 'Please fill all required fields', hi: 'कृपया सभी आवश्यक फ़ील्ड भरें' },
+  failedToDelete: { en: 'Failed to delete', hi: 'हटाने में असफल' },
+  expenseDeleted: { en: 'Expense deleted successfully', hi: 'खर्च सफलतापूर्वक हटा दिया गया' },
+  
+  // AI Recommendations
+  financialRecommendations: { en: 'Financial Recommendations', hi: 'वित्तीय सिफारिशें' },
+  getPersonalizedAdvice: { en: 'Get personalized financial advice based on your spending patterns', hi: 'अपने खर्च के पैटर्न के आधार पर व्यक्तिगत वित्तीय सलाह पाएं' },
+  getRecommendations: { en: 'Get Recommendations', hi: 'सिफारिशें प्राप्त करें' },
+  gettingRecommendations: { en: 'Getting recommendations...', hi: 'सिफारिशें प्राप्त की जा रही हैं...' },
+  noRecommendationsYet: { en: 'No recommendations yet', hi: 'अभी तक कोई सिफारिश नहीं' },
+  clickButtonForAdvice: { en: 'Click the button above to get personalized financial advice', hi: 'व्यक्तिगत वित्तीय सलाह पाने के लिए ऊपर दिए गए बटन पर क्लिक करें' },
+  yourRecommendations: { en: 'Your Recommendations', hi: 'आपकी सिफारिशें' },
+  monthlyInvestmentSuggestion: { en: 'Monthly Investment Suggestion', hi: 'मासिक निवेश सुझाव' },
+  recommendedInstruments: { en: 'Recommended Instruments', hi: 'सुझाए गए साधन' },
+  aiAdvice: { en: 'AI Advice', hi: 'AI सलाह' }
+};
 
 interface LanguageContextType {
   currentLanguage: Language;
@@ -11,349 +129,8 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-// Standard category mapping - English categories are stored in DB
-const categoryTranslations = {
-  'Food & Groceries': { hi: 'भोजन और किराना', en: 'Food & Groceries' },
-  'Transport': { hi: 'परिवहन', en: 'Transport' },
-  'Utilities': { hi: 'उपयोगिताएं', en: 'Utilities' },
-  'Rent/Housing': { hi: 'किराया/आवास', en: 'Rent/Housing' },
-  'Entertainment': { hi: 'मनोरंजन', en: 'Entertainment' },
-  'Healthcare': { hi: 'स्वास्थ्य सेवा', en: 'Healthcare' },
-  'Shopping': { hi: 'खरीदारी', en: 'Shopping' },
-  'Education': { hi: 'शिक्षा', en: 'Education' },
-  'Other': { hi: 'अन्य', en: 'Other' }
-};
-
-const translations = {
-  hi: {
-    // Dashboard
-    hello: 'नमस्ते',
-    dashboard: 'डैशबोर्ड',
-    yourFinancialDashboard: 'आपका वित्तीय डैशबोर्ड',
-    logOut: 'लॉग आउट',
-    totalExpenses: 'कुल खर्च',
-    thisMonth: 'इस महीने',
-    goalAmount: 'लक्ष्य राशि',
-    goalsCompleted: 'लक्ष्य पूर्ण',
-    monthlyIncome: 'मासिक आय',
-    perMonth: 'प्रति माह',
-    
-    // Quick Actions
-    addExpense: 'खर्च जोड़ें',
-    recordNewExpense: 'नया खर्च रिकॉर्ड करें',
-    setGoal: 'लक्ष्य सेट करें',
-    createFinancialGoal: 'वित्तीय लक्ष्य बनाएं',
-    addGoal: 'लक्ष्य जोड़ें',
-    updateIncome: 'आय अपडेट करें',
-    addMonthlyIncome: 'मासिक आय जोड़ें',
-    addIncome: 'आय जोड़ें',
-    setMonthlyIncome: 'मासिक आय निर्धारित करें',
-    monthlyIncomeAmount: 'मासिक आय (₹)',
-    enterMonthlyIncome: 'अपनी मासिक आय दर्ज करें',
-    saveIncome: 'आय सहेजें',
-    
-    // Goal Modal specific translations
-    setFinancialGoal: 'वित्तीय लक्ष्य निर्धारित करें',
-    goalName: 'लक्ष्य का नाम',
-    goalNamePlaceholder: 'उदा., आपातकालीन फंड, नई कार',
-    goalAmount: 'लक्ष्य राशि (₹)',
-    currentAmount: 'वर्तमान राशि (₹)',
-    timeline: 'समयसीमा (महीने)',
-    priority: 'प्राथमिकता',
-    
-    // Navigation
-    investments: 'निवेश',
-    budget: 'बजट',
-    reports: 'रिपोर्ट्स',
-    aiSuggestions: 'AI सुझाव',
-    expenses: 'खर्च',
-    
-    // Recent Items
-    recentExpenses: 'हाल के खर्च',
-    yourGoals: 'आपके लक्ष्य',
-    
-    // Expense Management
-    expenseManagement: 'खर्च प्रबंधन',
-    manageExpenses: 'अपने सभी खर्चों को देखें और प्रबंधित करें',
-    allExpenses: 'सभी खर्च',
-    addNewExpense: 'नया खर्च जोड़ें',
-    enterExpenseDetails: 'खर्च की विवरण दर्ज करें',
-    category: 'श्रेणी',
-    amount: 'राशि',
-    description: 'विवरण',
-    date: 'दिनांक',
-    actions: 'कार्य',
-    selectCategory: 'श्रेणी चुनें',
-    optionalDescription: 'वैकल्पिक विवरण',
-    noExpensesFound: 'कोई खर्च नहीं मिला',
-    cancel: 'रद्द करें',
-    
-    // Budget Tracker
-    budgetTracker: 'बजट ट्रैकर',
-    totalMonthlyBudget: 'कुल मासिक बजट',
-    totalSpent: 'कुल खर्च',
-    usage: 'उपयोग',
-    categoryWiseBudget: 'श्रेणी अनुसार बजट',
-    noBudgetSet: 'अभी तक कोई बजट सेट नहीं किया गया',
-    setBudgetFirst: 'पहले बजट सेट करें',
-    remaining: 'बचा है',
-    exceeded: 'अधिक खर्च',
-    limit: 'सीमा',
-    spent: 'खर्च',
-    
-    // Investment Portfolio
-    investmentPortfolio: 'निवेश पोर्टफोलियो',
-    totalInvestment: 'कुल निवेश',
-    currentValue: 'वर्तमान मूल्य',
-    totalGain: 'कुल लाभ',
-    totalLoss: 'कुल हानि',
-    yourInvestments: 'आपके निवेश',
-    noInvestments: 'अभी तक कोई निवेश नहीं है',
-    startInvestingToday: 'आज ही निवेश शुरू करें',
-    expectedReturn: 'अपेक्षित रिटर्न',
-    active: 'सक्रिय',
-    matured: 'परिपक्व',
-    closed: 'बंद',
-    
-    // Financial Reports
-    financialReports: 'वित्तीय रिपोर्ट्स',
-    generateNewReport: 'नई रिपोर्ट जेनरेट करें',
-    selectReportType: 'रिपोर्ट प्रकार चुनें',
-    monthlyReport: 'मासिक रिपोर्ट',
-    quarterlyReport: 'त्रैमासिक रिपोर्ट',
-    yearlyReport: 'वार्षिक रिपोर्ट',
-    generateReport: 'रिपोर्ट जेनरेट करें',
-    generating: 'जेनरेट हो रही है...',
-    recentReports: 'हाल की रिपोर्ट्स',
-    noReportsGenerated: 'अभी तक कोई रिपोर्ट नहीं बनाई गई',
-    generateFirstReport: 'ऊपर से अपनी पहली रिपोर्ट जेनरेट करें',
-    totalIncome: 'कुल आय',
-    totalInvestments: 'कुल निवेश',
-    savingsRate: 'बचत दर',
-    createdOn: 'को बनाई गई',
-    monthly: 'मासिक',
-    quarterly: 'त्रैमासिक',
-    yearly: 'वार्षिक',
-    report: 'रिपोर्ट',
-    
-    // AI Recommendations - New translations
-    aiFinancialSuggestions: 'AI वित्तीय सुझाव',
-    getPersonalizedSuggestions: 'आपकी वित्तीय स्थिति का विश्लेषण करके व्यक्तिगत सुझाव प्राप्त करें',
-    getAiSuggestions: 'AI सुझाव प्राप्त करें',
-    analyzing: 'विश्लेषण हो रहा है...',
-    financialHealthScore: 'वित्तीय स्वास्थ्य स्कोर',
-    excellent: 'उत्कृष्ट! आपकी वित्तीय स्थिति बहुत अच्छी है।',
-    good: 'अच्छी! कुछ सुधार की गुंजाइश है।',
-    average: 'औसत। वित्तीय अनुशासन की आवश्यकता है।',
-    warning: 'चेतावनी! तत्काल वित्तीय सुधार आवश्यक है।',
-    suggestedMonthlyInvestment: 'सुझावित मासिक निवेश',
-    investMonthlyToGrowWealth: 'प्रति माह निवेश करके अपना wealth बढ़ाएं',
-    aiAnalysisReport: 'AI विश्लेषण रिपोर्ट',
-    personalSuggestions: 'व्यक्तिगत सुझाव',
-    highPriority: 'उच्च प्राथमिकता',
-    mediumPriority: 'मध्यम प्राथमिकता',
-    lowPriority: 'कम प्राथमिकता',
-    normal: 'सामान्य',
-    suggestedInstruments: 'सुझावित साधन:',
-    updateSuggestions: 'सुझाव अपडेट करें',
-    updating: 'अपडेट हो रहा है...',
-    error: 'त्रुटि',
-    failedToGetAiSuggestions: 'AI सुझाव प्राप्त करने में असफल',
-    success: 'सफलता',
-    aiSuggestionsReceived: 'AI सुझाव सफलतापूर्वक प्राप्त किए गए',
-    
-    // Categories - keeping original keys for backward compatibility
-    foodGroceries: 'भोजन और किराना',
-    transport: 'परिवहन',
-    utilities: 'उपयोगिताएं',
-    rentHousing: 'किराया/आवास',
-    entertainment: 'मनोरंजन',
-    healthcare: 'स्वास्थ्य सेवा',
-    shopping: 'खरीदारी',
-    education: 'शिक्षा',
-    other: 'अन्य',
-    
-    // Common
-    loading: 'लोड हो रहा है...',
-    fillAllFields: 'कृपया सभी आवश्यक फ़ील्ड भरें',
-    failedToDelete: 'डिलीट करने में विफल',
-    expenseDeleted: 'खर्च सफलतापूर्वक डिलीट किया गया',
-    
-    // Language
-    language: 'भाषा',
-    hindi: 'हिंदी',
-    english: 'अंग्रेजी'
-  },
-  en: {
-    // Dashboard
-    hello: 'Hello',
-    dashboard: 'Dashboard',
-    yourFinancialDashboard: 'Your Financial Dashboard',
-    logOut: 'Log Out',
-    totalExpenses: 'Total Expenses',
-    thisMonth: 'This Month',
-    goalAmount: 'Goal Amount',
-    goalsCompleted: 'Goals Completed',
-    monthlyIncome: 'Monthly Income',
-    perMonth: 'Per Month',
-    
-    // Quick Actions
-    addExpense: 'Add Expense',
-    recordNewExpense: 'Record New Expense',
-    setGoal: 'Set Goal',
-    createFinancialGoal: 'Create Financial Goal',
-    addGoal: 'Add Goal',
-    updateIncome: 'Update Income',
-    addMonthlyIncome: 'Add Monthly Income',
-    addIncome: 'Add Income',
-    setMonthlyIncome: 'Set Monthly Income',
-    monthlyIncomeAmount: 'Monthly Income (₹)',
-    enterMonthlyIncome: 'Enter your monthly income',
-    saveIncome: 'Save Income',
-    
-    // Goal Modal specific translations
-    setFinancialGoal: 'Set Financial Goal',
-    goalName: 'Goal Name',
-    goalNamePlaceholder: 'e.g., Emergency Fund, New Car',
-    goalAmount: 'Goal Amount (₹)',
-    currentAmount: 'Current Amount (₹)',
-    timeline: 'Timeline (Months)',
-    priority: 'Priority',
-    
-    // Navigation
-    investments: 'Investments',
-    budget: 'Budget',
-    reports: 'Reports',
-    aiSuggestions: 'AI Suggestions',
-    expenses: 'Expenses',
-    
-    // Recent Items
-    recentExpenses: 'Recent Expenses',
-    yourGoals: 'Your Goals',
-    
-    // Expense Management
-    expenseManagement: 'Expense Management',
-    manageExpenses: 'View and manage all your expenses',
-    allExpenses: 'All Expenses',
-    addNewExpense: 'Add New Expense',
-    enterExpenseDetails: 'Enter expense details',
-    category: 'Category',
-    amount: 'Amount',
-    description: 'Description',
-    date: 'Date',
-    actions: 'Actions',
-    selectCategory: 'Select Category',
-    optionalDescription: 'Optional Description',
-    noExpensesFound: 'No expenses found',
-    cancel: 'Cancel',
-    
-    // Budget Tracker
-    budgetTracker: 'Budget Tracker',
-    totalMonthlyBudget: 'Total Monthly Budget',
-    totalSpent: 'Total Spent',
-    usage: 'Usage',
-    categoryWiseBudget: 'Category-wise Budget',
-    noBudgetSet: 'No budget has been set yet',
-    setBudgetFirst: 'Set budget first',
-    remaining: 'remaining',
-    exceeded: 'exceeded',
-    limit: 'Limit',
-    spent: 'Spent',
-    
-    // Investment Portfolio
-    investmentPortfolio: 'Investment Portfolio',
-    totalInvestment: 'Total Investment',
-    currentValue: 'Current Value',
-    totalGain: 'Total Gain',
-    totalLoss: 'Total Loss',
-    yourInvestments: 'Your Investments',
-    noInvestments: 'No investments yet',
-    startInvestingToday: 'Start investing today',
-    expectedReturn: 'Expected Return',
-    active: 'Active',
-    matured: 'Matured',
-    closed: 'Closed',
-    
-    // Financial Reports
-    financialReports: 'Financial Reports',
-    generateNewReport: 'Generate New Report',
-    selectReportType: 'Select Report Type',
-    monthlyReport: 'Monthly Report',
-    quarterlyReport: 'Quarterly Report',
-    yearlyReport: 'Yearly Report',
-    generateReport: 'Generate Report',
-    generating: 'Generating...',
-    recentReports: 'Recent Reports',
-    noReportsGenerated: 'No reports generated yet',
-    generateFirstReport: 'Generate your first report from above',
-    totalIncome: 'Total Income',
-    totalInvestments: 'Total Investments',
-    savingsRate: 'Savings Rate',
-    createdOn: 'created on',
-    monthly: 'Monthly',
-    quarterly: 'Quarterly',
-    yearly: 'Yearly',
-    report: 'Report',
-    
-    // AI Recommendations - New translations
-    aiFinancialSuggestions: 'AI Financial Suggestions',
-    getPersonalizedSuggestions: 'Get personalized suggestions by analyzing your financial status',
-    getAiSuggestions: 'Get AI Suggestions',
-    analyzing: 'Analyzing...',
-    financialHealthScore: 'Financial Health Score',
-    excellent: 'Excellent! Your financial status is very good.',
-    good: 'Good! There is room for some improvement.',
-    average: 'Average. Financial discipline is needed.',
-    warning: 'Warning! Immediate financial improvement is necessary.',
-    suggestedMonthlyInvestment: 'Suggested Monthly Investment',
-    investMonthlyToGrowWealth: 'Invest monthly to grow your wealth',
-    aiAnalysisReport: 'AI Analysis Report',
-    personalSuggestions: 'Personal Suggestions',
-    highPriority: 'High Priority',
-    mediumPriority: 'Medium Priority',
-    lowPriority: 'Low Priority',
-    normal: 'Normal',
-    suggestedInstruments: 'Suggested Instruments:',
-    updateSuggestions: 'Update Suggestions',
-    updating: 'Updating...',
-    error: 'Error',
-    failedToGetAiSuggestions: 'Failed to get AI suggestions',
-    success: 'Success',
-    aiSuggestionsReceived: 'AI suggestions received successfully',
-    
-    // Categories - keeping original keys for backward compatibility
-    foodGroceries: 'Food & Groceries',
-    transport: 'Transport',
-    utilities: 'Utilities',
-    rentHousing: 'Rent/Housing',
-    entertainment: 'Entertainment',
-    healthcare: 'Healthcare',
-    shopping: 'Shopping',
-    education: 'Education',
-    other: 'Other',
-    
-    // Common
-    loading: 'Loading...',
-    fillAllFields: 'Please fill all required fields',
-    failedToDelete: 'Failed to delete',
-    expenseDeleted: 'Expense deleted successfully',
-    
-    // Language
-    language: 'Language',
-    hindi: 'Hindi',
-    english: 'English'
-  }
-};
-
-export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [currentLanguage, setCurrentLanguage] = useState<Language>('hi');
-
-  useEffect(() => {
-    const savedLanguage = localStorage.getItem('language') as Language;
-    if (savedLanguage && (savedLanguage === 'hi' || savedLanguage === 'en')) {
-      setCurrentLanguage(savedLanguage);
-    }
-  }, []);
+export function LanguageProvider({ children }: { children: ReactNode }) {
+  const [currentLanguage, setCurrentLanguage] = useState<Language>('en');
 
   const setLanguage = (lang: Language) => {
     setCurrentLanguage(lang);
@@ -361,15 +138,16 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   const t = (key: string): string => {
-    return translations[currentLanguage][key as keyof typeof translations['hi']] || key;
+    const translation = translations[key];
+    if (!translation) {
+      console.warn(`Translation missing for key: ${key}`);
+      return key;
+    }
+    return translation[currentLanguage] || key;
   };
 
   const translateCategory = (category: string): string => {
-    const categoryMap = categoryTranslations[category as keyof typeof categoryTranslations];
-    if (categoryMap) {
-      return categoryMap[currentLanguage];
-    }
-    return category; // fallback to original if not found
+    return t(category);
   };
 
   return (
@@ -377,12 +155,12 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       {children}
     </LanguageContext.Provider>
   );
-};
+}
 
-export const useLanguage = () => {
+export function useLanguage() {
   const context = useContext(LanguageContext);
   if (context === undefined) {
     throw new Error('useLanguage must be used within a LanguageProvider');
   }
   return context;
-};
+}

@@ -113,22 +113,25 @@ const ExpensesPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 p-4 pb-20">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex justify-between items-center mb-6">
+    <div className="min-h-screen bg-slate-50">
+      {/* Mobile-optimized layout */}
+      <div className="px-3 py-4 space-y-4">
+        {/* Mobile-first header */}
+        <div className="space-y-3">
           <div>
             <h1 className="text-2xl font-bold text-gray-900">{t('expenseManagement')}</h1>
-            <p className="text-gray-600">{t('manageExpenses')}</p>
+            <p className="text-gray-600 text-sm">{t('manageExpenses')}</p>
           </div>
           
+          {/* Mobile-optimized add button */}
           <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="flex items-center space-x-2">
-                <PlusCircle className="w-4 h-4" />
-                <span>{t('addExpense')}</span>
+              <Button className="w-full h-12 text-lg font-medium">
+                <PlusCircle className="w-5 h-5 mr-2" />
+                {t('addExpense')}
               </Button>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="mx-4 max-w-sm">
               <DialogHeader>
                 <DialogTitle>{t('addNewExpense')}</DialogTitle>
                 <DialogDescription>{t('enterExpenseDetails')}</DialogDescription>
@@ -182,7 +185,7 @@ const ExpensesPage = () => {
                   />
                 </div>
                 
-                <Button onClick={handleAddExpense} className="w-full">
+                <Button onClick={handleAddExpense} className="w-full h-12">
                   {t('addExpense')}
                 </Button>
               </div>
@@ -190,52 +193,55 @@ const ExpensesPage = () => {
           </Dialog>
         </div>
 
+        {/* Mobile-optimized expenses display */}
         <Card>
           <CardHeader>
-            <CardTitle>{t('allExpenses')}</CardTitle>
+            <CardTitle className="text-lg">{t('allExpenses')}</CardTitle>
             <CardDescription>
               {t('totalExpenses')}: ₹{expenses.reduce((sum, expense) => sum + expense.amount, 0).toLocaleString('hi-IN')}
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-0">
             {expenses.length === 0 ? (
-              <div className="text-center py-8">
+              <div className="text-center py-8 px-4">
                 <p className="text-gray-500">{t('noExpensesFound')}</p>
               </div>
             ) : (
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>{t('date')}</TableHead>
-                    <TableHead>{t('category')}</TableHead>
-                    <TableHead>{t('description')}</TableHead>
-                    <TableHead className="text-right">{t('amount')}</TableHead>
-                    <TableHead className="text-right">{t('actions')}</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {expenses.map((expense) => (
-                    <TableRow key={expense.id}>
-                      <TableCell>{formatDate(expense.expense_date)}</TableCell>
-                      <TableCell>{translateCategory(expense.category)}</TableCell>
-                      <TableCell>{expense.description || '-'}</TableCell>
-                      <TableCell className="text-right font-medium">
-                        ₹{expense.amount.toLocaleString('hi-IN')}
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => handleDeleteExpense(expense.id)}
-                          className="text-red-600 hover:text-red-700"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+              <div className="space-y-2">
+                {/* Mobile-first: Card-based layout instead of table */}
+                {expenses.map((expense) => (
+                  <div key={expense.id} className="border-b last:border-b-0 p-4">
+                    <div className="flex justify-between items-start">
+                      <div className="flex-1 min-w-0">
+                        <div className="flex justify-between items-center mb-1">
+                          <h3 className="font-semibold text-gray-900 truncate">
+                            {translateCategory(expense.category)}
+                          </h3>
+                          <span className="text-lg font-bold text-red-600 ml-2">
+                            ₹{expense.amount.toLocaleString('hi-IN')}
+                          </span>
+                        </div>
+                        <div className="flex justify-between items-center text-sm text-gray-600">
+                          <span>{formatDate(expense.expense_date)}</span>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => handleDeleteExpense(expense.id)}
+                            className="text-red-600 hover:text-red-700 p-1 h-auto"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
+                        {expense.description && (
+                          <p className="text-sm text-gray-600 mt-1 truncate">
+                            {expense.description}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             )}
           </CardContent>
         </Card>

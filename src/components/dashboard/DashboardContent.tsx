@@ -40,26 +40,29 @@ const DashboardContent = ({
   const completedGoals = goals.filter(goal => goal.current_amount >= goal.target_amount).length;
 
   return (
-    <div className="min-h-screen bg-slate-50 p-4 pb-20">
-      <DashboardHeader 
-        userName={profile?.name} 
-        onSignOut={onSignOut} 
-      />
+    <div className="min-h-screen bg-slate-50">
+      {/* Mobile-optimized padding and spacing */}
+      <div className="px-3 py-4 space-y-4">
+        <DashboardHeader 
+          userName={profile?.name} 
+          onSignOut={onSignOut} 
+        />
 
-      <StatsCards
-        totalExpenses={totalExpenses}
-        totalGoalAmount={totalGoalAmount}
-        completedGoals={completedGoals}
-        monthlyIncome={profile?.monthly_income || 0}
-      />
+        <StatsCards
+          totalExpenses={totalExpenses}
+          totalGoalAmount={totalGoalAmount}
+          completedGoals={completedGoals}
+          monthlyIncome={profile?.monthly_income || 0}
+        />
 
-      <QuickActions
-        onAddExpenseClick={() => setShowExpenseModal(true)}
-        onAddGoalClick={() => setShowGoalModal(true)}
-        onAddIncomeClick={() => setShowIncomeModal(true)}
-      />
+        <QuickActions
+          onAddExpenseClick={() => setShowExpenseModal(true)}
+          onAddGoalClick={() => setShowGoalModal(true)}
+          onAddIncomeClick={() => setShowIncomeModal(true)}
+        />
 
-      <RecentItems expenses={expenses} goals={goals} />
+        <RecentItems expenses={expenses} goals={goals} />
+      </div>
 
       {/* Modals */}
       <AddExpenseModal

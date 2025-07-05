@@ -42,31 +42,31 @@ const NavigationTabs = ({ children }: NavigationTabsProps) => {
         return children;
       case 'expenses':
         return (
-          <div className="space-y-6">
+          <div className="space-y-4">
             <ExpensesPage />
           </div>
         );
       case 'investments':
         return (
-          <div className="space-y-6">
+          <div className="space-y-4">
             <InvestmentPortfolio />
           </div>
         );
       case 'budget':
         return (
-          <div className="space-y-6">
+          <div className="space-y-4">
             <BudgetTracker />
           </div>
         );
       case 'reports':
         return (
-          <div className="space-y-6">
+          <div className="space-y-4">
             <FinancialReportsCard />
           </div>
         );
       case 'ai':
         return (
-          <div className="space-y-6">
+          <div className="space-y-4">
             <AIRecommendations />
           </div>
         );
@@ -77,13 +77,14 @@ const NavigationTabs = ({ children }: NavigationTabsProps) => {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <div className="pb-20">
+      {/* Mobile-first content area */}
+      <div className="pb-24 min-h-screen">
         {renderTabContent()}
       </div>
       
-      {/* Bottom Navigation */}
-      <Card className="fixed bottom-0 left-0 right-0 border-t-2 border-gray-200 rounded-none shadow-lg">
-        <CardContent className="p-2">
+      {/* Mobile-optimized Bottom Navigation */}
+      <Card className="fixed bottom-0 left-0 right-0 border-t-2 border-gray-200 rounded-none shadow-lg z-50 bg-white">
+        <CardContent className="p-1">
           <div className="flex justify-around items-center">
             {tabs.map(({ id, label, icon: Icon }) => (
               <Button
@@ -91,14 +92,16 @@ const NavigationTabs = ({ children }: NavigationTabsProps) => {
                 variant={activeTab === id ? "default" : "ghost"}
                 size="sm"
                 onClick={() => setActiveTab(id)}
-                className={`flex flex-col items-center space-y-1 h-auto py-2 px-3 ${
+                className={`flex flex-col items-center justify-center space-y-1 h-auto py-3 px-2 min-w-0 flex-1 text-xs ${
                   activeTab === id 
                     ? 'bg-blue-600 text-white hover:bg-blue-700' 
-                    : 'text-gray-600 hover:text-blue-600'
+                    : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
                 }`}
               >
-                <Icon className="w-4 h-4" />
-                <span className="text-xs font-medium">{label}</span>
+                <Icon className="w-5 h-5 mb-1" />
+                <span className="text-xs font-medium leading-tight truncate w-full text-center">
+                  {label}
+                </span>
               </Button>
             ))}
           </div>
