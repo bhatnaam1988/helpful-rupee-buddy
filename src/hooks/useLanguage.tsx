@@ -47,6 +47,10 @@ const translations = {
     updateIncome: 'आय अपडेट करें',
     addMonthlyIncome: 'मासिक आय जोड़ें',
     addIncome: 'आय जोड़ें',
+    setMonthlyIncome: 'मासिक आय निर्धारित करें',
+    monthlyIncomeAmount: 'मासिक आय (₹)',
+    enterMonthlyIncome: 'अपनी मासिक आय दर्ज करें',
+    saveIncome: 'आय सहेजें',
     
     // Navigation
     investments: 'निवेश',
@@ -193,6 +197,10 @@ const translations = {
     updateIncome: 'Update Income',
     addMonthlyIncome: 'Add Monthly Income',
     addIncome: 'Add Income',
+    setMonthlyIncome: 'Set Monthly Income',
+    monthlyIncomeAmount: 'Monthly Income (₹)',
+    enterMonthlyIncome: 'Enter your monthly income',
+    saveIncome: 'Save Income',
     
     // Navigation
     investments: 'Investments',

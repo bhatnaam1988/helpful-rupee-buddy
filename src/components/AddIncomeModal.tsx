@@ -12,6 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useProfile } from "@/hooks/useProfile";
+import { useLanguage } from "@/hooks/useLanguage";
 
 interface AddIncomeModalProps {
   children?: React.ReactNode;
@@ -23,6 +24,7 @@ const AddIncomeModal = ({ children, open, onOpenChange }: AddIncomeModalProps) =
   const [internalOpen, setInternalOpen] = useState(false);
   const [income, setIncome] = useState("");
   const { updateProfile } = useProfile();
+  const { t } = useLanguage();
 
   const isOpen = open !== undefined ? open : internalOpen;
   const setIsOpen = onOpenChange || setInternalOpen;
@@ -51,21 +53,21 @@ const AddIncomeModal = ({ children, open, onOpenChange }: AddIncomeModalProps) =
             className="w-full h-12 bg-green-600 hover:bg-green-700 text-white"
           >
             <Plus className="w-5 h-5 mr-2" />
-            मासिक आय जोड़ें
+            {t('addMonthlyIncome')}
           </Button>
         )}
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>मासिक आय निर्धारित करें</DialogTitle>
+          <DialogTitle>{t('setMonthlyIncome')}</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="income">मासिक आय (₹)</Label>
+            <Label htmlFor="income">{t('monthlyIncomeAmount')}</Label>
             <Input
               id="income"
               type="number"
-              placeholder="अपनी मासिक आय दर्ज करें"
+              placeholder={t('enterMonthlyIncome')}
               value={income}
               onChange={(e) => setIncome(e.target.value)}
               min="0"
@@ -80,13 +82,13 @@ const AddIncomeModal = ({ children, open, onOpenChange }: AddIncomeModalProps) =
               className="flex-1"
               onClick={() => setIsOpen(false)}
             >
-              रद्द करें
+              {t('cancel')}
             </Button>
             <Button
               type="submit"
               className="flex-1 bg-green-600 hover:bg-green-700"
             >
-              आय सहेजें
+              {t('saveIncome')}
             </Button>
           </div>
         </form>
