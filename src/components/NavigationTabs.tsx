@@ -17,7 +17,6 @@ import InvestmentPortfolio from "./InvestmentPortfolio";
 import BudgetTracker from "./BudgetTracker";
 import FinancialReportsCard from "./FinancialReportsCard";
 import ExpensesPage from "../pages/ExpensesPage";
-import LanguageSelector from "./LanguageSelector";
 import { useLanguage } from "@/hooks/useLanguage";
 
 interface NavigationTabsProps {
@@ -78,11 +77,6 @@ const NavigationTabs = ({ children }: NavigationTabsProps) => {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      {/* Language Selector - Fixed at top right */}
-      <div className="fixed top-4 right-4 z-50">
-        <LanguageSelector />
-      </div>
-
       <div className="pb-20">
         {renderTabContent()}
       </div>
