@@ -34,15 +34,20 @@ const categoryHindi = {
 
 interface AddExpenseModalProps {
   children?: React.ReactNode;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 }
 
-const AddExpenseModal = ({ children }: AddExpenseModalProps) => {
-  const [open, setOpen] = useState(false);
+const AddExpenseModal = ({ children, open, onOpenChange }: AddExpenseModalProps) => {
+  const [internalOpen, setInternalOpen] = useState(false);
   const [category, setCategory] = useState("");
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
   const { addExpense } = useExpenses();
+
+  const isOpen = open !== undefined ? open : internalOpen;
+  const setIsOpen = onOpenChange || setInternalOpen;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -61,11 +66,11 @@ const AddExpenseModal = ({ children }: AddExpenseModalProps) => {
     setAmount("");
     setDescription("");
     setDate(new Date().toISOString().split('T')[0]);
-    setOpen(false);
+    setIsOpen(false);
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         {children || (
           <Button className="h-16 bg-red-600 hover:bg-red-700 flex flex-col items-center justify-center space-y-1">
@@ -126,7 +131,7 @@ const AddExpenseModal = ({ children }: AddExpenseModalProps) => {
             />
           </div>
           <div className="flex space-x-2">
-            <Button type="button" variant="outline" onClick={() => setOpen(false)} className="flex-1">
+            <Button type="button" variant="outline" onClick={() => setIsOpen(false)} className="flex-1">
               रद्द करें
             </Button>
             <Button type="submit" className="flex-1 bg-red-600 hover:bg-red-700">

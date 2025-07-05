@@ -13,10 +13,19 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useProfile } from "@/hooks/useProfile";
 
-const AddIncomeModal = () => {
-  const [open, setOpen] = useState(false);
+interface AddIncomeModalProps {
+  children?: React.ReactNode;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+}
+
+const AddIncomeModal = ({ children, open, onOpenChange }: AddIncomeModalProps) => {
+  const [internalOpen, setInternalOpen] = useState(false);
   const [income, setIncome] = useState("");
   const { updateProfile } = useProfile();
+
+  const isOpen = open !== undefined ? open : internalOpen;
+  const setIsOpen = onOpenChange || setInternalOpen;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,19 +39,21 @@ const AddIncomeModal = () => {
     });
 
     setIncome("");
-    setOpen(false);
+    setIsOpen(false);
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button 
-          size="lg" 
-          className="w-full h-12 bg-green-600 hover:bg-green-700 text-white"
-        >
-          <Plus className="w-5 h-5 mr-2" />
-          मासिक आय जोड़ें
-        </Button>
+        {children || (
+          <Button 
+            size="lg" 
+            className="w-full h-12 bg-green-600 hover:bg-green-700 text-white"
+          >
+            <Plus className="w-5 h-5 mr-2" />
+            मासिक आय जोड़ें
+          </Button>
+        )}
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
@@ -67,7 +78,7 @@ const AddIncomeModal = () => {
               type="button"
               variant="outline"
               className="flex-1"
-              onClick={() => setOpen(false)}
+              onClick={() => setIsOpen(false)}
             >
               रद्द करें
             </Button>

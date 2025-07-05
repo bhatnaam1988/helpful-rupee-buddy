@@ -10,16 +10,21 @@ import { useGoals } from "@/hooks/useGoals";
 
 interface AddGoalModalProps {
   children?: React.ReactNode;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 }
 
-const AddGoalModal = ({ children }: AddGoalModalProps) => {
-  const [open, setOpen] = useState(false);
+const AddGoalModal = ({ children, open, onOpenChange }: AddGoalModalProps) => {
+  const [internalOpen, setInternalOpen] = useState(false);
   const [name, setName] = useState("");
   const [targetAmount, setTargetAmount] = useState("");
   const [currentAmount, setCurrentAmount] = useState("");
   const [timelineMonths, setTimelineMonths] = useState("");
   const [priority, setPriority] = useState<"High" | "Medium" | "Low">("Medium");
   const { addGoal } = useGoals();
+
+  const isOpen = open !== undefined ? open : internalOpen;
+  const setIsOpen = onOpenChange || setInternalOpen;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,11 +45,11 @@ const AddGoalModal = ({ children }: AddGoalModalProps) => {
     setCurrentAmount("");
     setTimelineMonths("");
     setPriority("Medium");
-    setOpen(false);
+    setIsOpen(false);
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         {children || (
           <Button variant="outline" className="h-16 border-blue-200 hover:bg-blue-50 flex flex-col items-center justify-center space-y-1">
@@ -115,7 +120,7 @@ const AddGoalModal = ({ children }: AddGoalModalProps) => {
             </Select>
           </div>
           <div className="flex space-x-2">
-            <Button type="button" variant="outline" onClick={() => setOpen(false)} className="flex-1">
+            <Button type="button" variant="outline" onClick={() => setIsOpen(false)} className="flex-1">
               रद्द करें
             </Button>
             <Button type="submit" className="flex-1 bg-blue-600 hover:bg-blue-700">
