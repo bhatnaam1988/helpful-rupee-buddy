@@ -9,7 +9,129 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      expenses: {
+        Row: {
+          amount: number
+          category: string
+          created_at: string | null
+          description: string | null
+          expense_date: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          category: string
+          created_at?: string | null
+          description?: string | null
+          expense_date?: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          category?: string
+          created_at?: string | null
+          description?: string | null
+          expense_date?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      goals: {
+        Row: {
+          created_at: string | null
+          current_amount: number | null
+          id: string
+          name: string
+          priority: string | null
+          target_amount: number
+          timeline_months: number | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          current_amount?: number | null
+          id?: string
+          name: string
+          priority?: string | null
+          target_amount: number
+          timeline_months?: number | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          current_amount?: number | null
+          id?: string
+          name?: string
+          priority?: string | null
+          target_amount?: number
+          timeline_months?: number | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          age: number | null
+          created_at: string | null
+          id: string
+          location: string | null
+          monthly_income: number | null
+          name: string
+          updated_at: string | null
+        }
+        Insert: {
+          age?: number | null
+          created_at?: string | null
+          id: string
+          location?: string | null
+          monthly_income?: number | null
+          name: string
+          updated_at?: string | null
+        }
+        Update: {
+          age?: number | null
+          created_at?: string | null
+          id?: string
+          location?: string | null
+          monthly_income?: number | null
+          name?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      recommendations: {
+        Row: {
+          ai_advice: string | null
+          created_at: string | null
+          id: string
+          monthly_investment_amount: number | null
+          recommended_instruments: Json | null
+          user_id: string
+        }
+        Insert: {
+          ai_advice?: string | null
+          created_at?: string | null
+          id?: string
+          monthly_investment_amount?: number | null
+          recommended_instruments?: Json | null
+          user_id: string
+        }
+        Update: {
+          ai_advice?: string | null
+          created_at?: string | null
+          id?: string
+          monthly_investment_amount?: number | null
+          recommended_instruments?: Json | null
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
