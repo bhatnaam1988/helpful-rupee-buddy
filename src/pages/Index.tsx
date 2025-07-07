@@ -11,17 +11,37 @@ import OnboardingSplash from "@/components/OnboardingSplash";
 import DashboardContent from "@/components/dashboard/DashboardContent";
 
 const Index = () => {
+  console.log("Index component rendered");
+  
   const { user, signOut, loading: authLoading } = useAuth();
+  console.log("Auth state:", { user: !!user, authLoading });
+  
   const { shouldShowOnboarding, loading: onboardingLoading, completeOnboarding, skipOnboarding } = useOnboarding();
+  console.log("Onboarding state:", { shouldShowOnboarding, onboardingLoading });
+  
   const { expenses, loading: expensesLoading } = useExpenses();
+  console.log("Expenses state:", { expensesCount: expenses.length, expensesLoading });
+  
   const { goals, loading: goalsLoading } = useGoals();
+  console.log("Goals state:", { goalsCount: goals.length, goalsLoading });
+  
   const { profile, loading: profileLoading } = useProfile();
+  console.log("Profile state:", { hasProfile: !!profile, profileLoading });
   
   const [showExpenseModal, setShowExpenseModal] = useState(false);
   const [showGoalModal, setShowGoalModal] = useState(false);
   const [showIncomeModal, setShowIncomeModal] = useState(false);
 
+  console.log("All loading states:", { 
+    authLoading, 
+    onboardingLoading, 
+    expensesLoading, 
+    goalsLoading, 
+    profileLoading 
+  });
+
   if (authLoading || onboardingLoading) {
+    console.log("Showing loading screen due to:", { authLoading, onboardingLoading });
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
@@ -33,11 +53,13 @@ const Index = () => {
   }
 
   if (!user) {
+    console.log("No user found, redirecting to auth");
     return <Navigate to="/auth" replace />;
   }
 
   // Show onboarding if needed
   if (shouldShowOnboarding) {
+    console.log("Showing onboarding");
     return (
       <OnboardingSplash 
         onComplete={completeOnboarding}
@@ -47,9 +69,11 @@ const Index = () => {
   }
 
   const handleSignOut = async () => {
+    console.log("Signing out user");
     await signOut();
   };
 
+  console.log("Rendering main dashboard");
   return (
     <NavigationTabs>
       <DashboardContent
