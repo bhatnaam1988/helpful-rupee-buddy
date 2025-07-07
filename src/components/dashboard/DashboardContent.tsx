@@ -68,7 +68,7 @@ const DashboardContent = ({
           </div>
         </div>
 
-        {/* Modern Quick Actions - Only this component, no duplicates */}
+        {/* Modern Quick Actions */}
         <div className="relative">
           <div className="absolute inset-0 bg-gradient-to-r from-fintech-accent/5 to-fintech-secondary/5 rounded-3xl blur-xl"></div>
           <div className="relative z-10">
