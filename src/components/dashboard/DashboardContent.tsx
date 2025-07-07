@@ -1,8 +1,8 @@
 
 import DashboardHeader from "./DashboardHeader";
-import StatsCards from "./StatsCards";
-import QuickActions from "./QuickActions";
-import RecentItems from "./RecentItems";
+import ModernStatsCards from "./ModernStatsCards";
+import ModernQuickActions from "./ModernQuickActions";
+import ModernRecentItems from "./ModernRecentItems";
 import AddExpenseModal from "@/components/AddExpenseModal";
 import AddGoalModal from "@/components/AddGoalModal";
 import AddIncomeModal from "@/components/AddIncomeModal";
@@ -40,30 +40,37 @@ const DashboardContent = ({
   const completedGoals = goals.filter(goal => goal.current_amount >= goal.target_amount).length;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-gray-100">
-      {/* Mobile-optimized container */}
-      <div className="px-3 py-4 space-y-5 max-w-sm mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-fintech-surface via-white to-fintech-surface/50">
+      {/* Modern container with better spacing */}
+      <div className="px-4 py-6 space-y-6 max-w-md mx-auto">
         <DashboardHeader 
           userName={profile?.name} 
           onSignOut={onSignOut} 
         />
 
-        <StatsCards
-          totalExpenses={totalExpenses}
-          totalGoalAmount={totalGoalAmount}
-          completedGoals={completedGoals}
-          monthlyIncome={profile?.monthly_income || 0}
-        />
+        {/* Hero Stats Section */}
+        <div className="relative">
+          <div className="absolute inset-0 bg-gradient-to-r from-fintech-primary/5 to-fintech-secondary/5 rounded-3xl"></div>
+          <ModernStatsCards
+            totalExpenses={totalExpenses}
+            totalGoalAmount={totalGoalAmount}
+            completedGoals={completedGoals}
+            monthlyIncome={profile?.monthly_income || 0}
+          />
+        </div>
 
-        <QuickActions
+        {/* Quick Actions with modern design */}
+        <ModernQuickActions
           onAddExpenseClick={() => setShowExpenseModal(true)}
           onAddGoalClick={() => setShowGoalModal(true)}
           onAddIncomeClick={() => setShowIncomeModal(true)}
         />
 
-        {/* Only show recent items if there are expenses */}
+        {/* Recent Items with better spacing */}
         {expenses.length > 0 && (
-          <RecentItems expenses={expenses} />
+          <div className="animate-fade-in">
+            <ModernRecentItems expenses={expenses} />
+          </div>
         )}
       </div>
 
