@@ -63,19 +63,27 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Modern Fintech Color Palette
+				// Fixed Modern Fintech Color Palette - properly structured for Tailwind
 				fintech: {
-					primary: '#6366f1',
-					'primary-dark': '#4f46e5',
-					'primary-light': '#8b5cf6',
-					secondary: '#10b981',
-					'secondary-dark': '#059669',
-					'secondary-light': '#34d399',
-					accent: '#f97316',
-					'accent-dark': '#ea580c',
-					'accent-light': '#fb923c',
-					surface: '#f8fafc',
-					'surface-elevated': '#ffffff',
+					primary: {
+						DEFAULT: '#6366f1',
+						dark: '#4f46e5',
+						light: '#8b5cf6',
+					},
+					secondary: {
+						DEFAULT: '#10b981',
+						dark: '#059669',
+						light: '#34d399',
+					},
+					accent: {
+						DEFAULT: '#f97316',
+						dark: '#ea580c',
+						light: '#fb923c',
+					},
+					surface: {
+						DEFAULT: '#f8fafc',
+						elevated: '#ffffff',
+					},
 					text: {
 						primary: '#1e293b',
 						secondary: '#64748b',

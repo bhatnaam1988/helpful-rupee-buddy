@@ -37,20 +37,20 @@ const ModernStatsCards = ({
       title: t('goalAmount'),
       value: totalGoalAmount,
       icon: Target,
-      gradient: 'from-fintech-primary to-fintech-primary-light',
+      gradient: 'from-fintech-primary-DEFAULT to-fintech-primary-light',
       bgGradient: 'from-blue-50 to-purple-50',
-      iconBg: 'bg-gradient-to-r from-fintech-primary to-fintech-primary-light',
-      textColor: 'text-fintech-primary',
+      iconBg: 'bg-gradient-to-r from-fintech-primary-DEFAULT to-fintech-primary-light',
+      textColor: 'text-fintech-primary-DEFAULT',
       subtitle: `${completedGoals} ${t('goalsCompleted')}`
     },
     {
       title: t('monthlyIncome'),
       value: monthlyIncome,
       icon: TrendingUp,
-      gradient: 'from-fintech-secondary to-fintech-secondary-light',
+      gradient: 'from-fintech-secondary-DEFAULT to-fintech-secondary-light',
       bgGradient: 'from-green-50 to-emerald-50',
-      iconBg: 'bg-gradient-to-r from-fintech-secondary to-fintech-secondary-light',
-      textColor: 'text-fintech-secondary',
+      iconBg: 'bg-gradient-to-r from-fintech-secondary-DEFAULT to-fintech-secondary-light',
+      textColor: 'text-fintech-secondary-DEFAULT',
       subtitle: t('perMonth')
     }
   ];

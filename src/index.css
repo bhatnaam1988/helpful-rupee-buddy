@@ -45,6 +45,22 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Fintech Color Variables */
+    --fintech-primary: 248 78% 62%;
+    --fintech-primary-dark: 247 80% 58%;
+    --fintech-primary-light: 253 91% 68%;
+    --fintech-secondary: 158 64% 52%;
+    --fintech-secondary-dark: 158 80% 40%;
+    --fintech-secondary-light: 158 64% 62%;
+    --fintech-accent: 24 95% 53%;
+    --fintech-accent-dark: 24 94% 50%;
+    --fintech-accent-light: 24 95% 63%;
+    --fintech-surface: 210 40% 98%;
+    --fintech-surface-elevated: 0 0% 100%;
+    --fintech-text-primary: 220 26% 14%;
+    --fintech-text-secondary: 215 20% 55%;
+    --fintech-text-tertiary: 215 20% 65%;
   }
 
   .dark {

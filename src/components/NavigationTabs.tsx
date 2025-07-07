@@ -76,8 +76,8 @@ const NavigationTabs = ({ children }: NavigationTabsProps) => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      {/* Mobile-first content area */}
+    <div className="min-h-screen">
+      {/* Mobile-first content area - removed conflicting background */}
       <div className="pb-24 min-h-screen">
         {renderTabContent()}
       </div>
