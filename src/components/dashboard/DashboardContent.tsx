@@ -41,35 +41,52 @@ const DashboardContent = ({
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-fintech-surface via-white to-fintech-surface/50">
-      {/* Modern container with better spacing */}
-      <div className="px-4 py-6 space-y-6 max-w-md mx-auto">
-        <DashboardHeader 
-          userName={profile?.name} 
-          onSignOut={onSignOut} 
-        />
-
-        {/* Hero Stats Section */}
+      {/* Modern container with proper fintech styling */}
+      <div className="px-4 py-6 space-y-8 max-w-md mx-auto">
+        
+        {/* Header with modern fintech styling */}
         <div className="relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-fintech-primary/5 to-fintech-secondary/5 rounded-3xl"></div>
-          <ModernStatsCards
-            totalExpenses={totalExpenses}
-            totalGoalAmount={totalGoalAmount}
-            completedGoals={completedGoals}
-            monthlyIncome={profile?.monthly_income || 0}
-          />
+          <div className="absolute inset-0 bg-gradient-to-r from-fintech-primary/5 to-fintech-accent/5 rounded-3xl blur-xl"></div>
+          <div className="relative z-10">
+            <DashboardHeader 
+              userName={profile?.name} 
+              onSignOut={onSignOut} 
+            />
+          </div>
         </div>
 
-        {/* Quick Actions with modern design */}
-        <ModernQuickActions
-          onAddExpenseClick={() => setShowExpenseModal(true)}
-          onAddGoalClick={() => setShowGoalModal(true)}
-          onAddIncomeClick={() => setShowIncomeModal(true)}
-        />
+        {/* Hero Stats Section with enhanced fintech design */}
+        <div className="relative">
+          <div className="absolute inset-0 bg-gradient-to-r from-fintech-primary/8 to-fintech-secondary/8 rounded-3xl blur-2xl"></div>
+          <div className="relative z-10">
+            <ModernStatsCards
+              totalExpenses={totalExpenses}
+              totalGoalAmount={totalGoalAmount}
+              completedGoals={completedGoals}
+              monthlyIncome={profile?.monthly_income || 0}
+            />
+          </div>
+        </div>
 
-        {/* Recent Items with better spacing */}
+        {/* Modern Quick Actions - Only this component, no duplicates */}
+        <div className="relative">
+          <div className="absolute inset-0 bg-gradient-to-r from-fintech-accent/5 to-fintech-secondary/5 rounded-3xl blur-xl"></div>
+          <div className="relative z-10">
+            <ModernQuickActions
+              onAddExpenseClick={() => setShowExpenseModal(true)}
+              onAddGoalClick={() => setShowGoalModal(true)}
+              onAddIncomeClick={() => setShowIncomeModal(true)}
+            />
+          </div>
+        </div>
+
+        {/* Recent Items with modern fintech styling */}
         {expenses.length > 0 && (
-          <div className="animate-fade-in">
-            <ModernRecentItems expenses={expenses} />
+          <div className="animate-fade-in relative">
+            <div className="absolute inset-0 bg-gradient-to-r from-fintech-primary/3 to-fintech-accent/3 rounded-3xl blur-xl"></div>
+            <div className="relative z-10">
+              <ModernRecentItems expenses={expenses} />
+            </div>
           </div>
         )}
       </div>
