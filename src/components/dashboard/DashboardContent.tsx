@@ -41,8 +41,8 @@ const DashboardContent = ({
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-gray-100">
-      {/* Mobile-optimized container with better spacing */}
-      <div className="px-4 py-5 space-y-6 max-w-md mx-auto">
+      {/* Mobile-optimized container */}
+      <div className="px-3 py-4 space-y-5 max-w-sm mx-auto">
         <DashboardHeader 
           userName={profile?.name} 
           onSignOut={onSignOut} 
@@ -63,7 +63,7 @@ const DashboardContent = ({
 
         {/* Only show recent items if there are expenses */}
         {expenses.length > 0 && (
-          <RecentItems expenses={expenses} goals={goals} />
+          <RecentItems expenses={expenses} />
         )}
       </div>
 

@@ -11,7 +11,7 @@ interface RecentItemsProps {
 const RecentItems = ({ expenses }: RecentItemsProps) => {
   const { t, translateCategory } = useLanguage();
 
-  // Only show recent expenses - goals are handled by Quick Actions
+  // Only show recent expenses
   if (expenses.length === 0) {
     return null;
   }
