@@ -47,6 +47,7 @@ const translations: Translations = {
   // Recent Items
   recentExpenses: { en: 'Recent Expenses', hi: 'हाल के खर्च' },
   yourGoals: { en: 'Your Goals', hi: 'आपके लक्ष्य' },
+  andMoreExpenses: { en: 'and more expenses', hi: 'और भी खर्च' },
   
   // Forms & Modals
   category: { en: 'Category', hi: 'श्रेणी' },
@@ -117,7 +118,11 @@ const translations: Translations = {
   yourRecommendations: { en: 'Your Recommendations', hi: 'आपकी सिफारिशें' },
   monthlyInvestmentSuggestion: { en: 'Monthly Investment Suggestion', hi: 'मासिक निवेश सुझाव' },
   recommendedInstruments: { en: 'Recommended Instruments', hi: 'सुझाए गए साधन' },
-  aiAdvice: { en: 'AI Advice', hi: 'AI सलाह' }
+  aiAdvice: { en: 'AI Advice', hi: 'AI सलाह' },
+  
+  // Additional UI translations
+  hindi: { en: 'Hindi', hi: 'हिंदी' },
+  english: { en: 'English', hi: 'अंग्रेजी' }
 };
 
 interface LanguageContextType {
