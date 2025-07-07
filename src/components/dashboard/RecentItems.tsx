@@ -60,7 +60,7 @@ const RecentItems = ({ expenses }: RecentItemsProps) => {
         {expenses.length > 3 && (
           <div className="text-center pt-2">
             <p className="text-xs text-gray-500">
-              +{expenses.length - 3} {t('andMoreExpenses')}
+              +{expenses.length - 3} {t('moreExpenses')}
             </p>
           </div>
         )}
