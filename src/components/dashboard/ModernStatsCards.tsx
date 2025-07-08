@@ -55,7 +55,7 @@ const ModernStatsCards = ({
   ];
 
   return (
-    <div className="relative z-10 space-y-4 debug-stats-cards">
+    <div className="relative z-10 space-y-4">
       {stats.map((stat, index) => (
         <Card 
           key={stat.title}

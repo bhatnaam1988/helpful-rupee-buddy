@@ -111,12 +111,14 @@
   }
 }
 
-/* Modern Fintech Components */
+/* Fintech Component System */
 @layer components {
+  /* Cards */
   .fintech-card {
     @apply bg-white rounded-3xl shadow-fintech border-0 overflow-hidden;
   }
   
+  /* Buttons */
   .fintech-button-primary {
     @apply bg-gradient-to-r from-fintech-primary to-fintech-primary-light text-white font-bold rounded-2xl shadow-fintech hover:shadow-fintech-lg transition-all duration-300 hover:scale-105;
   }
@@ -125,63 +127,22 @@
     @apply bg-gradient-to-r from-fintech-secondary to-fintech-secondary-light text-white font-bold rounded-2xl shadow-success hover:shadow-fintech-lg transition-all duration-300 hover:scale-105;
   }
   
+  /* Text Effects */
   .fintech-text-gradient {
     @apply bg-gradient-to-r from-fintech-primary to-fintech-primary-light bg-clip-text text-transparent;
   }
   
-  /* Temporary Debug Classes */
-  .debug-dashboard-v2 {
-    position: relative;
+  /* Visual Effects */
+  .glass-effect {
+    @apply bg-white/80 backdrop-blur-lg border border-white/20 shadow-fintech;
   }
   
-  .debug-dashboard-v2::before {
-    content: "Dashboard V2.0";
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: #ff0000;
-    color: white;
-    padding: 2px 8px;
-    font-size: 10px;
-    z-index: 9999;
-  }
-  
-  .debug-stats-cards {
-    border: 2px solid #00ff00;
-    position: relative;
-  }
-  
-  .debug-stats-cards::before {
-    content: "Modern Stats";
-    position: absolute;
-    top: -20px;
-    left: 0;
-    background: #00ff00;
-    color: black;
-    padding: 2px 8px;
-    font-size: 10px;
-    z-index: 9999;
-  }
-  
-  .debug-quick-actions {
-    border: 2px solid #0000ff;
-    position: relative;
-  }
-  
-  .debug-quick-actions::before {
-    content: "Modern Actions";
-    position: absolute;
-    top: -20px;
-    left: 0;
-    background: #0000ff;
-    color: white;
-    padding: 2px 8px;
-    font-size: 10px;
-    z-index: 9999;
+  .hover-lift {
+    @apply transition-all duration-300 hover:scale-105 hover:shadow-fintech-lg;
   }
 }
 
-/* Enhanced animations for better UX */
+/* Animation Utilities */
 @layer utilities {
   .animate-float {
     animation: float 3s ease-in-out infinite;
@@ -194,14 +155,6 @@
   @keyframes float {
     0%, 100% { transform: translateY(0px); }
     50% { transform: translateY(-10px); }
-  }
-  
-  .glass-effect {
-    @apply bg-white/80 backdrop-blur-lg border border-white/20 shadow-fintech;
-  }
-  
-  .hover-lift {
-    @apply transition-all duration-300 hover:scale-105 hover:shadow-fintech-lg;
   }
 }
 

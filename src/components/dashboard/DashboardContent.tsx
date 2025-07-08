@@ -44,7 +44,7 @@ const DashboardContent = ({
 
   return (
     <div 
-      className="min-h-screen debug-dashboard-v2"
+      className="min-h-screen"
       style={{ 
         background: 'linear-gradient(to bottom right, hsl(210 40% 98%), hsl(0 0% 100%), hsl(210 40% 98% / 50%))'
       }}

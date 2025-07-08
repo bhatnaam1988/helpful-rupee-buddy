@@ -20,7 +20,7 @@ const ModernQuickActions = ({
   console.log("ModernQuickActions rendering with fintech theme");
 
   return (
-    <div className="space-y-6 debug-quick-actions">
+    <div className="space-y-6">
       {/* Primary Action - Add Expense with premium fintech design */}
       <Card 
         className="border-0 overflow-hidden relative group hover:shadow-2xl transition-all duration-500"
