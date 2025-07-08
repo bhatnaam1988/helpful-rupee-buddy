@@ -29,30 +29,27 @@ const ModernStatsCards = ({
       title: t('totalExpenses'),
       value: totalExpenses,
       icon: Wallet,
-      gradient: 'from-red-500 to-pink-500',
-      bgGradient: 'from-red-50 to-pink-50',
-      iconBg: 'bg-gradient-to-r from-red-500 to-pink-500',
-      textColor: 'text-red-700',
+      bgStyle: { background: 'linear-gradient(to right, hsl(0 84% 60%), hsl(336 84% 70%))' },
+      iconStyle: { background: 'linear-gradient(to right, hsl(0 84% 60%), hsl(336 84% 70%))' },
+      textStyle: { color: 'hsl(0 73% 41%)' },
       subtitle: t('thisMonth')
     },
     {
       title: t('goalAmount'),
       value: totalGoalAmount,
       icon: Target,
-      gradient: 'from-fintech-primary to-fintech-primary-light',
-      bgGradient: 'from-blue-50 to-purple-50',
-      iconBg: 'bg-gradient-to-r from-fintech-primary to-fintech-primary-light',
-      textColor: 'text-fintech-primary',
+      bgStyle: { background: 'linear-gradient(to right, hsl(248 78% 95%), hsl(253 91% 95%))' },
+      iconStyle: { background: 'linear-gradient(to right, hsl(248 78% 62%), hsl(253 91% 68%))' },
+      textStyle: { color: 'hsl(248 78% 62%)' },
       subtitle: `${completedGoals} ${t('goalsCompleted')}`
     },
     {
       title: t('monthlyIncome'),
       value: monthlyIncome,
       icon: TrendingUp,
-      gradient: 'from-fintech-secondary to-fintech-secondary-light',
-      bgGradient: 'from-green-50 to-emerald-50',
-      iconBg: 'bg-gradient-to-r from-fintech-secondary to-fintech-secondary-light',
-      textColor: 'text-fintech-secondary',
+      bgStyle: { background: 'linear-gradient(to right, hsl(158 64% 95%), hsl(158 64% 92%))' },
+      iconStyle: { background: 'linear-gradient(to right, hsl(158 64% 52%), hsl(158 64% 62%))' },
+      textStyle: { color: 'hsl(158 64% 52%)' },
       subtitle: t('perMonth')
     }
   ];
@@ -62,26 +59,30 @@ const ModernStatsCards = ({
       {stats.map((stat, index) => (
         <Card 
           key={stat.title}
-          className={`bg-gradient-to-r ${stat.bgGradient} border-0 shadow-fintech hover:shadow-fintech-lg transition-all duration-300 animate-scale-in`}
-          style={{ animationDelay: `${index * 0.1}s` }}
+          className="border-0 transition-all duration-300 animate-scale-in"
+          style={{ 
+            animationDelay: `${index * 0.1}s`,
+            ...stat.bgStyle,
+            boxShadow: '0 4px 20px -2px rgba(99, 102, 241, 0.1)'
+          }}
         >
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div className="flex-1">
-                <p className="text-sm font-medium text-fintech-text-secondary mb-1">
+                <p className="text-sm font-medium mb-1" style={{ color: 'hsl(215 20% 55%)' }}>
                   {stat.title}
                 </p>
                 <div className="flex items-center mb-2">
-                  <IndianRupee className="w-5 h-5 text-fintech-text-primary mr-1" />
-                  <span className={`text-2xl font-bold ${stat.textColor}`}>
+                  <IndianRupee className="w-5 h-5 mr-1" style={{ color: 'hsl(220 26% 14%)' }} />
+                  <span className="text-2xl font-bold" style={stat.textStyle}>
                     {formatCurrency(stat.value)}
                   </span>
                 </div>
-                <p className="text-xs font-medium text-fintech-text-tertiary">
+                <p className="text-xs font-medium" style={{ color: 'hsl(215 20% 65%)' }}>
                   {stat.subtitle}
                 </p>
               </div>
-              <div className={`p-4 rounded-2xl ${stat.iconBg} shadow-lg`}>
+              <div className="p-4 rounded-2xl shadow-lg" style={stat.iconStyle}>
                 <stat.icon className="w-6 h-6 text-white" />
               </div>
             </div>

@@ -10,6 +10,25 @@ export default {
 		"./src/**/*.{ts,tsx}",
 	],
 	prefix: "",
+	safelist: [
+		// Force generate all fintech classes
+		'bg-fintech-primary',
+		'bg-fintech-secondary', 
+		'bg-fintech-accent',
+		'text-fintech-primary',
+		'text-fintech-secondary',
+		'text-fintech-text-primary',
+		'text-fintech-text-secondary',
+		'text-fintech-text-tertiary',
+		'from-fintech-primary',
+		'to-fintech-primary-light',
+		'from-fintech-secondary',
+		'to-fintech-secondary-light',
+		'from-fintech-accent',
+		'to-fintech-accent-light',
+		'shadow-fintech',
+		'shadow-fintech-lg'
+	],
 	theme: {
 		container: {
 			center: true,
@@ -63,31 +82,31 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Fixed Fintech Color Palette - properly structured for Tailwind
+				// Direct HSL Fintech Colors - No CSS Variables
 				fintech: {
 					primary: {
-						DEFAULT: 'hsl(var(--fintech-primary))',
-						dark: 'hsl(var(--fintech-primary-dark))',
-						light: 'hsl(var(--fintech-primary-light))',
+						DEFAULT: '248 78% 62%',
+						dark: '247 80% 58%',
+						light: '253 91% 68%',
 					},
 					secondary: {
-						DEFAULT: 'hsl(var(--fintech-secondary))',
-						dark: 'hsl(var(--fintech-secondary-dark))',
-						light: 'hsl(var(--fintech-secondary-light))',
+						DEFAULT: '158 64% 52%',
+						dark: '158 80% 40%',
+						light: '158 64% 62%',
 					},
 					accent: {
-						DEFAULT: 'hsl(var(--fintech-accent))',
-						dark: 'hsl(var(--fintech-accent-dark))',
-						light: 'hsl(var(--fintech-accent-light))',
+						DEFAULT: '24 95% 53%',
+						dark: '24 94% 50%',
+						light: '24 95% 63%',
 					},
 					surface: {
-						DEFAULT: 'hsl(var(--fintech-surface))',
-						elevated: 'hsl(var(--fintech-surface-elevated))',
+						DEFAULT: '210 40% 98%',
+						elevated: '0 0% 100%',
 					},
 					text: {
-						primary: 'hsl(var(--fintech-text-primary))',
-						secondary: 'hsl(var(--fintech-text-secondary))',
-						tertiary: 'hsl(var(--fintech-text-tertiary))'
+						primary: '220 26% 14%',
+						secondary: '215 20% 55%',
+						tertiary: '215 20% 65%'
 					}
 				}
 			},

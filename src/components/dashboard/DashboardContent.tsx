@@ -6,6 +6,7 @@ import ModernRecentItems from "./ModernRecentItems";
 import AddExpenseModal from "@/components/AddExpenseModal";
 import AddGoalModal from "@/components/AddGoalModal";
 import AddIncomeModal from "@/components/AddIncomeModal";
+import TailwindClassForcer from "@/components/TailwindClassForcer";
 import { Expense } from "@/hooks/useExpenses";
 import { Goal } from "@/hooks/useGoals";
 import { Profile } from "@/hooks/useProfile";
@@ -42,7 +43,13 @@ const DashboardContent = ({
   const completedGoals = goals.filter(goal => goal.current_amount >= goal.target_amount).length;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-fintech-surface via-white to-fintech-surface/50 debug-dashboard-v2">
+    <div 
+      className="min-h-screen debug-dashboard-v2"
+      style={{ 
+        background: 'linear-gradient(to bottom right, hsl(210 40% 98%), hsl(0 0% 100%), hsl(210 40% 98% / 50%))'
+      }}
+    >
+      <TailwindClassForcer />
       {/* Modern container with proper fintech styling */}
       <div className="px-4 py-6 space-y-8 max-w-md mx-auto">
         
