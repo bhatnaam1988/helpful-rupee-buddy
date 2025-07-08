@@ -63,31 +63,31 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Fixed Modern Fintech Color Palette - properly structured for Tailwind
+				// Fixed Fintech Color Palette - properly structured for Tailwind
 				fintech: {
 					primary: {
-						DEFAULT: '#6366f1',
-						dark: '#4f46e5',
-						light: '#8b5cf6',
+						DEFAULT: 'hsl(var(--fintech-primary))',
+						dark: 'hsl(var(--fintech-primary-dark))',
+						light: 'hsl(var(--fintech-primary-light))',
 					},
 					secondary: {
-						DEFAULT: '#10b981',
-						dark: '#059669',
-						light: '#34d399',
+						DEFAULT: 'hsl(var(--fintech-secondary))',
+						dark: 'hsl(var(--fintech-secondary-dark))',
+						light: 'hsl(var(--fintech-secondary-light))',
 					},
 					accent: {
-						DEFAULT: '#f97316',
-						dark: '#ea580c',
-						light: '#fb923c',
+						DEFAULT: 'hsl(var(--fintech-accent))',
+						dark: 'hsl(var(--fintech-accent-dark))',
+						light: 'hsl(var(--fintech-accent-light))',
 					},
 					surface: {
-						DEFAULT: '#f8fafc',
-						elevated: '#ffffff',
+						DEFAULT: 'hsl(var(--fintech-surface))',
+						elevated: 'hsl(var(--fintech-surface-elevated))',
 					},
 					text: {
-						primary: '#1e293b',
-						secondary: '#64748b',
-						tertiary: '#94a3b8'
+						primary: 'hsl(var(--fintech-text-primary))',
+						secondary: 'hsl(var(--fintech-text-secondary))',
+						tertiary: 'hsl(var(--fintech-text-tertiary))'
 					}
 				}
 			},

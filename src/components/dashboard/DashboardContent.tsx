@@ -35,12 +35,14 @@ const DashboardContent = ({
   setShowIncomeModal,
   onSignOut
 }: DashboardContentProps) => {
+  console.log("DashboardContent rendering - Modern Fintech Theme v2.0");
+  
   const totalExpenses = expenses.reduce((sum, expense) => sum + expense.amount, 0);
   const totalGoalAmount = goals.reduce((sum, goal) => sum + goal.target_amount, 0);
   const completedGoals = goals.filter(goal => goal.current_amount >= goal.target_amount).length;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-fintech-surface via-white to-fintech-surface/50">
+    <div className="min-h-screen bg-gradient-to-br from-fintech-surface via-white to-fintech-surface/50 debug-dashboard-v2">
       {/* Modern container with proper fintech styling */}
       <div className="px-4 py-6 space-y-8 max-w-md mx-auto">
         

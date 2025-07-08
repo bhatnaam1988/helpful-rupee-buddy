@@ -17,6 +17,8 @@ const ModernStatsCards = ({
   monthlyIncome 
 }: ModernStatsCardsProps) => {
   const { t, currentLanguage } = useLanguage();
+  
+  console.log("ModernStatsCards rendering with fintech theme");
 
   const formatCurrency = (amount: number) => {
     return amount.toLocaleString(currentLanguage === 'hi' ? 'hi-IN' : 'en-IN');
@@ -37,26 +39,26 @@ const ModernStatsCards = ({
       title: t('goalAmount'),
       value: totalGoalAmount,
       icon: Target,
-      gradient: 'from-fintech-primary-DEFAULT to-fintech-primary-light',
+      gradient: 'from-fintech-primary to-fintech-primary-light',
       bgGradient: 'from-blue-50 to-purple-50',
-      iconBg: 'bg-gradient-to-r from-fintech-primary-DEFAULT to-fintech-primary-light',
-      textColor: 'text-fintech-primary-DEFAULT',
+      iconBg: 'bg-gradient-to-r from-fintech-primary to-fintech-primary-light',
+      textColor: 'text-fintech-primary',
       subtitle: `${completedGoals} ${t('goalsCompleted')}`
     },
     {
       title: t('monthlyIncome'),
       value: monthlyIncome,
       icon: TrendingUp,
-      gradient: 'from-fintech-secondary-DEFAULT to-fintech-secondary-light',
+      gradient: 'from-fintech-secondary to-fintech-secondary-light',
       bgGradient: 'from-green-50 to-emerald-50',
-      iconBg: 'bg-gradient-to-r from-fintech-secondary-DEFAULT to-fintech-secondary-light',
-      textColor: 'text-fintech-secondary-DEFAULT',
+      iconBg: 'bg-gradient-to-r from-fintech-secondary to-fintech-secondary-light',
+      textColor: 'text-fintech-secondary',
       subtitle: t('perMonth')
     }
   ];
 
   return (
-    <div className="relative z-10 space-y-4">
+    <div className="relative z-10 space-y-4 debug-stats-cards">
       {stats.map((stat, index) => (
         <Card 
           key={stat.title}

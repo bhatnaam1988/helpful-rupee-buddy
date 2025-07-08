@@ -46,7 +46,7 @@
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
 
-    /* Fintech Color Variables */
+    /* Fintech Color Variables - Fixed HSL Values */
     --fintech-primary: 248 78% 62%;
     --fintech-primary-dark: 247 80% 58%;
     --fintech-primary-light: 253 91% 68%;
@@ -127,6 +127,57 @@
   
   .fintech-text-gradient {
     @apply bg-gradient-to-r from-fintech-primary to-fintech-primary-light bg-clip-text text-transparent;
+  }
+  
+  /* Temporary Debug Classes */
+  .debug-dashboard-v2 {
+    position: relative;
+  }
+  
+  .debug-dashboard-v2::before {
+    content: "Dashboard V2.0";
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #ff0000;
+    color: white;
+    padding: 2px 8px;
+    font-size: 10px;
+    z-index: 9999;
+  }
+  
+  .debug-stats-cards {
+    border: 2px solid #00ff00;
+    position: relative;
+  }
+  
+  .debug-stats-cards::before {
+    content: "Modern Stats";
+    position: absolute;
+    top: -20px;
+    left: 0;
+    background: #00ff00;
+    color: black;
+    padding: 2px 8px;
+    font-size: 10px;
+    z-index: 9999;
+  }
+  
+  .debug-quick-actions {
+    border: 2px solid #0000ff;
+    position: relative;
+  }
+  
+  .debug-quick-actions::before {
+    content: "Modern Actions";
+    position: absolute;
+    top: -20px;
+    left: 0;
+    background: #0000ff;
+    color: white;
+    padding: 2px 8px;
+    font-size: 10px;
+    z-index: 9999;
   }
 }
 
