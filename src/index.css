@@ -7,60 +7,72 @@
 
 @layer base {
   :root {
+    /* Blue-collar worker focused color system - Trust & Simplicity */
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 210 24% 12%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 210 24% 12%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 210 24% 12%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 210 79% 46%;  /* Trustworthy blue */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 142 76% 36%;  /* Success green */
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 210 20% 94%;
+    --muted-foreground: 210 8% 46%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 45 93% 47%;  /* Prosperity gold */
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 210 16% 88%;
+    --input: 210 16% 88%;
+    --ring: 210 79% 46%;
 
-    --radius: 0.75rem;
+    --radius: 1rem;
 
     --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-foreground: 210 24% 12%;
+    --sidebar-primary: 210 79% 46%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 20% 94%;
+    --sidebar-accent-foreground: 210 24% 12%;
+    --sidebar-border: 210 16% 88%;
+    --sidebar-ring: 210 79% 46%;
 
-    /* Fintech Color Variables - Fixed HSL Values */
-    --fintech-primary: 248 78% 62%;
-    --fintech-primary-dark: 247 80% 58%;
-    --fintech-primary-light: 253 91% 68%;
-    --fintech-secondary: 158 64% 52%;
-    --fintech-secondary-dark: 158 80% 40%;
-    --fintech-secondary-light: 158 64% 62%;
-    --fintech-accent: 24 95% 53%;
-    --fintech-accent-dark: 24 94% 50%;
-    --fintech-accent-light: 24 95% 63%;
-    --fintech-surface: 210 40% 98%;
-    --fintech-surface-elevated: 0 0% 100%;
-    --fintech-text-primary: 220 26% 14%;
-    --fintech-text-secondary: 215 20% 55%;
-    --fintech-text-tertiary: 215 20% 65%;
+    /* Simplified color system for blue-collar workers */
+    --trust-blue: 210 79% 46%;         /* Primary trustworthy blue */
+    --trust-blue-light: 210 65% 55%;   /* Lighter blue for backgrounds */
+    --trust-blue-dark: 210 89% 36%;    /* Darker blue for emphasis */
+    
+    --success-green: 142 76% 36%;       /* Achievement green */
+    --success-green-light: 142 60% 45%; /* Lighter green */
+    
+    --prosperity-gold: 45 93% 47%;      /* Wealth/goal gold */
+    --prosperity-gold-light: 45 80% 60%; /* Lighter gold */
+    
+    --warning-orange: 25 95% 53%;       /* Attention orange */
+    --error-red: 0 84% 60%;             /* Error red */
+    
+    /* Simple neutral palette */
+    --neutral-50: 0 0% 98%;
+    --neutral-100: 210 20% 94%;
+    --neutral-200: 210 16% 88%;
+    --neutral-600: 210 8% 46%;
+    --neutral-700: 210 12% 32%;
+    --neutral-900: 210 24% 12%;
+
+    /* Simple shadows */
+    --shadow-simple: 0 2px 8px -2px hsl(210 79% 46% / 0.1);
+    --shadow-card: 0 4px 16px -4px hsl(210 79% 46% / 0.15);
+    --shadow-large: 0 8px 24px -6px hsl(210 79% 46% / 0.2);
   }
 
   .dark {
@@ -111,34 +123,56 @@
   }
 }
 
-/* Fintech Component System */
+/* Blue-collar worker component system - Simple & Clear */
 @layer components {
-  /* Cards */
-  .fintech-card {
-    @apply bg-white rounded-3xl shadow-fintech border-0 overflow-hidden;
+  /* Cards - Simple rounded corners */
+  .worker-card {
+    @apply bg-white rounded-2xl shadow-card border border-neutral-200/50 overflow-hidden;
   }
   
-  /* Buttons */
-  .fintech-button-primary {
-    @apply bg-gradient-to-r from-fintech-primary to-fintech-primary-light text-white font-bold rounded-2xl shadow-fintech hover:shadow-fintech-lg transition-all duration-300 hover:scale-105;
+  /* Buttons - Large, thumb-friendly */
+  .worker-button-primary {
+    @apply bg-gradient-to-r from-trust-blue to-trust-blue-light text-white font-semibold rounded-xl shadow-simple hover:shadow-card transition-all duration-200 hover:scale-[1.02] text-base px-6 py-4 min-h-[48px];
   }
   
-  .fintech-button-secondary {
-    @apply bg-gradient-to-r from-fintech-secondary to-fintech-secondary-light text-white font-bold rounded-2xl shadow-success hover:shadow-fintech-lg transition-all duration-300 hover:scale-105;
+  .worker-button-secondary {
+    @apply bg-gradient-to-r from-success-green to-success-green-light text-white font-semibold rounded-xl shadow-simple hover:shadow-card transition-all duration-200 hover:scale-[1.02] text-base px-6 py-4 min-h-[48px];
   }
   
-  /* Text Effects */
-  .fintech-text-gradient {
-    @apply bg-gradient-to-r from-fintech-primary to-fintech-primary-light bg-clip-text text-transparent;
+  .worker-button-accent {
+    @apply bg-gradient-to-r from-prosperity-gold to-prosperity-gold-light text-white font-semibold rounded-xl shadow-simple hover:shadow-card transition-all duration-200 hover:scale-[1.02] text-base px-6 py-4 min-h-[48px];
   }
   
-  /* Visual Effects */
-  .glass-effect {
-    @apply bg-white/80 backdrop-blur-lg border border-white/20 shadow-fintech;
+  /* Text styles */
+  .worker-text-primary {
+    @apply text-trust-blue font-semibold;
   }
   
-  .hover-lift {
-    @apply transition-all duration-300 hover:scale-105 hover:shadow-fintech-lg;
+  .worker-text-success {
+    @apply text-success-green font-medium;
+  }
+  
+  .worker-text-gold {
+    @apply text-prosperity-gold font-medium;
+  }
+  
+  /* Visual effects - Simplified */
+  .simple-glass {
+    @apply bg-white/90 backdrop-blur border border-neutral-200/30 shadow-simple;
+  }
+  
+  .simple-hover {
+    @apply transition-all duration-200 hover:scale-[1.02] hover:shadow-card;
+  }
+  
+  /* Mobile-first containers */
+  .mobile-container {
+    @apply max-w-md mx-auto px-4 py-4;
+  }
+  
+  /* Large touch targets */
+  .touch-target {
+    @apply min-h-[48px] min-w-[48px] flex items-center justify-center;
   }
 }
 

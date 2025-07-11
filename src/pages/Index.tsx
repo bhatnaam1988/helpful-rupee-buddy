@@ -6,9 +6,9 @@ import { useExpenses } from "@/hooks/useExpenses";
 import { useGoals } from "@/hooks/useGoals";
 import { useProfile } from "@/hooks/useProfile";
 import { useState } from "react";
-import NavigationTabs from "@/components/NavigationTabs";
+import WorkerNavigationTabs from "@/components/WorkerNavigationTabs";
 import OnboardingSplash from "@/components/OnboardingSplash";
-import DashboardContent from "@/components/dashboard/DashboardContent";
+import WorkerDashboardContent from "@/components/dashboard/WorkerDashboardContent";
 
 const Index = () => {
   console.log("Index component rendered");
@@ -75,8 +75,8 @@ const Index = () => {
 
   console.log("Rendering main dashboard");
   return (
-    <NavigationTabs>
-      <DashboardContent
+    <WorkerNavigationTabs>
+      <WorkerDashboardContent
         profile={profile}
         expenses={expenses}
         goals={goals}
@@ -88,7 +88,7 @@ const Index = () => {
         setShowIncomeModal={setShowIncomeModal}
         onSignOut={handleSignOut}
       />
-    </NavigationTabs>
+    </WorkerNavigationTabs>
   );
 };
 

@@ -44,6 +44,36 @@ export type Database = {
         }
         Relationships: []
       }
+      expense_categories: {
+        Row: {
+          created_at: string | null
+          icon_name: string
+          id: string
+          is_default: boolean | null
+          name_en: string
+          name_hi: string
+          sort_order: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          icon_name: string
+          id?: string
+          is_default?: boolean | null
+          name_en: string
+          name_hi: string
+          sort_order?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          icon_name?: string
+          id?: string
+          is_default?: boolean | null
+          name_en?: string
+          name_hi?: string
+          sort_order?: number | null
+        }
+        Relationships: []
+      }
       expenses: {
         Row: {
           amount: number
@@ -113,6 +143,48 @@ export type Database = {
         }
         Relationships: []
       }
+      goal_templates: {
+        Row: {
+          created_at: string | null
+          description_en: string | null
+          description_hi: string | null
+          icon_name: string | null
+          id: string
+          is_popular: boolean | null
+          name_en: string
+          name_hi: string
+          priority: string | null
+          suggested_amount: number | null
+          suggested_timeline_months: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          description_en?: string | null
+          description_hi?: string | null
+          icon_name?: string | null
+          id?: string
+          is_popular?: boolean | null
+          name_en: string
+          name_hi: string
+          priority?: string | null
+          suggested_amount?: number | null
+          suggested_timeline_months?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          description_en?: string | null
+          description_hi?: string | null
+          icon_name?: string | null
+          id?: string
+          is_popular?: boolean | null
+          name_en?: string
+          name_hi?: string
+          priority?: string | null
+          suggested_amount?: number | null
+          suggested_timeline_months?: number | null
+        }
+        Relationships: []
+      }
       goals: {
         Row: {
           created_at: string | null
@@ -144,6 +216,48 @@ export type Database = {
           priority?: string | null
           target_amount?: number
           timeline_months?: number | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      investment_advice: {
+        Row: {
+          advice_text_en: string | null
+          advice_text_hi: string | null
+          created_at: string | null
+          id: string
+          monthly_surplus: number
+          recommended_instruments: Json | null
+          risk_level: string
+          suggested_investment_amount: number
+          time_horizon: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          advice_text_en?: string | null
+          advice_text_hi?: string | null
+          created_at?: string | null
+          id?: string
+          monthly_surplus: number
+          recommended_instruments?: Json | null
+          risk_level: string
+          suggested_investment_amount: number
+          time_horizon: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          advice_text_en?: string | null
+          advice_text_hi?: string | null
+          created_at?: string | null
+          id?: string
+          monthly_surplus?: number
+          recommended_instruments?: Json | null
+          risk_level?: string
+          suggested_investment_amount?: number
+          time_horizon?: string
           updated_at?: string | null
           user_id?: string
         }
@@ -198,28 +312,40 @@ export type Database = {
         Row: {
           age: number | null
           created_at: string | null
+          family_size: number | null
           id: string
           location: string | null
           monthly_income: number | null
           name: string
+          occupation: string | null
+          phone: string | null
+          preferred_language: string | null
           updated_at: string | null
         }
         Insert: {
           age?: number | null
           created_at?: string | null
+          family_size?: number | null
           id: string
           location?: string | null
           monthly_income?: number | null
           name: string
+          occupation?: string | null
+          phone?: string | null
+          preferred_language?: string | null
           updated_at?: string | null
         }
         Update: {
           age?: number | null
           created_at?: string | null
+          family_size?: number | null
           id?: string
           location?: string | null
           monthly_income?: number | null
           name?: string
+          occupation?: string | null
+          phone?: string | null
+          preferred_language?: string | null
           updated_at?: string | null
         }
         Relationships: []

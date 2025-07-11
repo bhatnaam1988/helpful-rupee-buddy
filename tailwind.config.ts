@@ -11,23 +11,26 @@ export default {
 	],
 	prefix: "",
 	safelist: [
-		// Force generate all fintech classes
-		'bg-fintech-primary',
-		'bg-fintech-secondary', 
-		'bg-fintech-accent',
-		'text-fintech-primary',
-		'text-fintech-secondary',
-		'text-fintech-text-primary',
-		'text-fintech-text-secondary',
-		'text-fintech-text-tertiary',
-		'from-fintech-primary',
-		'to-fintech-primary-light',
-		'from-fintech-secondary',
-		'to-fintech-secondary-light',
-		'from-fintech-accent',
-		'to-fintech-accent-light',
-		'shadow-fintech',
-		'shadow-fintech-lg'
+		// Blue-collar worker theme classes
+		'bg-trust-blue',
+		'bg-success-green',
+		'bg-prosperity-gold',
+		'text-trust-blue',
+		'text-success-green',
+		'text-prosperity-gold',
+		'from-trust-blue',
+		'to-trust-blue-light',
+		'from-success-green',
+		'to-success-green-light',
+		'from-prosperity-gold',
+		'to-prosperity-gold-light',
+		'shadow-simple',
+		'shadow-card',
+		'shadow-large',
+		'worker-card',
+		'worker-button-primary',
+		'worker-button-secondary',
+		'worker-button-accent'
 	],
 	theme: {
 		container: {
@@ -82,32 +85,29 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Direct HSL Fintech Colors - No CSS Variables
-				fintech: {
-					primary: {
-						DEFAULT: '248 78% 62%',
-						dark: '247 80% 58%',
-						light: '253 91% 68%',
-					},
-					secondary: {
-						DEFAULT: '158 64% 52%',
-						dark: '158 80% 40%',
-						light: '158 64% 62%',
-					},
-					accent: {
-						DEFAULT: '24 95% 53%',
-						dark: '24 94% 50%',
-						light: '24 95% 63%',
-					},
-					surface: {
-						DEFAULT: '210 40% 98%',
-						elevated: '0 0% 100%',
-					},
-					text: {
-						primary: '220 26% 14%',
-						secondary: '215 20% 55%',
-						tertiary: '215 20% 65%'
-					}
+				// Blue-collar worker color system
+				"trust-blue": {
+					DEFAULT: "hsl(var(--trust-blue))",
+					light: "hsl(var(--trust-blue-light))",
+					dark: "hsl(var(--trust-blue-dark))",
+				},
+				"success-green": {
+					DEFAULT: "hsl(var(--success-green))",
+					light: "hsl(var(--success-green-light))",
+				},
+				"prosperity-gold": {
+					DEFAULT: "hsl(var(--prosperity-gold))",
+					light: "hsl(var(--prosperity-gold-light))",
+				},
+				"warning-orange": "hsl(var(--warning-orange))",
+				"error-red": "hsl(var(--error-red))",
+				neutral: {
+					50: "hsl(var(--neutral-50))",
+					100: "hsl(var(--neutral-100))",
+					200: "hsl(var(--neutral-200))",
+					600: "hsl(var(--neutral-600))",
+					700: "hsl(var(--neutral-700))",
+					900: "hsl(var(--neutral-900))",
 				}
 			},
 			borderRadius: {
@@ -160,9 +160,9 @@ export default {
 				'scale-in': 'scale-in 0.2s ease-out'
 			},
 			boxShadow: {
-				'fintech': '0 4px 20px -2px rgba(99, 102, 241, 0.1)',
-				'fintech-lg': '0 8px 40px -4px rgba(99, 102, 241, 0.15)',
-				'success': '0 4px 20px -2px rgba(16, 185, 129, 0.1)'
+				"simple": "var(--shadow-simple)",
+				"card": "var(--shadow-card)",
+				"large": "var(--shadow-large)",
 			}
 		}
 	},
