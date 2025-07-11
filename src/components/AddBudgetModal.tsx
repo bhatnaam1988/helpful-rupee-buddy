@@ -104,9 +104,9 @@ const AddBudgetModal = ({ children }: AddBudgetModalProps) => {
             <Button type="button" variant="outline" onClick={() => setOpen(false)} className="flex-1">
               रद्द करें
             </Button>
-            <Button type="submit" className="flex-1 bg-purple-600 hover:bg-purple-700">
+            <button type="submit" className="worker-button-primary flex-1">
               बजट जोड़ें
-            </Button>
+            </button>
           </div>
         </form>
       </DialogContent>

@@ -129,72 +129,69 @@ const AIRecommendations = () => {
   };
 
   return (
-    <Card className="border-0 shadow-md">
-      <CardHeader>
-        <CardTitle className="text-lg text-gray-800 flex items-center space-x-2">
-          <Brain className="w-5 h-5 text-purple-600" />
-          <span>{t('aiFinancialSuggestions')}</span>
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        {!recommendations ? (
-          <div className="text-center py-8">
-            <Brain className="w-16 h-16 text-purple-400 mx-auto mb-4" />
-            <p className="text-gray-600 mb-4">
-              {t('getPersonalizedSuggestions')}
-            </p>
-            <Button 
-              onClick={getRecommendations} 
-              disabled={loading}
-              className="bg-purple-600 hover:bg-purple-700"
-            >
-              {loading ? t('analyzing') : t('getAiSuggestions')}
-            </Button>
-          </div>
+    <div className="worker-card">
+      <div className="flex items-center space-x-2 mb-4">
+        <Brain className="w-5 h-5 text-prosperity-gold" />
+        <h2 className="text-lg font-semibold text-primary">{t('aiFinancialSuggestions')}</h2>
+      </div>
+      {!recommendations ? (
+        <div className="text-center py-8">
+          <Brain className="w-16 h-16 text-prosperity-gold/50 mx-auto mb-4" />
+          <p className="text-muted-foreground mb-4">
+            {t('getPersonalizedSuggestions')}
+          </p>
+          <button 
+            onClick={getRecommendations} 
+            disabled={loading}
+            className="worker-button-primary"
+          >
+            {loading ? t('analyzing') : t('getAiSuggestions')}
+          </button>
+        </div>
         ) : (
           <div className="space-y-6">
-            {/* Financial Health Score */}
-            <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg p-4 border border-purple-100">
-              <div className="flex items-center justify-between mb-2">
-                <h4 className="font-semibold text-purple-800">{t('financialHealthScore')}</h4>
-                <Badge className="bg-purple-100 text-purple-700">
-                  {recommendations.financial_health_score}/100
-                </Badge>
+          {/* Financial Health Score */}
+          <div className="bg-gradient-to-r from-prosperity-gold/10 to-trust-blue/10 rounded-lg p-4 border border-prosperity-gold/20">
+            <div className="flex items-center justify-between mb-2">
+              <h4 className="font-semibold text-prosperity-gold">{t('financialHealthScore')}</h4>
+              <Badge className="bg-prosperity-gold/20 text-prosperity-gold">
+                {recommendations.financial_health_score}/100
+              </Badge>
+            </div>
+            <div className="w-full bg-border rounded-full h-3 mb-2">
+              <div 
+                className="bg-gradient-to-r from-prosperity-gold to-trust-blue h-3 rounded-full transition-all duration-500"
+                style={{ width: `${recommendations.financial_health_score}%` }}
+              ></div>
+            </div>
+            <p className="text-sm text-prosperity-gold">
+              {getHealthScoreMessage(recommendations.financial_health_score)}
+            </p>
+          </div>
+
+          {/* Monthly Investment Suggestion */}
+          {recommendations.monthly_investment_amount > 0 && (
+            <div className="bg-success-green/10 rounded-lg p-4 border border-success-green/20">
+              <div className="flex items-center space-x-2 mb-2">
+                <TrendingUp className="w-5 h-5 text-success-green" />
+                <h4 className="font-semibold text-success-green">{t('suggestedMonthlyInvestment')}</h4>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-3 mb-2">
-                <div 
-                  className="bg-gradient-to-r from-purple-500 to-blue-500 h-3 rounded-full transition-all duration-500"
-                  style={{ width: `${recommendations.financial_health_score}%` }}
-                ></div>
-              </div>
-              <p className="text-sm text-purple-600">
-                {getHealthScoreMessage(recommendations.financial_health_score)}
+              <p className="text-2xl font-bold text-success-green mb-1">
+                {formatCurrency(recommendations.monthly_investment_amount)}
+              </p>
+              <p className="text-sm text-success-green/80">
+                {t('investMonthlyToGrowWealth')}
               </p>
             </div>
+          )}
 
-            {/* Monthly Investment Suggestion */}
-            {recommendations.monthly_investment_amount > 0 && (
-              <div className="bg-green-50 rounded-lg p-4 border border-green-100">
-                <div className="flex items-center space-x-2 mb-2">
-                  <TrendingUp className="w-5 h-5 text-green-600" />
-                  <h4 className="font-semibold text-green-800">{t('suggestedMonthlyInvestment')}</h4>
-                </div>
-                <p className="text-2xl font-bold text-green-700 mb-1">
-                  {formatCurrency(recommendations.monthly_investment_amount)}
-                </p>
-                <p className="text-sm text-green-600">
-                  {t('investMonthlyToGrowWealth')}
-                </p>
-              </div>
-            )}
-
-            {/* AI Advice */}
-            <div className="bg-blue-50 rounded-lg p-4 border border-blue-100">
-              <h4 className="font-semibold text-blue-800 mb-2">{t('aiAnalysisReport')}</h4>
-              <pre className="text-sm text-blue-700 whitespace-pre-wrap font-sans">
-                {recommendations.ai_advice}
-              </pre>
-            </div>
+          {/* AI Advice */}
+          <div className="bg-trust-blue/10 rounded-lg p-4 border border-trust-blue/20">
+            <h4 className="font-semibold text-trust-blue mb-2">{t('aiAnalysisReport')}</h4>
+            <pre className="text-sm text-trust-blue/80 whitespace-pre-wrap font-sans">
+              {recommendations.ai_advice}
+            </pre>
+          </div>
 
             {/* Recommendations List */}
             <div className="space-y-4">
@@ -243,21 +240,19 @@ const AIRecommendations = () => {
               ))}
             </div>
 
-            {/* Refresh Button */}
-            <div className="text-center pt-4">
-              <Button
-                onClick={getRecommendations}
-                disabled={loading}
-                variant="outline"
-                size="sm"
-              >
-                {loading ? t('updating') : t('updateSuggestions')}
-              </Button>
-            </div>
+          {/* Refresh Button */}
+          <div className="text-center pt-4">
+            <button
+              onClick={getRecommendations}
+              disabled={loading}
+              className="worker-button-secondary text-sm px-4 py-2"
+            >
+              {loading ? t('updating') : t('updateSuggestions')}
+            </button>
           </div>
-        )}
-      </CardContent>
-    </Card>
+        </div>
+      )}
+    </div>
   );
 };
 

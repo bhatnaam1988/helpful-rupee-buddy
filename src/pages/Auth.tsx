@@ -70,79 +70,80 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
-      <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
+    <div className="min-h-screen bg-background flex items-center justify-center p-4">
+      <div className="worker-card w-full max-w-md">
+        <div className="text-center mb-6">
           <div className="flex items-center justify-center mb-4">
-            <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center font-bold text-white text-xl">
+            <div className="w-12 h-12 bg-trust-blue rounded-full flex items-center justify-center font-bold text-white text-xl">
               ₹
             </div>
           </div>
-          <CardTitle className="text-2xl font-bold">
+          <h1 className="text-2xl font-bold text-primary">
             {isLogin ? "वापस आपका स्वागत है" : "खाता बनाएं"}
-          </CardTitle>
-          <p className="text-gray-600">
+          </h1>
+          <p className="text-muted-foreground">
             {isLogin ? "अपने पैसावाइज़ खाते में लॉगिन करें" : "आपके वित्त प्रबंधन के लिए पैसावाइज़ में शामिल हों"}
           </p>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {!isLogin && (
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                  पूरा नाम
-                </label>
-                <Input
-                  id="name"
-                  type="text"
-                  placeholder="अपना पूरा नाम दर्ज करें"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  required={!isLogin}
-                />
-              </div>
-            )}
+        </div>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {!isLogin && (
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                ईमेल
+              <label htmlFor="name" className="block text-sm font-medium text-foreground mb-1">
+                पूरा नाम
               </label>
               <Input
-                id="email"
-                type="email"
-                placeholder="अपना ईमेल दर्ज करें"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
+                id="name"
+                type="text"
+                placeholder="अपना पूरा नाम दर्ज करें"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required={!isLogin}
+                className="focus:border-trust-blue"
               />
             </div>
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-                पासवर्ड
-              </label>
-              <Input
-                id="password"
-                type="password"
-                placeholder="अपना पासवर्ड दर्ज करें"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
-            <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "लोड हो रहा है..." : (isLogin ? "लॉगिन करें" : "साइन अप करें")}
-            </Button>
-          </form>
-          <div className="mt-4 text-center">
-            <button
-              type="button"
-              onClick={() => setIsLogin(!isLogin)}
-              className="text-blue-600 hover:underline text-sm"
-            >
-              {isLogin ? "कोई खाता नहीं है? साइन अप करें" : "पहले से खाता है? लॉगिन करें"}
-            </button>
+          )}
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-foreground mb-1">
+              ईमेल
+            </label>
+            <Input
+              id="email"
+              type="email"
+              placeholder="अपना ईमेल दर्ज करें"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="focus:border-trust-blue"
+            />
           </div>
-        </CardContent>
-      </Card>
+          <div>
+            <label htmlFor="password" className="block text-sm font-medium text-foreground mb-1">
+              पासवर्ड
+            </label>
+            <Input
+              id="password"
+              type="password"
+              placeholder="अपना पासवर्ड दर्ज करें"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              className="focus:border-trust-blue"
+            />
+          </div>
+          <button type="submit" className="worker-button-primary w-full" disabled={loading}>
+            {loading ? "लोड हो रहा है..." : (isLogin ? "लॉगिन करें" : "साइन अप करें")}
+          </button>
+        </form>
+        <div className="mt-4 text-center">
+          <button
+            type="button"
+            onClick={() => setIsLogin(!isLogin)}
+            className="text-trust-blue hover:text-trust-blue/80 text-sm hover:underline"
+          >
+            {isLogin ? "कोई खाता नहीं है? साइन अप करें" : "पहले से खाता है? लॉगिन करें"}
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

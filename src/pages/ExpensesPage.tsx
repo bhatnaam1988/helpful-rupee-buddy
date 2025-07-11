@@ -113,23 +113,23 @@ const ExpensesPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-background">
       {/* Mobile-optimized layout */}
-      <div className="px-3 py-4 space-y-4">
+      <div className="worker-container space-y-4">
         {/* Mobile-first header */}
         <div className="space-y-3">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">{t('expenseManagement')}</h1>
-            <p className="text-gray-600 text-sm">{t('manageExpenses')}</p>
+            <h1 className="text-2xl font-bold text-primary">{t('expenseManagement')}</h1>
+            <p className="text-muted-foreground text-sm">{t('manageExpenses')}</p>
           </div>
           
           {/* Mobile-optimized add button */}
           <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="w-full h-12 text-lg font-medium">
+              <button className="worker-button-primary w-full h-12 text-lg font-medium">
                 <PlusCircle className="w-5 h-5 mr-2" />
                 {t('addExpense')}
-              </Button>
+              </button>
             </DialogTrigger>
             <DialogContent className="mx-4 max-w-sm">
               <DialogHeader>

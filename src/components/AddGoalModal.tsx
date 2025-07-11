@@ -122,12 +122,12 @@ const AddGoalModal = ({ children, open, onOpenChange }: AddGoalModalProps) => {
             </Select>
           </div>
           <div className="flex space-x-2">
-            <Button type="button" variant="outline" onClick={() => setIsOpen(false)} className="flex-1">
+            <button type="button" className="worker-button-secondary flex-1" onClick={() => setIsOpen(false)}>
               {t('cancel')}
-            </Button>
-            <Button type="submit" className="flex-1 bg-blue-600 hover:bg-blue-700">
+            </button>
+            <button type="submit" className="worker-button-primary flex-1">
               {t('setGoal')}
-            </Button>
+            </button>
           </div>
         </form>
       </DialogContent>

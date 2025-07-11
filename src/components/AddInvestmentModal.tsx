@@ -76,10 +76,10 @@ const AddInvestmentModal = ({ children }: AddInvestmentModalProps) => {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         {children || (
-          <Button className="h-16 bg-blue-600 hover:bg-blue-700 flex flex-col items-center justify-center space-y-1">
+          <button className="worker-button-primary h-16 flex flex-col items-center justify-center space-y-1">
             <TrendingUp className="w-6 h-6" />
             <span className="text-sm">निवेश जोड़ें</span>
-          </Button>
+          </button>
         )}
       </DialogTrigger>
       <DialogContent className="sm:max-w-md max-h-[90vh] overflow-y-auto">
@@ -166,12 +166,12 @@ const AddInvestmentModal = ({ children }: AddInvestmentModalProps) => {
             />
           </div>
           <div className="flex space-x-2">
-            <Button type="button" variant="outline" onClick={() => setOpen(false)} className="flex-1">
+            <button type="button" className="worker-button-secondary flex-1" onClick={() => setOpen(false)}>
               रद्द करें
-            </Button>
-            <Button type="submit" className="flex-1 bg-blue-600 hover:bg-blue-700">
+            </button>
+            <button type="submit" className="worker-button-primary flex-1">
               निवेश जोड़ें
-            </Button>
+            </button>
           </div>
         </form>
       </DialogContent>

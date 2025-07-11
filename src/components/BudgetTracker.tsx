@@ -16,63 +16,51 @@ const BudgetTracker = () => {
 
   if (loading) {
     return (
-      <Card className="border-0 shadow-md">
-        <CardHeader>
-          <CardTitle className="text-lg text-purple-800 flex items-center space-x-2">
-            <Target className="w-5 h-5" />
-            <span>{t('budgetTracker')}</span>
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-center text-gray-500">{t('loading')}</p>
-        </CardContent>
-      </Card>
+      <div className="worker-card">
+        <div className="flex items-center space-x-2 mb-4">
+          <Target className="w-5 h-5 text-success-green" />
+          <h2 className="text-lg font-semibold text-primary">{t('budgetTracker')}</h2>
+        </div>
+        <p className="text-center text-muted-foreground">{t('loading')}</p>
+      </div>
     );
   }
 
   if (categories.length === 0) {
     return (
-      <Card className="border-0 shadow-md">
-        <CardHeader>
-          <CardTitle className="text-lg text-purple-800 flex items-center space-x-2">
-            <Target className="w-5 h-5" />
-            <span>{t('budgetTracker')}</span>
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="text-center py-8">
-            <Target className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-            <p className="text-center text-gray-500">{t('noBudgetSet')}</p>
-            <p className="text-sm text-gray-400 mt-1">{t('setBudgetFirst')}</p>
-          </div>
-        </CardContent>
-      </Card>
+      <div className="worker-card">
+        <div className="flex items-center space-x-2 mb-4">
+          <Target className="w-5 h-5 text-success-green" />
+          <h2 className="text-lg font-semibold text-primary">{t('budgetTracker')}</h2>
+        </div>
+        <div className="text-center py-8">
+          <Target className="w-12 h-12 text-muted-foreground/50 mx-auto mb-4" />
+          <p className="text-center text-muted-foreground">{t('noBudgetSet')}</p>
+          <p className="text-sm text-muted-foreground/75 mt-1">{t('setBudgetFirst')}</p>
+        </div>
+      </div>
     );
   }
 
   return (
-    <Card className="border-0 shadow-md">
-      <CardHeader>
-        <CardTitle className="text-lg text-purple-800 flex items-center space-x-2">
-          <Target className="w-5 h-5" />
-          <span>{t('budgetTracker')}</span>
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <BudgetOverview
-          totalBudget={totalBudget}
-          totalSpent={totalSpent}
-          overallProgress={overallProgress}
-        />
+    <div className="worker-card">
+      <div className="flex items-center space-x-2 mb-4">
+        <Target className="w-5 h-5 text-success-green" />
+        <h2 className="text-lg font-semibold text-primary">{t('budgetTracker')}</h2>
+      </div>
+      <BudgetOverview
+        totalBudget={totalBudget}
+        totalSpent={totalSpent}
+        overallProgress={overallProgress}
+      />
 
-        <div className="space-y-4">
-          <h4 className="font-semibold text-purple-800 mb-3">{t('categoryWiseBudget')}</h4>
+      <div className="space-y-4">
+        <h4 className="font-semibold text-success-green mb-3">{t('categoryWiseBudget')}</h4>
           {categories.map((category) => (
             <BudgetCategoryItem key={category.id} category={category} />
           ))}
         </div>
-      </CardContent>
-    </Card>
+    </div>
   );
 };
 
