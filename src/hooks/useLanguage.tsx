@@ -133,7 +133,20 @@ const translations: Translations = {
   warning: { en: 'Needs Attention', hi: 'ध्यान देने की आवश्यकता' },
   getPersonalizedSuggestions: { en: 'Get personalized AI suggestions based on your financial data', hi: 'अपने वित्तीय डेटा के आधार पर व्यक्तिगत AI सुझाव प्राप्त करें' },
   monthlyIncomeAmount: { en: 'Monthly Income Amount', hi: 'मासिक आय राशि' },
-  enterMonthlyIncome: { en: 'Enter your monthly income', hi: 'अपनी मासिक आय दर्ज करें' }
+  enterMonthlyIncome: { en: 'Enter your monthly income', hi: 'अपनी मासिक आय दर्ज करें' },
+  
+  // Investment Related
+  totalInvestment: { en: 'Total Investment', hi: 'कुल निवेश' },
+  currentValue: { en: 'Current Value', hi: 'वर्तमान मूल्य' },
+  totalGain: { en: 'Total Gain', hi: 'कुल लाभ' },
+  totalLoss: { en: 'Total Loss', hi: 'कुल हानि' },
+  yourInvestments: { en: 'Your Investments', hi: 'आपके निवेश' },
+  expectedReturn: { en: 'Expected Return', hi: 'अपेक्षित रिटर्न' },
+  
+  // AI Recommendations Related
+  getAiSuggestions: { en: 'Get AI Suggestions', hi: 'AI सुझाव प्राप्त करें' },
+  analyzing: { en: 'Analyzing...', hi: 'विश्लेषण हो रहा है...' },
+  failedToGetAiSuggestions: { en: 'Failed to get AI suggestions', hi: 'AI सुझाव प्राप्त करने में असफल' }
 };
 
 interface LanguageContextType {
