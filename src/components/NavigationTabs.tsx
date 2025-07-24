@@ -83,7 +83,7 @@ const NavigationTabs = ({ children }: NavigationTabsProps) => {
       </div>
       
       {/* Mobile-optimized Bottom Navigation */}
-      <Card className="fixed bottom-0 left-0 right-0 border-t-2 border-gray-200 rounded-none shadow-lg z-50 bg-white">
+      <Card className="fixed bottom-0 left-0 right-0 border-t-2 border-neutral-200 rounded-none shadow-card z-50 bg-white">
         <CardContent className="p-1">
           <div className="flex justify-around items-center">
             {tabs.map(({ id, label, icon: Icon }) => (
@@ -94,8 +94,8 @@ const NavigationTabs = ({ children }: NavigationTabsProps) => {
                 onClick={() => setActiveTab(id)}
                 className={`flex flex-col items-center justify-center space-y-1 h-auto py-3 px-2 min-w-0 flex-1 text-xs ${
                   activeTab === id 
-                    ? 'bg-blue-600 text-white hover:bg-blue-700' 
-                    : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
+                    ? 'bg-trust-blue text-white hover:bg-trust-blue-dark' 
+                    : 'text-neutral-600 hover:text-trust-blue hover:bg-trust-blue/10'
                 }`}
               >
                 <Icon className="w-5 h-5 mb-1" />

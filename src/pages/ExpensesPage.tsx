@@ -115,7 +115,7 @@ const ExpensesPage = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Mobile-optimized layout */}
-      <div className="worker-container space-y-4">
+      <div className="mobile-container space-y-4">
         {/* Mobile-first header with proper alignment */}
         <div className="space-y-3">
           <div className="text-center">
