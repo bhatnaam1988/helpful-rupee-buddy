@@ -126,7 +126,7 @@ const ExpensesPage = () => {
           {/* Mobile-optimized add button */}
           <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
             <DialogTrigger asChild>
-              <button className="worker-button-primary w-full h-12 text-lg font-medium">
+              <button className="worker-button-primary w-full flex items-center justify-center">
                 <PlusCircle className="w-5 h-5 mr-2" />
                 {t('addExpense')}
               </button>
