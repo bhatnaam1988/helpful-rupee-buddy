@@ -136,11 +136,15 @@ const translations: Translations = {
   enterMonthlyIncome: { en: 'Enter your monthly income', hi: 'अपनी मासिक आय दर्ज करें' },
   
   // Investment Related
+  investmentPortfolio: { en: 'Investment Portfolio', hi: 'निवेश पोर्टफोलियो' },
+  manageInvestments: { en: 'Manage your investments', hi: 'अपने निवेश का प्रबंधन करें' },
   totalInvestment: { en: 'Total Investment', hi: 'कुल निवेश' },
   currentValue: { en: 'Current Value', hi: 'वर्तमान मूल्य' },
   totalGain: { en: 'Total Gain', hi: 'कुल लाभ' },
   totalLoss: { en: 'Total Loss', hi: 'कुल हानि' },
   yourInvestments: { en: 'Your Investments', hi: 'आपके निवेश' },
+  noInvestments: { en: 'No investments found', hi: 'कोई निवेश नहीं मिला' },
+  startInvestingToday: { en: 'Start investing today to build wealth', hi: 'धन निर्माण के लिए आज ही निवेश शुरू करें' },
   expectedReturn: { en: 'Expected Return', hi: 'अपेक्षित रिटर्न' },
   
   // AI Recommendations Related
