@@ -7,6 +7,34 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
 
+// Rate limiting storage (in production, use Redis or similar)
+const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
+
+const checkRateLimit = (userId: string): boolean => {
+  const now = Date.now();
+  const key = userId;
+  const limit = rateLimitMap.get(key);
+  
+  if (!limit || now > limit.resetTime) {
+    rateLimitMap.set(key, { count: 1, resetTime: now + 60000 }); // 1 minute window
+    return true;
+  }
+  
+  if (limit.count >= 5) { // 5 requests per minute
+    return false;
+  }
+  
+  limit.count++;
+  return true;
+};
+
+const sanitizeInput = (input: any): any => {
+  if (typeof input === 'string') {
+    return input.replace(/[<>]/g, '').replace(/javascript:/gi, '').trim();
+  }
+  return input;
+};
+
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders })
@@ -24,6 +52,14 @@ serve(async (req) => {
       return new Response('Unauthorized', { status: 401, headers: corsHeaders })
     }
 
+    // Rate limiting check
+    if (!checkRateLimit(user.id)) {
+      return new Response(
+        JSON.stringify({ error: 'Rate limit exceeded. Please try again later.' }),
+        { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      )
+    }
+
     // Fetch user's financial data
     const [profileRes, expensesRes, investmentsRes, goalsRes] = await Promise.all([
       supabaseClient.from('profiles').select('*').eq('id', user.id).single(),
@@ -33,16 +69,22 @@ serve(async (req) => {
     ])
 
     const profile = profileRes.data
-    const expenses = expensesRes.data || []
-    const investments = investmentsRes.data || []
-    const goals = goalsRes.data || []
+    const expenses = (expensesRes.data || []).map(sanitizeInput)
+    const investments = (investmentsRes.data || []).map(sanitizeInput)
+    const goals = (goalsRes.data || []).map(sanitizeInput)
 
-    // Calculate financial metrics
-    const monthlyIncome = profile?.monthly_income || 0
-    const totalExpenses = expenses.reduce((sum: number, exp: any) => sum + exp.amount, 0)
-    const totalInvestments = investments.reduce((sum: number, inv: any) => sum + inv.amount, 0)
-    const availableSurplus = monthlyIncome - totalExpenses
-    const currentSavingsRate = monthlyIncome > 0 ? ((availableSurplus) / monthlyIncome) * 100 : 0
+    // Validate and sanitize financial data
+    const monthlyIncome = Math.max(0, Math.min(10000000, profile?.monthly_income || 0))
+    const totalExpenses = expenses.reduce((sum: number, exp: any) => {
+      const amount = Math.max(0, parseFloat(exp.amount) || 0)
+      return sum + amount
+    }, 0)
+    const totalInvestments = investments.reduce((sum: number, inv: any) => {
+      const amount = Math.max(0, parseFloat(inv.amount) || 0)
+      return sum + amount
+    }, 0)
+    const availableSurplus = Math.max(0, monthlyIncome - totalExpenses)
+    const currentSavingsRate = monthlyIncome > 0 ? Math.min(100, ((availableSurplus) / monthlyIncome) * 100) : 0
 
     // Generate AI recommendations based on financial data
     let recommendations = []
@@ -151,12 +193,19 @@ serve(async (req) => {
          'बेहतरीन! अपने निवेश को diversify करते रहें।'}
     `
 
-    // Save recommendation to database
+    // Validate and save recommendation to database
+    const sanitizedRecommendations = recommendations.map(rec => ({
+      ...rec,
+      title: sanitizeInput(rec.title),
+      description: sanitizeInput(rec.description),
+      action: sanitizeInput(rec.action)
+    }))
+
     await supabaseClient.from('recommendations').insert({
       user_id: user.id,
-      monthly_investment_amount: monthlyInvestmentAmount,
-      recommended_instruments: recommendations,
-      ai_advice: aiAdvice.trim()
+      monthly_investment_amount: Math.max(0, Math.min(1000000, monthlyInvestmentAmount)),
+      recommended_instruments: sanitizedRecommendations,
+      ai_advice: sanitizeInput(aiAdvice.trim())
     })
 
     return new Response(
@@ -174,7 +223,8 @@ serve(async (req) => {
       }
     )
   } catch (error) {
-    console.error('Error generating AI recommendations:', error)
+    // Log error securely without exposing details
+    console.error('AI recommendations error:', error instanceof Error ? error.message : 'Unknown error')
     return new Response(
       JSON.stringify({ error: 'Failed to generate recommendations' }),
       { 

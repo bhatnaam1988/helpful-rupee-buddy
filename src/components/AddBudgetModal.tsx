@@ -7,6 +7,8 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Target } from "lucide-react";
 import { useBudgetCategories } from "@/hooks/useBudgetCategories";
+import { budgetCategorySchema } from "@/lib/validation";
+import { useToast } from "@/hooks/use-toast";
 
 const categories = [
   "Food & Groceries",
@@ -40,22 +42,54 @@ const AddBudgetModal = ({ children }: AddBudgetModalProps) => {
   const [open, setOpen] = useState(false);
   const [categoryName, setCategoryName] = useState("");
   const [monthlyLimit, setMonthlyLimit] = useState("");
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const { addCategory } = useBudgetCategories();
+  const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrors({});
     
-    if (!categoryName || !monthlyLimit) return;
+    if (!categoryName || !monthlyLimit) {
+      setErrors({ general: 'All fields are required' });
+      return;
+    }
 
-    await addCategory({
-      category_name: categoryName,
-      monthly_limit: parseFloat(monthlyLimit)
-    });
+    try {
+      const validatedData = budgetCategorySchema.parse({
+        category_name: categoryName,
+        monthly_limit: parseFloat(monthlyLimit)
+      });
 
-    // Reset form
-    setCategoryName("");
-    setMonthlyLimit("");
-    setOpen(false);
+      await addCategory({
+        category_name: validatedData.category_name,
+        monthly_limit: validatedData.monthly_limit
+      });
+
+      // Reset form
+      setCategoryName("");
+      setMonthlyLimit("");
+      setOpen(false);
+      toast({
+        title: "Success",
+        description: "Budget category added successfully"
+      });
+    } catch (error: any) {
+      if (error.errors) {
+        const fieldErrors: Record<string, string> = {};
+        error.errors.forEach((err: any) => {
+          fieldErrors[err.path[0]] = err.message;
+        });
+        setErrors(fieldErrors);
+      } else {
+        setErrors({ general: 'Failed to add budget category' });
+      }
+      toast({
+        title: "Error",
+        description: "Please check your input and try again",
+        variant: "destructive"
+      });
+    }
   };
 
   return (

@@ -7,6 +7,8 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { TrendingUp } from "lucide-react";
 import { useInvestments } from "@/hooks/useInvestments";
+import { investmentSchema } from "@/lib/validation";
+import { useToast } from "@/hooks/use-toast";
 
 const investmentTypes = [
   "SIP",
@@ -43,33 +45,71 @@ const AddInvestmentModal = ({ children }: AddInvestmentModalProps) => {
   const [maturityDate, setMaturityDate] = useState("");
   const [expectedReturnRate, setExpectedReturnRate] = useState("");
   const [currentValue, setCurrentValue] = useState("");
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const { addInvestment } = useInvestments();
+  const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrors({});
     
-    if (!instrumentName || !investmentType || !amount) return;
+    if (!instrumentName || !investmentType || !amount) {
+      setErrors({ general: 'Required fields are missing' });
+      return;
+    }
 
-    await addInvestment({
-      instrument_name: instrumentName,
-      investment_type: investmentType as any,
-      amount: parseFloat(amount),
-      investment_date: investmentDate,
-      maturity_date: maturityDate || undefined,
-      expected_return_rate: expectedReturnRate ? parseFloat(expectedReturnRate) : undefined,
-      current_value: currentValue ? parseFloat(currentValue) : 0,
-      status: 'Active'
-    });
+    try {
+      const validatedData = investmentSchema.parse({
+        instrument_name: instrumentName,
+        investment_type: investmentType,
+        amount: parseFloat(amount),
+        investment_date: investmentDate,
+        maturity_date: maturityDate || undefined,
+        expected_return_rate: expectedReturnRate ? parseFloat(expectedReturnRate) : undefined,
+        current_value: currentValue ? parseFloat(currentValue) : 0
+      });
 
-    // Reset form
-    setInstrumentName("");
-    setInvestmentType("");
-    setAmount("");
-    setInvestmentDate(new Date().toISOString().split('T')[0]);
-    setMaturityDate("");
-    setExpectedReturnRate("");
-    setCurrentValue("");
-    setOpen(false);
+      await addInvestment({
+        instrument_name: validatedData.instrument_name,
+        investment_type: validatedData.investment_type as any,
+        amount: validatedData.amount,
+        investment_date: validatedData.investment_date,
+        maturity_date: validatedData.maturity_date,
+        expected_return_rate: validatedData.expected_return_rate,
+        current_value: validatedData.current_value || 0,
+        status: 'Active'
+      });
+
+      // Reset form
+      setInstrumentName("");
+      setInvestmentType("");
+      setAmount("");
+      setInvestmentDate(new Date().toISOString().split('T')[0]);
+      setMaturityDate("");
+      setExpectedReturnRate("");
+      setCurrentValue("");
+      setOpen(false);
+      
+      toast({
+        title: "Success",
+        description: "Investment added successfully"
+      });
+    } catch (error: any) {
+      if (error.errors) {
+        const fieldErrors: Record<string, string> = {};
+        error.errors.forEach((err: any) => {
+          fieldErrors[err.path[0]] = err.message;
+        });
+        setErrors(fieldErrors);
+      } else {
+        setErrors({ general: 'Failed to add investment' });
+      }
+      toast({
+        title: "Error",
+        description: "Please check your input and try again",
+        variant: "destructive"
+      });
+    }
   };
 
   return (

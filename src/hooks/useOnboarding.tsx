@@ -8,14 +8,9 @@ export const useOnboarding = () => {
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
 
-  console.log("useOnboarding hook called, user:", !!user);
-
   useEffect(() => {
     const checkOnboardingStatus = async () => {
-      console.log("Checking onboarding status for user:", !!user);
-      
       if (!user) {
-        console.log("No user, setting loading to false");
         setLoading(false);
         return;
       }
@@ -27,24 +22,19 @@ export const useOnboarding = () => {
           .eq('user_id', user.id)
           .single();
 
-        console.log("Onboarding check result:", { data, error });
-
         if (error && error.code === 'PGRST116') {
           // No onboarding record exists, show onboarding
-          console.log("No onboarding record found, showing onboarding");
           setShouldShowOnboarding(true);
         } else if (error) {
-          console.error('Error checking onboarding status:', error);
+          console.error('Onboarding check error:', error.message);
           setShouldShowOnboarding(false);
         } else {
-          console.log("Onboarding completed:", data?.has_completed_onboarding);
           setShouldShowOnboarding(!data?.has_completed_onboarding);
         }
       } catch (error) {
-        console.error('Error in onboarding check:', error);
+        console.error('Onboarding error:', error instanceof Error ? error.message : 'Unknown error');
         setShouldShowOnboarding(false);
       } finally {
-        console.log("Setting onboarding loading to false");
         setLoading(false);
       }
     };
@@ -53,8 +43,6 @@ export const useOnboarding = () => {
   }, [user]);
 
   const completeOnboarding = async () => {
-    console.log("Completing onboarding for user:", !!user);
-    
     if (!user) return;
 
     try {
@@ -67,22 +55,18 @@ export const useOnboarding = () => {
         });
 
       if (error) {
-        console.error('Error completing onboarding:', error);
+        console.error('Onboarding completion error:', error.message);
       } else {
-        console.log("Onboarding completed successfully");
         setShouldShowOnboarding(false);
       }
     } catch (error) {
-      console.error('Error in completeOnboarding:', error);
+      console.error('Onboarding error:', error instanceof Error ? error.message : 'Unknown error');
     }
   };
 
   const skipOnboarding = async () => {
-    console.log("Skipping onboarding");
     await completeOnboarding();
   };
-
-  console.log("useOnboarding state:", { shouldShowOnboarding, loading });
 
   return {
     shouldShowOnboarding,
