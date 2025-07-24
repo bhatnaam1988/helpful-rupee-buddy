@@ -122,7 +122,18 @@ const translations: Translations = {
   
   // Language Selection
   hindi: { en: 'Hindi', hi: 'हिंदी' },
-  english: { en: 'English', hi: 'अंग्रेजी' }
+  english: { en: 'English', hi: 'अंग्रेजी' },
+  
+  // Missing Translation Keys
+  aiFinancialSuggestions: { en: 'AI Financial Suggestions', hi: 'AI वित्तीय सुझाव' },
+  setMonthlyIncome: { en: 'Set Monthly Income', hi: 'मासिक आय सेट करें' },
+  excellent: { en: 'Excellent', hi: 'उत्कृष्ट' },
+  good: { en: 'Good', hi: 'अच्छा' },
+  average: { en: 'Average', hi: 'औसत' },
+  warning: { en: 'Needs Attention', hi: 'ध्यान देने की आवश्यकता' },
+  getPersonalizedSuggestions: { en: 'Get personalized AI suggestions based on your financial data', hi: 'अपने वित्तीय डेटा के आधार पर व्यक्तिगत AI सुझाव प्राप्त करें' },
+  monthlyIncomeAmount: { en: 'Monthly Income Amount', hi: 'मासिक आय राशि' },
+  enterMonthlyIncome: { en: 'Enter your monthly income', hi: 'अपनी मासिक आय दर्ज करें' }
 };
 
 interface LanguageContextType {

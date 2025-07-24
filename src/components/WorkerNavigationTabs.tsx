@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import AIRecommendations from "./AIRecommendations";
 import InvestmentPortfolio from "./InvestmentPortfolio";
-import BudgetTracker from "./BudgetTracker";
+
 import ExpensesPage from "../pages/ExpensesPage";
 import { useLanguage } from "@/hooks/useLanguage";
 
@@ -38,11 +38,6 @@ const WorkerNavigationTabs = ({ children }: WorkerNavigationTabsProps) => {
       id: 'goals', 
       label: currentLanguage === 'hi' ? 'लक्ष्य' : 'Goals', 
       icon: Target 
-    },
-    { 
-      id: 'budget', 
-      label: currentLanguage === 'hi' ? 'बजट' : 'Budget', 
-      icon: PieChart 
     },
     { 
       id: 'invest', 
@@ -78,12 +73,6 @@ const WorkerNavigationTabs = ({ children }: WorkerNavigationTabsProps) => {
                 : 'Goals management coming soon...'
               }
             </p>
-          </div>
-        );
-      case 'budget':
-        return (
-          <div className="min-h-screen bg-neutral-50">
-            <BudgetTracker />
           </div>
         );
       case 'invest':
