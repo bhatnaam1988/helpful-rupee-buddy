@@ -28,9 +28,6 @@ const Index = () => {
   const { profile, loading: profileLoading } = useProfile();
   console.log("Profile state:", { hasProfile: !!profile, profileLoading });
   
-  const [showExpenseModal, setShowExpenseModal] = useState(false);
-  const [showGoalModal, setShowGoalModal] = useState(false);
-  const [showIncomeModal, setShowIncomeModal] = useState(false);
 
   console.log("All loading states:", { 
     authLoading, 
@@ -80,12 +77,6 @@ const Index = () => {
         profile={profile}
         expenses={expenses}
         goals={goals}
-        showExpenseModal={showExpenseModal}
-        showGoalModal={showGoalModal}
-        showIncomeModal={showIncomeModal}
-        setShowExpenseModal={setShowExpenseModal}
-        setShowGoalModal={setShowGoalModal}
-        setShowIncomeModal={setShowIncomeModal}
         onSignOut={handleSignOut}
       />
     </WorkerNavigationTabs>
