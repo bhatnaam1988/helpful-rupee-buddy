@@ -129,129 +129,146 @@ const AIRecommendations = () => {
   };
 
   return (
-    <div className="worker-card">
-      <div className="flex items-center space-x-2 mb-4">
-        <Brain className="w-5 h-5 text-prosperity-gold" />
-        <h2 className="text-lg font-semibold text-primary">{t('aiFinancialSuggestions')}</h2>
-      </div>
-      {!recommendations ? (
-        <div className="text-center py-8">
-          <Brain className="w-16 h-16 text-prosperity-gold/50 mx-auto mb-4" />
-          <p className="text-muted-foreground mb-4">
-            {t('getPersonalizedSuggestions')}
-          </p>
-          <button 
-            onClick={getRecommendations} 
-            disabled={loading}
-            className="worker-button-primary"
-          >
-            {loading ? t('analyzing') : t('getAiSuggestions')}
-          </button>
+    <div className="min-h-screen bg-background">
+      <div className="mobile-container space-y-4">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-primary">{t('aiFinancialSuggestions')}</h1>
+          <p className="text-muted-foreground text-sm mt-1">{t('getPersonalizedSuggestions')}</p>
         </div>
+        
+        {!recommendations ? (
+          <Card className="worker-card">
+            <CardContent className="text-center py-8">
+              <Brain className="w-16 h-16 text-prosperity-gold/50 mx-auto mb-4" />
+              <p className="text-muted-foreground mb-4">
+                {t('getPersonalizedSuggestions')}
+              </p>
+              <button 
+                onClick={getRecommendations} 
+                disabled={loading}
+                className="worker-button-primary w-full flex items-center justify-center"
+              >
+                <Brain className="w-5 h-5 mr-2" />
+                {loading ? t('analyzing') : t('getAiSuggestions')}
+              </button>
+            </CardContent>
+          </Card>
         ) : (
-          <div className="space-y-6">
-          {/* Financial Health Score */}
-          <div className="bg-gradient-to-r from-prosperity-gold/10 to-trust-blue/10 rounded-lg p-4 border border-prosperity-gold/20">
-            <div className="flex items-center justify-between mb-2">
-              <h4 className="font-semibold text-prosperity-gold">{t('financialHealthScore')}</h4>
-              <Badge className="bg-prosperity-gold/20 text-prosperity-gold">
-                {recommendations.financial_health_score}/100
-              </Badge>
-            </div>
-            <div className="w-full bg-border rounded-full h-3 mb-2">
-              <div 
-                className="bg-gradient-to-r from-prosperity-gold to-trust-blue h-3 rounded-full transition-all duration-500"
-                style={{ width: `${recommendations.financial_health_score}%` }}
-              ></div>
-            </div>
-            <p className="text-sm text-prosperity-gold">
-              {getHealthScoreMessage(recommendations.financial_health_score)}
-            </p>
-          </div>
+          <div className="space-y-4">
+            {/* Financial Health Score */}
+            <Card className="worker-card bg-gradient-to-r from-prosperity-gold/10 to-trust-blue/10 border-prosperity-gold/20">
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <h4 className="font-semibold text-prosperity-gold">{t('financialHealthScore')}</h4>
+                  <Badge className="bg-prosperity-gold/20 text-prosperity-gold">
+                    {recommendations.financial_health_score}/100
+                  </Badge>
+                </div>
+                <div className="w-full bg-border rounded-full h-3 mb-2">
+                  <div 
+                    className="bg-gradient-to-r from-prosperity-gold to-trust-blue h-3 rounded-full transition-all duration-500"
+                    style={{ width: `${recommendations.financial_health_score}%` }}
+                  ></div>
+                </div>
+                <p className="text-sm text-prosperity-gold">
+                  {getHealthScoreMessage(recommendations.financial_health_score)}
+                </p>
+              </CardContent>
+            </Card>
 
-          {/* Monthly Investment Suggestion */}
-          {recommendations.monthly_investment_amount > 0 && (
-            <div className="bg-success-green/10 rounded-lg p-4 border border-success-green/20">
-              <div className="flex items-center space-x-2 mb-2">
-                <TrendingUp className="w-5 h-5 text-success-green" />
-                <h4 className="font-semibold text-success-green">{t('suggestedMonthlyInvestment')}</h4>
-              </div>
-              <p className="text-2xl font-bold text-success-green mb-1">
-                {formatCurrency(recommendations.monthly_investment_amount)}
-              </p>
-              <p className="text-sm text-success-green/80">
-                {t('investMonthlyToGrowWealth')}
-              </p>
-            </div>
-          )}
+            {/* Monthly Investment Suggestion */}
+            {recommendations.monthly_investment_amount > 0 && (
+              <Card className="worker-card bg-success-green/10 border-success-green/20">
+                <CardContent className="p-4">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <TrendingUp className="w-5 h-5 text-success-green" />
+                    <h4 className="font-semibold text-success-green">{t('suggestedMonthlyInvestment')}</h4>
+                  </div>
+                  <p className="text-2xl font-bold text-success-green mb-1">
+                    {formatCurrency(recommendations.monthly_investment_amount)}
+                  </p>
+                  <p className="text-sm text-success-green/80">
+                    {t('investMonthlyToGrowWealth')}
+                  </p>
+                </CardContent>
+              </Card>
+            )}
 
-          {/* AI Advice */}
-          <div className="bg-trust-blue/10 rounded-lg p-4 border border-trust-blue/20">
-            <h4 className="font-semibold text-trust-blue mb-2">{t('aiAnalysisReport')}</h4>
-            <pre className="text-sm text-trust-blue/80 whitespace-pre-wrap font-sans">
-              {recommendations.ai_advice}
-            </pre>
-          </div>
+            {/* AI Advice */}
+            <Card className="worker-card bg-trust-blue/10 border-trust-blue/20">
+              <CardContent className="p-4">
+                <h4 className="font-semibold text-trust-blue mb-2">{t('aiAnalysisReport')}</h4>
+                <pre className="text-sm text-trust-blue/80 whitespace-pre-wrap font-sans">
+                  {recommendations.ai_advice}
+                </pre>
+              </CardContent>
+            </Card>
 
             {/* Recommendations List */}
-            <div className="space-y-4">
-              <h4 className="font-semibold text-gray-800">{t('personalSuggestions')}</h4>
-              {recommendations.recommendations.map((rec, index) => (
-                <div key={index} className={`border rounded-lg p-4 ${getPriorityColor(rec.priority)}`}>
-                  <div className="flex items-start space-x-3">
-                    <div className="flex-shrink-0">
-                      {getRecommendationIcon(rec.type)}
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-center justify-between mb-2">
-                        <h5 className="font-semibold text-gray-800">{rec.title}</h5>
-                        <div className="flex items-center space-x-1">
-                          {getPriorityIcon(rec.priority)}
-                          <span className="text-xs font-medium">
-                            {getPriorityText(rec.priority)}
-                          </span>
-                        </div>
+            <Card className="worker-card">
+              <CardHeader>
+                <CardTitle className="text-lg">{t('personalSuggestions')}</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {recommendations.recommendations.map((rec, index) => (
+                  <div key={index} className={`border rounded-lg p-4 ${getPriorityColor(rec.priority)}`}>
+                    <div className="flex items-start space-x-3">
+                      <div className="flex-shrink-0">
+                        {getRecommendationIcon(rec.type)}
                       </div>
-                      <p className="text-sm text-gray-700 mb-3">{rec.description}</p>
-                      
-                      {rec.instruments && (
-                        <div className="mb-3">
-                          <p className="text-xs text-gray-600 mb-1">{t('suggestedInstruments')}</p>
-                          <div className="flex flex-wrap gap-1">
-                            {rec.instruments.map((instrument, idx) => (
-                              <Badge key={idx} variant="outline" className="text-xs">
-                                {instrument}
-                              </Badge>
-                            ))}
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between mb-2">
+                          <h5 className="font-semibold text-gray-800">{rec.title}</h5>
+                          <div className="flex items-center space-x-1">
+                            {getPriorityIcon(rec.priority)}
+                            <span className="text-xs font-medium">
+                              {getPriorityText(rec.priority)}
+                            </span>
                           </div>
                         </div>
-                      )}
-                      
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        className="text-xs"
-                      >
-                        {rec.action}
-                      </Button>
+                        <p className="text-sm text-gray-700 mb-3">{rec.description}</p>
+                        
+                        {rec.instruments && (
+                          <div className="mb-3">
+                            <p className="text-xs text-gray-600 mb-1">{t('suggestedInstruments')}</p>
+                            <div className="flex flex-wrap gap-1">
+                              {rec.instruments.map((instrument, idx) => (
+                                <Badge key={idx} variant="outline" className="text-xs">
+                                  {instrument}
+                                </Badge>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                        
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="text-xs"
+                        >
+                          {rec.action}
+                        </Button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </CardContent>
+            </Card>
 
-          {/* Refresh Button */}
-          <div className="text-center pt-4">
-            <button
-              onClick={getRecommendations}
-              disabled={loading}
-              className="worker-button-secondary text-sm px-4 py-2"
-            >
-              {loading ? t('updating') : t('updateSuggestions')}
-            </button>
+            {/* Refresh Button */}
+            <div className="text-center">
+              <button
+                onClick={getRecommendations}
+                disabled={loading}
+                className="worker-button-secondary w-full flex items-center justify-center"
+              >
+                <Brain className="w-4 h-4 mr-2" />
+                {loading ? t('updating') : t('updateSuggestions')}
+              </button>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };
