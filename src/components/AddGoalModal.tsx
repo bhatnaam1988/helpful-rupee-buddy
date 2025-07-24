@@ -64,19 +64,20 @@ const AddGoalModal = ({ children, open, onOpenChange }: AddGoalModalProps) => {
         <DialogHeader>
           <DialogTitle>{t('setFinancialGoal')}</DialogTitle>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <Label htmlFor="name">{t('goalName')}</Label>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="worker-input-group">
+            <Label htmlFor="name" className="worker-label">{t('goalName')}</Label>
             <Input
               id="name"
               placeholder={t('goalNamePlaceholder')}
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
+              className="h-12"
             />
           </div>
-          <div>
-            <Label htmlFor="targetAmount">{t('goalAmount')}</Label>
+          <div className="worker-input-group">
+            <Label htmlFor="targetAmount" className="worker-label">{t('goalAmount')}</Label>
             <Input
               id="targetAmount"
               type="number"
@@ -85,10 +86,11 @@ const AddGoalModal = ({ children, open, onOpenChange }: AddGoalModalProps) => {
               value={targetAmount}
               onChange={(e) => setTargetAmount(e.target.value)}
               required
+              className="h-12"
             />
           </div>
-          <div>
-            <Label htmlFor="currentAmount">{t('currentAmount')}</Label>
+          <div className="worker-input-group">
+            <Label htmlFor="currentAmount" className="worker-label">{t('currentAmount')}</Label>
             <Input
               id="currentAmount"
               type="number"
@@ -96,22 +98,24 @@ const AddGoalModal = ({ children, open, onOpenChange }: AddGoalModalProps) => {
               placeholder="0"
               value={currentAmount}
               onChange={(e) => setCurrentAmount(e.target.value)}
+              className="h-12"
             />
           </div>
-          <div>
-            <Label htmlFor="timeline">{t('timeline')}</Label>
+          <div className="worker-input-group">
+            <Label htmlFor="timeline" className="worker-label">{t('timeline')}</Label>
             <Input
               id="timeline"
               type="number"
               placeholder="12"
               value={timelineMonths}
               onChange={(e) => setTimelineMonths(e.target.value)}
+              className="h-12"
             />
           </div>
-          <div>
-            <Label htmlFor="priority">{t('priority')}</Label>
+          <div className="worker-input-group">
+            <Label htmlFor="priority" className="worker-label">{t('priority')}</Label>
             <Select value={priority} onValueChange={(value: "High" | "Medium" | "Low") => setPriority(value)}>
-              <SelectTrigger>
+              <SelectTrigger className="h-12">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>

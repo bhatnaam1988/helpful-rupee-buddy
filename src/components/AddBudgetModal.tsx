@@ -72,11 +72,11 @@ const AddBudgetModal = ({ children }: AddBudgetModalProps) => {
         <DialogHeader>
           <DialogTitle>नई बजट श्रेणी जोड़ें</DialogTitle>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <Label htmlFor="category_name">श्रेणी</Label>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="worker-input-group">
+            <Label htmlFor="category_name" className="worker-label">श्रेणी</Label>
             <Select value={categoryName} onValueChange={setCategoryName} required>
-              <SelectTrigger>
+              <SelectTrigger className="h-12">
                 <SelectValue placeholder="श्रेणी चुनें" />
               </SelectTrigger>
               <SelectContent>
@@ -88,8 +88,8 @@ const AddBudgetModal = ({ children }: AddBudgetModalProps) => {
               </SelectContent>
             </Select>
           </div>
-          <div>
-            <Label htmlFor="monthly_limit">मासिक सीमा (₹)</Label>
+          <div className="worker-input-group">
+            <Label htmlFor="monthly_limit" className="worker-label">मासिक सीमा (₹)</Label>
             <Input
               id="monthly_limit"
               type="number"
@@ -98,6 +98,7 @@ const AddBudgetModal = ({ children }: AddBudgetModalProps) => {
               value={monthlyLimit}
               onChange={(e) => setMonthlyLimit(e.target.value)}
               required
+              className="h-12"
             />
           </div>
           <div className="flex space-x-2">

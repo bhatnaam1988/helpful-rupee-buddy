@@ -86,21 +86,22 @@ const AddInvestmentModal = ({ children }: AddInvestmentModalProps) => {
         <DialogHeader>
           <DialogTitle>नया निवेश जोड़ें</DialogTitle>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <Label htmlFor="instrument_name">निवेश साधन का नाम</Label>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="worker-input-group">
+            <Label htmlFor="instrument_name" className="worker-label">निवेश साधन का नाम</Label>
             <Input
               id="instrument_name"
               placeholder="जैसे: HDFC Equity Fund, SBI FD"
               value={instrumentName}
               onChange={(e) => setInstrumentName(e.target.value)}
               required
+              className="h-12"
             />
           </div>
-          <div>
-            <Label htmlFor="investment_type">निवेश प्रकार</Label>
+          <div className="worker-input-group">
+            <Label htmlFor="investment_type" className="worker-label">निवेश प्रकार</Label>
             <Select value={investmentType} onValueChange={setInvestmentType} required>
-              <SelectTrigger>
+              <SelectTrigger className="h-12">
                 <SelectValue placeholder="निवेश प्रकार चुनें" />
               </SelectTrigger>
               <SelectContent>
@@ -112,8 +113,8 @@ const AddInvestmentModal = ({ children }: AddInvestmentModalProps) => {
               </SelectContent>
             </Select>
           </div>
-          <div>
-            <Label htmlFor="amount">राशि (₹)</Label>
+          <div className="worker-input-group">
+            <Label htmlFor="amount" className="worker-label">राशि (₹)</Label>
             <Input
               id="amount"
               type="number"
@@ -122,29 +123,32 @@ const AddInvestmentModal = ({ children }: AddInvestmentModalProps) => {
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               required
+              className="h-12"
             />
           </div>
-          <div>
-            <Label htmlFor="investment_date">निवेश तारीख</Label>
+          <div className="worker-input-group">
+            <Label htmlFor="investment_date" className="worker-label">निवेश तारीख</Label>
             <Input
               id="investment_date"
               type="date"
               value={investmentDate}
               onChange={(e) => setInvestmentDate(e.target.value)}
               required
+              className="h-12"
             />
           </div>
-          <div>
-            <Label htmlFor="maturity_date">परिपक्वता तारीख (वैकल्पिक)</Label>
+          <div className="worker-input-group">
+            <Label htmlFor="maturity_date" className="worker-label">परिपक्वता तारीख (वैकल्पिक)</Label>
             <Input
               id="maturity_date"
               type="date"
               value={maturityDate}
               onChange={(e) => setMaturityDate(e.target.value)}
+              className="h-12"
             />
           </div>
-          <div>
-            <Label htmlFor="expected_return_rate">अपेक्षित रिटर्न दर (% वैकल्पिक)</Label>
+          <div className="worker-input-group">
+            <Label htmlFor="expected_return_rate" className="worker-label">अपेक्षित रिटर्न दर (% वैकल्पिक)</Label>
             <Input
               id="expected_return_rate"
               type="number"
@@ -152,10 +156,11 @@ const AddInvestmentModal = ({ children }: AddInvestmentModalProps) => {
               placeholder="12.5"
               value={expectedReturnRate}
               onChange={(e) => setExpectedReturnRate(e.target.value)}
+              className="h-12"
             />
           </div>
-          <div>
-            <Label htmlFor="current_value">वर्तमान मूल्य (₹ वैकल्पिक)</Label>
+          <div className="worker-input-group">
+            <Label htmlFor="current_value" className="worker-label">वर्तमान मूल्य (₹ वैकल्पिक)</Label>
             <Input
               id="current_value"
               type="number"
@@ -163,6 +168,7 @@ const AddInvestmentModal = ({ children }: AddInvestmentModalProps) => {
               placeholder="0.00"
               value={currentValue}
               onChange={(e) => setCurrentValue(e.target.value)}
+              className="h-12"
             />
           </div>
           <div className="flex space-x-2">

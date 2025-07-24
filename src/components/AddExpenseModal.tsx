@@ -74,11 +74,11 @@ const AddExpenseModal = ({ children, open, onOpenChange }: AddExpenseModalProps)
         <DialogHeader>
           <DialogTitle>{t('addNewExpense')}</DialogTitle>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <Label htmlFor="category">{t('category')}</Label>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="worker-input-group">
+            <Label htmlFor="category" className="worker-label">{t('category')}</Label>
             <Select value={category} onValueChange={setCategory} required>
-              <SelectTrigger>
+              <SelectTrigger className="h-12">
                 <SelectValue placeholder={t('selectCategory')} />
               </SelectTrigger>
               <SelectContent>
@@ -90,8 +90,8 @@ const AddExpenseModal = ({ children, open, onOpenChange }: AddExpenseModalProps)
               </SelectContent>
             </Select>
           </div>
-          <div>
-            <Label htmlFor="amount">{t('amount')} (₹)</Label>
+          <div className="worker-input-group">
+            <Label htmlFor="amount" className="worker-label">{t('amount')} (₹)</Label>
             <Input
               id="amount"
               type="number"
@@ -100,25 +100,28 @@ const AddExpenseModal = ({ children, open, onOpenChange }: AddExpenseModalProps)
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               required
+              className="h-12"
             />
           </div>
-          <div>
-            <Label htmlFor="date">{t('date')}</Label>
+          <div className="worker-input-group">
+            <Label htmlFor="date" className="worker-label">{t('date')}</Label>
             <Input
               id="date"
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
               required
+              className="h-12"
             />
           </div>
-          <div>
-            <Label htmlFor="description">{t('description')} ({t('optionalDescription')})</Label>
+          <div className="worker-input-group">
+            <Label htmlFor="description" className="worker-label">{t('description')} ({t('optionalDescription')})</Label>
             <Input
               id="description"
               placeholder={t('optionalDescription')}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
+              className="h-12"
             />
           </div>
           <div className="flex space-x-2">
