@@ -116,11 +116,11 @@ const ExpensesPage = () => {
     <div className="min-h-screen bg-background">
       {/* Mobile-optimized layout */}
       <div className="worker-container space-y-4">
-        {/* Mobile-first header */}
+        {/* Mobile-first header with proper alignment */}
         <div className="space-y-3">
-          <div>
+          <div className="text-center">
             <h1 className="text-2xl font-bold text-primary">{t('expenseManagement')}</h1>
-            <p className="text-muted-foreground text-sm">{t('manageExpenses')}</p>
+            <p className="text-muted-foreground text-sm mt-1">{t('manageExpenses')}</p>
           </div>
           
           {/* Mobile-optimized add button */}
@@ -195,10 +195,10 @@ const ExpensesPage = () => {
 
         {/* Mobile-optimized expenses display */}
         <Card>
-          <CardHeader>
+          <CardHeader className="text-center pb-4">
             <CardTitle className="text-lg">{t('allExpenses')}</CardTitle>
-            <CardDescription>
-              {t('totalExpenses')}: ₹{expenses.reduce((sum, expense) => sum + expense.amount, 0).toLocaleString('hi-IN')}
+            <CardDescription className="text-base font-semibold">
+              {t('totalExpenses')}: <span className="text-primary">₹{expenses.reduce((sum, expense) => sum + expense.amount, 0).toLocaleString('hi-IN')}</span>
             </CardDescription>
           </CardHeader>
           <CardContent className="p-0">
@@ -211,29 +211,29 @@ const ExpensesPage = () => {
                 {/* Mobile-first: Card-based layout instead of table */}
                 {expenses.map((expense) => (
                   <div key={expense.id} className="border-b last:border-b-0 p-4">
-                    <div className="flex justify-between items-start">
+                    <div className="flex justify-between items-center">
                       <div className="flex-1 min-w-0">
-                        <div className="flex justify-between items-center mb-1">
-                          <h3 className="font-semibold text-gray-900 truncate">
+                        <div className="flex items-center justify-between mb-2">
+                          <h3 className="font-semibold text-gray-900 text-left">
                             {translateCategory(expense.category)}
                           </h3>
-                          <span className="text-lg font-bold text-red-600 ml-2">
+                          <span className="text-lg font-bold text-red-600 ml-4">
                             ₹{expense.amount.toLocaleString('hi-IN')}
                           </span>
                         </div>
-                        <div className="flex justify-between items-center text-sm text-gray-600">
-                          <span>{formatDate(expense.expense_date)}</span>
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm text-gray-600">{formatDate(expense.expense_date)}</span>
                           <Button
                             variant="ghost"
                             size="sm"
                             onClick={() => handleDeleteExpense(expense.id)}
-                            className="text-red-600 hover:text-red-700 p-1 h-auto"
+                            className="text-red-600 hover:text-red-700 p-1 h-auto ml-2"
                           >
                             <Trash2 className="w-4 h-4" />
                           </Button>
                         </div>
                         {expense.description && (
-                          <p className="text-sm text-gray-600 mt-1 truncate">
+                          <p className="text-sm text-gray-600 mt-2 text-left">
                             {expense.description}
                           </p>
                         )}
